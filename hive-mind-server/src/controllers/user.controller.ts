@@ -68,12 +68,12 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
       const userId = authReq.user?.id;
   
       if (!isValidObjectId(userId)) {
-        res.status(401).send(new APIResponse(Status.ERROR, [], "Unauthorized"));
+        res.status(401).send(new APIResponse(Status.ERROR, [], "Formato userId non valido"));
         return
       }
   
       if (!req.file) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "No file uploaded"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Nessun file caricato"));
         return
       }
   
@@ -83,9 +83,9 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
       // 📌 2️⃣ Aggiorna il profilo dell'utente con il nuovo URL dell'immagine
       await User.findByIdAndUpdate(userId, { profileImage: imageUrl });
   
-      res.status(200).send(new APIResponse(Status.SUCCESS, { imageUrl }, "Profile image uploaded successfully"));
+      res.status(200).send(new APIResponse(Status.SUCCESS, { imageUrl }, "Immagine profilo caricata con successo"));
     } catch (err) {
-      console.error("Error uploading profile image:", err);
-      res.status(500).send(new APIResponse(Status.ERROR, [], "Error uploading profile image"));
+      console.error("Errore nel caricamento dell'immagin profilo: ", err);
+      res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel caricamento dell'immagine profilo"));
     }
   };

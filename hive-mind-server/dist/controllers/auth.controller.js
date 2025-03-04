@@ -41,7 +41,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const newUser = new user_1.User({ name, surname, email, username, password: hashedPassword, birthdate, gender });
         yield newUser.save();
         const token = jsonwebtoken_1.default.sign({ id: newUser._id, email: newUser.email, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '24h' });
-        const userResponse = { id: newUser._id, name, surname, email, username };
+        const userResponse = { id: newUser._id, email, username };
         res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { token, userResponse }, "User created successfully"));
     }
     catch (err) {
@@ -68,7 +68,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        const userResponse = { id: user._id, email: user.email };
+        const userResponse = { id: user._id, email: user.email, username: user };
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { token, userResponse }, "User logged in successfully"));
     }
     catch (err) {

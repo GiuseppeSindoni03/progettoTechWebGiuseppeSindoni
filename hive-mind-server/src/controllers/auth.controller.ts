@@ -30,7 +30,7 @@ export const register = async (req: Request, res: Response) => {
       const userExists = await User.findOne({ $or: [{ email }, { username }] });
   
       if (userExists) {
-           res.status(400).send(new APIResponse(Status.ERROR, [], "User or email already exists")); return
+           res.status(400).send(new APIResponse(Status.ERROR, [], "Username o email gia' utilizzati.")); return
       }
   
       
@@ -46,7 +46,7 @@ export const register = async (req: Request, res: Response) => {
   
   
       const userResponse = { id: newUser._id, email, username };
-      res.status(201).send(new APIResponse(Status.SUCCESS, { token, userResponse }, "User created successfully"));
+      res.status(201).send(new APIResponse(Status.SUCCESS, { token, userResponse }, "Utente creato con successo"));
   
     } catch (err) {
       console.error("Errore nella creazione dell'utente:", err);
@@ -68,13 +68,13 @@ export const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-        res.status(404).send(new APIResponse(Status.ERROR, [], "Email or password is incorrect"));
+        res.status(404).send(new APIResponse(Status.ERROR, [], "Email o password errati"));
         return
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-       res.status(400).send(new APIResponse(Status.ERROR, [], "Email or password is incorrect"));
+       res.status(400).send(new APIResponse(Status.ERROR, [], "Email o password errati"));
        return
     }
 
@@ -82,8 +82,8 @@ export const login = async (req: Request, res: Response) => {
     const token: string = jwt.sign({ id: user._id, email: user.email, username: user.username}, process.env.JWT_SECRET as string, { expiresIn: '1h' });
 
     
-    const userResponse = { id: user._id, email: user.email, username: user};
-    res.status(200).send(new APIResponse(Status.SUCCESS, { token, userResponse }, "User logged in successfully"));
+    const userResponse = { id: user._id, email: user.email, username: user.username};
+    res.status(200).send(new APIResponse(Status.SUCCESS, { token, userResponse }, "Login effettuato con successo"));
 
   } catch (err) {
     console.error("Errore nel login:", err);

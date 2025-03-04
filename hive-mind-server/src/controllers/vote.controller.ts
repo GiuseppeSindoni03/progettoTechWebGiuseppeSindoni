@@ -16,35 +16,35 @@ export const setVote = async (req: Request, res: Response) => {
         const vote: number = req.body.vote;
         
         if (!isValidObjectId(userId)) {
-            res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid UserId format")); return;
+            res.status(400).send(new APIResponse(Status.ERROR, [], "Formato userId non valido")); return;
         }
 
         if(!isValidObjectId(ideaId)){
-            res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid IdeaId format")); return;
+            res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido")); return;
         }
 
         if (!isVoteValid(vote)) {
-            res.status(400).send(new APIResponse(Status.ERROR, [], "Vote must be 1 or -1")); return;
+            res.status(400).send(new APIResponse(Status.ERROR, [], "Vote deve essere esclusivamente 1 (upvote) o -1 (downvote)")); return;
         }
 
         const foundIdea = await Idea.findById(ideaId);
 
         if(!foundIdea){
-            res.status(404).send(new APIResponse(Status.ERROR, [], "Idea not found")); return;
+            res.status(404).send(new APIResponse(Status.ERROR, [], "Idea non trovata")); return;
         }
 
         if (isUserAuthor(foundIdea.author.toString(), userId)) {
-            res.status(400).send(new APIResponse(Status.ERROR, [], "You can't vote your own idea")); return;
+            res.status(400).send(new APIResponse(Status.ERROR, [], "L'autore dell'idea non puo' votarla")); return;
         }
 
         updateIdeaVotes(foundIdea, userId as string, vote);
 
 
-        res.status(200).send(new APIResponse(Status.SUCCESS, [], "Vote updated successfully"));
+        res.status(200).send(new APIResponse(Status.SUCCESS, [], "Vote aggiornato con successo"));
 
     } catch (err) {
         console.error("Error updating vote:", err);
-        res.status(500).send(new APIResponse(Status.ERROR, [], "Error updating vote"));
+        res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nell'aggiornamento del voto"));
     }
 };
 

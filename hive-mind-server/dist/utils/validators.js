@@ -14,7 +14,7 @@ const validateFields = (res, fields) => {
 exports.validateFields = validateFields;
 // ✅ Validazione specifica per `gender`
 const isGenderValid = (gender, res) => {
-    const validGenders = ["male", "female", "other"];
+    const validGenders = ["uomo", "donna", "altro"];
     if (!validGenders.includes(gender)) {
         res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Gender must be 'male', 'female', or 'other'"));
         return false;

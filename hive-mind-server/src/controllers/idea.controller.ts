@@ -25,9 +25,9 @@ export const getIdeas = async (req: Request, res: Response) => {
       .select("-__v"); // 🔹 Escludi __v (versione di Mongoose)
 
     if (ideas.length > 0) {
-      res.status(200).send(new APIResponse(Status.SUCCESS, ideas, "Ideas retrieved successfully"));
+      res.status(200).send(new APIResponse(Status.SUCCESS, ideas, "Idee recuperate con successo"));
     } else {
-      res.status(404).send(new APIResponse(Status.ERROR, [], "No ideas found"));
+      res.status(404).send(new APIResponse(Status.ERROR, [], "Nessuna idea trovata"));
     }
   } catch (err) {
     console.error("Errore nel recupero delle idee:", err);
@@ -42,7 +42,7 @@ export const getIdeasByUser = async (req: Request, res: Response) => {
 
     
     if (!isValidObjectId(userId)) {
-       res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid UserId format")); return;
+       res.status(400).send(new APIResponse(Status.ERROR, [], "Formato userId invalido")); return;
     }
 
     const ideas = await Idea.find({ author: userId })
@@ -51,9 +51,9 @@ export const getIdeasByUser = async (req: Request, res: Response) => {
       .select("-__v");
 
     if (ideas.length > 0) {
-       res.status(200).send(new APIResponse(Status.SUCCESS, ideas, "Ideas retrieved successfully"));
+       res.status(200).send(new APIResponse(Status.SUCCESS, ideas, "Idee recuperate con successo"));
     } else {
-       res.status(404).send(new APIResponse(Status.ERROR, [], "No ideas found for this user"));
+       res.status(404).send(new APIResponse(Status.ERROR, [], "Nessuna idea trovata"));
     }
   } catch (err) {
     console.error("Errore nel recupero delle idee:", err);
@@ -74,7 +74,7 @@ export const postIdea = async (req: Request, res: Response) : Promise<void> => {
   
 
     if (!isValidObjectId(userId)) {
-      res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid UserId format")); return;
+      res.status(400).send(new APIResponse(Status.ERROR, [], "Formato userId invalido")); return;
     }
 
     const newIdea = new Idea({ 
@@ -94,7 +94,7 @@ export const postIdea = async (req: Request, res: Response) : Promise<void> => {
       timestamp: newIdea.timestamp 
     };
 
-    res.status(201).send(new APIResponse(Status.SUCCESS, newIdeaResponse, "New idea created successfully"));
+    res.status(201).send(new APIResponse(Status.SUCCESS, newIdeaResponse, "Nuova idea creata con successo"));
   } catch (err) {
       console.error("Errore nella creazione dell'idea:", err);
       res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nella creazione di una nuova idea"));
@@ -107,7 +107,7 @@ export const getIdeaById = async (req: Request, res: Response) => {
     const ideaId = req.params.id;
 
     if (!isValidObjectId(ideaId)) {
-       res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid IdeaId format")); return
+       res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido")); return
     }
 
     const idea = await Idea.findOne({ _id: ideaId })
@@ -115,10 +115,10 @@ export const getIdeaById = async (req: Request, res: Response) => {
       .populate("comments.user", "username")
 
     if (!idea) {
-      res.status(404).send(new APIResponse(Status.ERROR, [], "Idea not found")); return
+      res.status(404).send(new APIResponse(Status.ERROR, [], "Idea non trovata")); return
     }
 
-    res.status(200).send(new APIResponse(Status.SUCCESS, idea, "Idea retrieved successfully"));
+    res.status(200).send(new APIResponse(Status.SUCCESS, idea, "Idea recuperata con successo"));
   } catch (err) {
     console.error("Errore nel recupero dell'idea:", err);
     res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel recupero dell'idea"));
@@ -133,24 +133,24 @@ export const deleteIdea = async (req: Request, res: Response) => {
 
     //  Verifica validità degli ID
     if (!isValidObjectId(userId)) {
-      res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid UserId format")); return
+      res.status(400).send(new APIResponse(Status.ERROR, [], "Formato userId invalido")); return
     }
     if (!isValidObjectId(ideaId)) {
-      res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid IdeaId format")); return
+      res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId invalido")); return
     }
 
     //  Trova l'idea
     const ideaFound = await Idea.findById({ _id: ideaId });
 
     if (!ideaFound) {
-      res.status(404).send(new APIResponse(Status.ERROR, [], "Idea not found")); return
+      res.status(404).send(new APIResponse(Status.ERROR, [], "Idea non trovata")); return
     }
 
     //  Controlla che l'utente sia l'autore dell'idea
     const author = ideaFound.author.toString()
 
     if (!checkUserIsAuthor(author, userId)) {
-      res.status(403).send(new APIResponse(Status.ERROR, [], "Unauthorized")); return
+      res.status(403).send(new APIResponse(Status.ERROR, [], "Non hai il permesso di cancellare questa idea.")); return
     }
 
     
@@ -159,7 +159,7 @@ export const deleteIdea = async (req: Request, res: Response) => {
       Vote.deleteMany({ idea: ideaId }) // Cancella tutti i voti associati
     ]);
 
-    res.status(200).send(new APIResponse(Status.SUCCESS, [], "Idea deleted successfully"));
+    res.status(200).send(new APIResponse(Status.SUCCESS, [], "Idea cancellata con successo"));
 
   } catch (err) {
     console.error("Errore nella cancellazione dell'idea:", err);
@@ -190,12 +190,12 @@ export const getIdeasHome = async (req: Request, res: Response) => {
 
       
       if (!ideas.length) {
-          res.status(404).send(new APIResponse(Status.ERROR, [], `No ${type} ideas found`));
+          res.status(404).send(new APIResponse(Status.ERROR, [], `Nessun idea ${type} trovata`));
           return
       }
 
      
-      res.status(200).send(new APIResponse(Status.SUCCESS, ideas, `Ideas of type ${type} retrieved successfully`));
+      res.status(200).send(new APIResponse(Status.SUCCESS, ideas, `Idee ${type} ottenute con successo`));
 
   } catch (err) {
       console.error("Errore nel recupero delle idee:", err);
