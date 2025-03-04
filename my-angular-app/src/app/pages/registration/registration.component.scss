@@ -1,15 +1,215 @@
-.register-link, .login-link {
-    margin-top: 15px;
-    text-align: center;
+
+
+.registration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
-    a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  
-    a:hover {
-      text-decoration: underline;
-    }
-  }
-  
+  height: 93vh; /* 🔥 Permette l'espansione senza tagliare il contenuto */
+  width: 100%; 
+  overflow-x: hidden; /* Evita lo scroll orizzontale */
+  padding-bottom: 60px; /* 🔥 Riserva spazio per il footer */
+  box-sizing: border-box;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Contenitore del logo */
+.logo-container img {
+  width: 100px; /* Regola la dimensione del logo */
+  height: auto;
+}
+
+
+
+
+.title {
+  position: fixed;
+  top: 40px;
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+
+  color: #0d0d52;
+
+}
+
+.registration-form {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;
+
+
+} 
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+/* Contenitore per il gruppo di radio button */
+.gender-group {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Stile delle opzioni */
+.gender-options {.registration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw; /* 🔥 Corretto: usa vw per la larghezza invece di vh */
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  gap: 15px;
+}
+
+/* Stile per i radio button e le label */
+.gender-options label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+}
+
+/* Spazio per i radio button */
+.gender-options input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+
+
+/* Contenitore della password con pulsante */
+.password-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Input della password */
+.password-group input {
+  width: 100%;
+  padding-right: 40px; /* Spazio per l'icona */
+}
+
+/* Bottone per mostrare/nascondere la password */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #0d0d52;
+}
+
+.toggle-password:hover {
+  color: #090936;
+}
+
+.register-btn {
+  margin-top: 20px;
+  background-color: #0d0d52;
+  align-self: center;
+  width: 40%;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+
+
+.login-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-link a {
+  color: #0d0d52;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  padding-left: 10px;
+  width: 99%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+/* Contenitore del footer */
+.footer-nav {
+  display: flex;
+  gap: 10px; /* Distanza tra i link */
+  align-items: center;
+  font-size: 1em;
+  font-weight: 500;
+  color: #0d0d52;
+}
+
+nav a, nav span {
+  color: #0d0d52;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}

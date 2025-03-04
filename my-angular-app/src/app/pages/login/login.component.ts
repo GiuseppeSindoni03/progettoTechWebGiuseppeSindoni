@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +16,13 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   isLoading: boolean = false;
-  errorMessage: string = '';
   passwordVisible: boolean = false;
 
   constructor(
      private fb: FormBuilder,
      private authService: AuthService, 
      private router: Router,
+     private toastr: ToastrService
 
     ) {
     this.loginForm = this.fb.group({
@@ -29,24 +30,21 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(12)]]
     });
     
-    console.log('LoginComponent constructor()');
-
     
   }
 
-  ngOnInit() {
-    console.log('LoginComponent ngOnInit() - Il componente è stato caricato!');
-  }
+
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      //this.toastr.error( 'Compila correttamente tutti i campi.', 'Errore di validazione');;
+      this.showValidationErrors();
       return;
     }
 
     this.isLoading = true;
-    this.errorMessage = ''; // Resetta errori precedenti
     const { email, password } = this.loginForm.value;
+
+   
 
     this.authService.login(email, password).subscribe({
       next: (response) => {
@@ -54,22 +52,50 @@ export class LoginComponent {
         console.log('Response' + response.token)
 
         if (response.token) {
-          localStorage.setItem('token', response.token);
+          this.authService.updateToken(response.token);
+          this.toastr.success(`Puoi ora condividere le tue idee`, `Benvenuto ${this.authService.getUser()?.username}!`);
+
           console.log('Token salvato:', localStorage.getItem('token'));
+          
           this.router.navigate(['/home']).then(() => {
-            console.log('Navigazione completata a /home'); // ✅ Debug
-          });        }
-        else {
-          this.errorMessage = 'Errore nel login. Verifica le credenziali.';
+            console.log('Navigazione completata a /home'); 
+          });       
         }
-        this.isLoading = false;
+      
       },
       error: (error) => {
-        console.error('Login Error:', error);
-        this.errorMessage = 'Errore nel login. Verifica le credenziali.';
+        this.handleLoginError(error);
         this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+        console.log("Richiesta di Login completata.")
+       
       }
     });
+  }
+
+  private showValidationErrors(): void {
+    if (this.email?.invalid) {
+      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
+    }
+    if (this.password?.invalid) {
+      this.toastr.error('La password deve avere almeno 12 caratteri.', 'Errore di validazione');
+    }
+  }
+
+  /** ✅ Gestisce gli errori di login */
+  private handleLoginError(error: any): void {
+    console.error('Errore durante il login:', error);
+
+    let errorMessage = 'Errore imprevisto. Riprova più tardi.';
+    if (error.status === 400) {
+      errorMessage = 'Email o password errati. Riprova.';
+    } else if (error.status === 500) {
+      errorMessage = 'Errore del server. Contatta il supporto.';
+    }
+
+    this.toastr.error(errorMessage, 'Errore di login');
   }
 
   get email() {

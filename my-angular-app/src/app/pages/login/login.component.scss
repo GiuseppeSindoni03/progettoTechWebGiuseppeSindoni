@@ -1,5 +1,4 @@
 
-
 .login-component {
   display: grid;
   grid-template-rows: auto 1fr auto; /* Righe per il titolo, contenuto e footer */
@@ -11,6 +10,7 @@
   min-height: 100vh; /* Altezza minima della viewport */
   justify-items: center; /* Centra gli elementi orizzontalmente */
   justify-content: center;
+  overflow-x: hidden;
 }
 
 /* Titolo */
@@ -56,40 +56,6 @@
   width: 100%;
   text-align: center;
 }
-
-
-/* Footer */
-footer {
-  grid-area: footer;
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 0;
-}
-
-/* Contenitore del footer */
-.footer-nav {
-  display: flex;
-  gap: 10px; /* Distanza tra i link */
-  align-items: center;
-  font-size: 1em;
-  font-weight: 500;
-  color: #0d0d52;
-}
-
-nav a, nav span {
-  color: #0d0d52;
-  text-decoration: none;
-  font-size: 1em;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
 
 
 h2 {
@@ -147,6 +113,14 @@ h2 {
   
 }
 
+.login-btn:disabled {
+  background-color: #cccccc; /* Grigio per indicare disabilitato */
+  color: #666666; /* Testo più chiaro */
+  border: 1px solid #999999; /* Bordo più tenue */
+  cursor: not-allowed; /* Cambia il cursore per indicare che è disabilitato */
+  opacity: 0.6; /* Riduce la visibilità per dare un effetto di disattivazione */
+}
+
 
 .login-btn:hover {
   background-color: #0d0d52;
@@ -192,6 +166,39 @@ h2 {
   
 }
 
+footer {
+  grid-area: footer;
+  position: absolute;
+  bottom: 10px;
+  max-width: 100%;
+  width: 99.6%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+/* Contenitore del footer */
+.footer-nav {
+  display: flex;
+  gap: 10px; /* Distanza tra i link */
+  align-items: center;
+  font-size: 1em;
+  font-weight: 500;
+  color: #0d0d52;
+}
+
+nav a, nav span {
+  color: #0d0d52;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+
 
 //MEDIA QUERY
 
@@ -230,7 +237,11 @@ h2 {
 /* ✅ Mobile (max 768px) */
 @media screen and (max-width: 768px) {
 
-  
+  footer {
+    font-size: 0.8em;
+    padding: 8px 0;
+    text-align: center;
+  }
   .login-component {
     display: flex;
     flex-direction: column;
@@ -297,11 +308,7 @@ h2 {
     justify-content: center;
   }
 
-  footer {
-    font-size: 0.8em;
-    padding: 8px 0;
-    text-align: center;
-  }
+  
 }
 
 //modifiche password

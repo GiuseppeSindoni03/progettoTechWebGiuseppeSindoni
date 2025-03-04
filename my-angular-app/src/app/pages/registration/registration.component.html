@@ -1,9 +1,91 @@
 <div class="registration-container">
-    <h2>Registrazione</h2>
-    <p>Pagina di registrazione in costruzione...</p>
+
+  <nav class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" alt="Hive Mind Logo" />
+    </div>
+
+
+      
+  </nav>
+
+  <h1 class="title" >CREA IL TUO ACCOUNT</h1>
+
   
-    <p class="login-link">
-      Hai già un account? <a routerLink="/">Accedi</a>
-    </p>
+  
+  <div class="registration-form">
+    
+    
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+      <input type="text" placeholder="Nome" formControlName="name" required />
+      <input type="text" placeholder="Cognome" formControlName="surname" required />
+      <input type="text" placeholder="Username" formControlName="username" required />
+      <input type="email" placeholder="E-mail" formControlName="email" required />
+  
+      <!-- Password e Conferma Password -->
+      <div class="form-group password-group">
+        <input 
+          [type]="passwordVisible ? 'text' : 'password'"
+          placeholder="Password" 
+          formControlName="password" 
+          required 
+        />
+        <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+          <img src="eye.svg" *ngIf="!passwordVisible" alt="Mostra password">
+          <img src="eye-slash.svg" *ngIf="passwordVisible" alt="Nascondi password">
+        </button>
+      </div>
+  
+      <input type="password" placeholder="Conferma Password" formControlName="confirmPassword" required />
+  
+      <!-- Data di Nascita -->
+      <input type="date" formControlName="birthdate" required />
+  
+      <!-- Selezione del Genere -->
+      <div class="gender-group">
+        <div class="gender-options">
+          <label>
+            <input type="radio" formControlName="gender" value="uomo" /> Uomo
+          </label>
+          <label>
+            <input type="radio" formControlName="gender" value="donna" /> Donna
+          </label>
+          <label>
+            <input type="radio" formControlName="gender" value="altro" /> Altro
+          </label>
+          
+        </div>
+      </div>
+      
+  
+      <!-- Bottone Crea -->
+      <button type="submit" class="register-btn" [disabled]="registrationForm.invalid">
+        CREA
+      </button>
+  
+    </form>
+
+    
+    <div class="login-link">
+      <p >
+        Hai già un account? <a routerLink="/">Accedi</a>
+      </p>
+    </div>
+    
   </div>
+
+
+  <footer>
+    <nav class="footer-nav">
+      <span>Hive Mind ©</span>
+      <span>-</span> <!-- Punto separatore -->
+      <a href="https://www.linkedin.com/in/giuseppe-sindoni-69b326305/">Lavora con noi</a>
+    </nav>
+  </footer>
+</div>
+  
+
+
   
