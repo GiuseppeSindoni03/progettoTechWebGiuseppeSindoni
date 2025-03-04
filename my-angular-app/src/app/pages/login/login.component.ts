@@ -37,7 +37,6 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this.showValidationErrors();
       return;
     }
 
@@ -73,15 +72,6 @@ export class LoginComponent {
        
       }
     });
-  }
-
-  private showValidationErrors(): void {
-    if (this.email?.invalid) {
-      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
-    }
-    if (this.password?.invalid) {
-      this.toastr.error('La password deve avere almeno 12 caratteri.', 'Errore di validazione');
-    }
   }
 
   /** ✅ Gestisce gli errori di login */

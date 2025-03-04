@@ -32,18 +32,9 @@ export class RegistrationComponent {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(12)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(12)]],
       birthdate: ['', [Validators.required]],
       gender: ['', [Validators.required]]
-    }, 
-    { validator: this.passwordMatchValidator });
-  }
-
-  /** ✅ Controlla che password e conferma password coincidano */
-  private passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password')?.value;
-    const confirmPassword = form.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
+    });
   }
 
   /** ✅ Toggle per mostrare/nascondere la password */
@@ -112,38 +103,42 @@ export class RegistrationComponent {
 
   }
 
-
-  private showValidationErrors(): void {
-    if (this.firstName?.invalid) {
-      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
+  private showValidationErrors() {
+    if (this.name?.invalid) {
+      this.toastr.error('Inserisci un nome valido.', 'Errore di validazione');
     }
     if (this.password?.invalid) {
       this.toastr.error('La password deve avere almeno 12 caratteri.', 'Errore di validazione');
     }
-    if (this.lastName?.invalid) {
-      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
+    if (this.surname?.invalid) {
+      this.toastr.error('Inserisci un cognome valido.', 'Errore di validazione');
     }
     if (this.username?.invalid) {
-      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
+      this.toastr.error('Inserisci un username valido. Solo lettere e underscore.', 'Errore di validazione');
     }
     if (this.email?.invalid) {
       this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
     }
-    if (this.confirmPassword?.invalid) {
-      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
-    }
+  
     if (this.birthdate?.invalid) {
-      this.toastr.error('Inserisci un\'email valida.', 'Errore di validazione');
+      this.toastr.error('Inserisci una data di nascita', 'Errore di validazione');
+    }
+    if (this.gender?.invalid) {
+      this.toastr.error('Inserisci un genere.', 'Errore di validazione');
     }
   }
+  
 
   /** ✅ Gestisce gli errori di login */
   private handleLoginError(error: any): void {
     console.error('Errore durante la registrazione:', error);
 
     let errorMessage = 'Errore imprevisto. Riprova più tardi.';
-    if (error.status === 400) {
-      errorMessage = 'Email o Username già in uso. Riprova.';
+
+    if (error.status === 400 ) {
+      errorMessage = error.error.message;
+      ;
+      console.log('Errore:', errorMessage);
     } else if (error.status === 500) {
       errorMessage = 'Errore del server. Contatta il supporto.';
     }
@@ -158,11 +153,11 @@ export class RegistrationComponent {
   get password() {
     return this.registrationForm.get('password');
   }
-  get firstName() {
-    return this.registrationForm.get('firstName');
+  get name() {
+    return this.registrationForm.get('name');
   }
-  get lastName() {
-    return this.registrationForm.get('lastName');
+  get surname() {
+    return this.registrationForm.get('surname');
   }
   get username() {
     return this.registrationForm.get('username');
@@ -173,5 +168,7 @@ export class RegistrationComponent {
   get birthdate() {
     return this.registrationForm.get('birthdate');
   }
-
+  get gender() {
+    return this.registrationForm.get('gender');
+  }
 }

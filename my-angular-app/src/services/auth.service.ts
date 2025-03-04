@@ -130,6 +130,11 @@ export class AuthService {
       token: token,
       isAuthenticated: this.verifyToken(token)
     });
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    console.log("🔄 Utente aggiornato in authState:", this.authState());
   }
 
   getToken(): string | null {
