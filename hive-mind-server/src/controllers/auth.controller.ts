@@ -45,7 +45,7 @@ export const register = async (req: Request, res: Response) => {
       const token: string = jwt.sign({ id: newUser._id, email: newUser.email, username: newUser.username}, process.env.JWT_SECRET as string, { expiresIn: '24h' });
   
   
-      const userResponse = { id: newUser._id, name, surname, email, username };
+      const userResponse = { id: newUser._id, email, username };
       res.status(201).send(new APIResponse(Status.SUCCESS, { token, userResponse }, "User created successfully"));
   
     } catch (err) {
@@ -82,7 +82,7 @@ export const login = async (req: Request, res: Response) => {
     const token: string = jwt.sign({ id: user._id, email: user.email, username: user.username}, process.env.JWT_SECRET as string, { expiresIn: '1h' });
 
     
-    const userResponse = { id: user._id, email: user.email };
+    const userResponse = { id: user._id, email: user.email, username: user};
     res.status(200).send(new APIResponse(Status.SUCCESS, { token, userResponse }, "User logged in successfully"));
 
   } catch (err) {

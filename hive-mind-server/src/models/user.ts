@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: true,
-    enum: ["male", "female", "other"] // ✅ Limita i valori accettati
+    enum: ["uomo", "donna", "altro"] // ✅ Limita i valori accettati
   },
   profileImage: { type: String, default: "images/deafult_image.png" }
 });
