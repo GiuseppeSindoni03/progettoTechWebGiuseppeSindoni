@@ -26,10 +26,10 @@ const getIdeas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         })
             .select("-__v"); // 🔹 Escludi __v (versione di Mongoose)
         if (ideas.length > 0) {
-            res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Ideas retrieved successfully"));
+            res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
         else {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "No ideas found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessuna idea trovata"));
         }
     }
     catch (err) {
@@ -44,7 +44,7 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const authReq = req;
         const userId = (_a = authReq.user) === null || _a === void 0 ? void 0 : _a.id;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid UserId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
         const ideas = yield idea_1.Idea.find({ author: userId })
@@ -52,10 +52,10 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .populate("comments.author", "username")
             .select("-__v");
         if (ideas.length > 0) {
-            res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Ideas retrieved successfully"));
+            res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
         else {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "No ideas found for this user"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessuna idea trovata"));
         }
     }
     catch (err) {
@@ -73,7 +73,7 @@ const postIdea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!(0, validators_1.validateFields)(res, { title, content, userId }))
             return;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid UserId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
         const newIdea = new idea_1.Idea({
@@ -91,7 +91,7 @@ const postIdea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             authorUsername: (_c = authReq.user) === null || _c === void 0 ? void 0 : _c.username,
             timestamp: newIdea.timestamp
         };
-        res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, newIdeaResponse, "New idea created successfully"));
+        res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, newIdeaResponse, "Nuova idea creata con successo"));
     }
     catch (err) {
         console.error("Errore nella creazione dell'idea:", err);
@@ -103,17 +103,17 @@ const getIdeaById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const ideaId = req.params.id;
         if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid IdeaId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
             return;
         }
         const idea = yield idea_1.Idea.findOne({ _id: ideaId })
             .populate("author", "username")
             .populate("comments.user", "username");
         if (!idea) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea not found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
         }
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, idea, "Idea retrieved successfully"));
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, idea, "Idea recuperata con successo"));
     }
     catch (err) {
         console.error("Errore nel recupero dell'idea:", err);
@@ -129,30 +129,30 @@ const deleteIdea = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const ideaId = req.params.id;
         //  Verifica validità degli ID
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid UserId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
         if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid IdeaId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId invalido"));
             return;
         }
         //  Trova l'idea
         const ideaFound = yield idea_1.Idea.findById({ _id: ideaId });
         if (!ideaFound) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea not found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
         }
         //  Controlla che l'utente sia l'autore dell'idea
         const author = ideaFound.author.toString();
         if (!checkUserIsAuthor(author, userId)) {
-            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Unauthorized"));
+            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non hai il permesso di cancellare questa idea."));
             return;
         }
         yield Promise.all([
             idea_1.Idea.findByIdAndDelete(ideaId),
             vote_1.Vote.deleteMany({ idea: ideaId }) // Cancella tutti i voti associati
         ]);
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Idea deleted successfully"));
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Idea cancellata con successo"));
     }
     catch (err) {
         console.error("Errore nella cancellazione dell'idea:", err);
@@ -173,10 +173,10 @@ const getIdeasHome = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const pipeline = (0, db_helpers_1.getIdeasPipeline)(type, page, limit);
         const ideas = yield idea_1.Idea.aggregate(pipeline);
         if (!ideas.length) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], `No ${type} ideas found`));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], `Nessun idea ${type} trovata`));
             return;
         }
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, `Ideas of type ${type} retrieved successfully`));
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, `Idee ${type} ottenute con successo`));
     }
     catch (err) {
         console.error("Errore nel recupero delle idee:", err);

@@ -26,20 +26,20 @@ const postComment = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const { ideaId } = req.params;
         const { content } = req.body;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid UserId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
         if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid IdeaId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId invalido"));
             return;
         }
         const foundIdea = yield idea_1.Idea.findById(ideaId);
         if (!foundIdea) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea not found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
         }
         if (isCommentEmpty(content)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Comment cannot be empty"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Commento non puo' esser vuoto"));
             return;
         }
         const newComment = {
@@ -49,7 +49,7 @@ const postComment = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         };
         foundIdea.comments.push(newComment);
         yield foundIdea.save();
-        res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, newComment, "Comment added successfully"));
+        res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, newComment, "Commento salvato con successo"));
     }
     catch (err) {
         console.error("Errore nel salvataggio del commento:", err);
@@ -67,34 +67,34 @@ const deleteIdeaComment = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const authReq = req;
         const userId = (_b = authReq.user) === null || _b === void 0 ? void 0 : _b.id;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid UserId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
         if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid IdeaId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId invalido"));
             return;
         }
         if (!(0, mongoose_1.isValidObjectId)(commentId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid CommentId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato commentId invalido"));
             return;
         }
         const idea = yield idea_1.Idea.findById(ideaId);
         if (!idea) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea not found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
         }
         const comment = idea.comments.find(c => c._id && c._id.toString() === commentId);
         if (!comment) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Comment not found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Commento non trovato"));
             return;
         }
         if (!isUserAuthorizedToDeleteComment(comment.author.toString(), userId, idea.author.toString())) {
-            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Unauthorized"));
+            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non hai il permesso di cancellare questo commento"));
             return;
         }
         idea.comments.pull({ _id: commentId });
         yield idea.save();
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Comment deleted successfully"));
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Commento cancellato con successo"));
     }
     catch (err) {
         console.error("Errore nella cancellazione del commento:", err);

@@ -33,7 +33,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         const userExists = yield user_1.User.findOne({ $or: [{ email }, { username }] });
         if (userExists) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "User or email already exists"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Username o email gia' utilizzati."));
             return;
         }
         const salt = yield bcryptjs_1.default.genSalt(10);
@@ -42,7 +42,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield newUser.save();
         const token = jsonwebtoken_1.default.sign({ id: newUser._id, email: newUser.email, username: newUser.username }, process.env.JWT_SECRET, { expiresIn: '24h' });
         const userResponse = { id: newUser._id, email, username };
-        res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { token, userResponse }, "User created successfully"));
+        res.status(201).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { token, userResponse }, "Utente creato con successo"));
     }
     catch (err) {
         console.error("Errore nella creazione dell'utente:", err);
@@ -59,17 +59,17 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         const user = yield user_1.User.findOne({ email });
         if (!user) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Email or password is incorrect"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Email o password errati"));
             return;
         }
         const isMatch = yield bcryptjs_1.default.compare(password, user.password);
         if (!isMatch) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Email or password is incorrect"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Email o password errati"));
             return;
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        const userResponse = { id: user._id, email: user.email, username: user };
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { token, userResponse }, "User logged in successfully"));
+        const userResponse = { id: user._id, email: user.email, username: user.username };
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { token, userResponse }, "Login effettuato con successo"));
     }
     catch (err) {
         console.error("Errore nel login:", err);

@@ -70,22 +70,22 @@ const uploadProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, funct
         const authReq = req; // 🔹 Prende l'utente autenticato
         const userId = (_c = authReq.user) === null || _c === void 0 ? void 0 : _c.id;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(401).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Unauthorized"));
+            res.status(401).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId non valido"));
             return;
         }
         if (!req.file) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "No file uploaded"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessun file caricato"));
             return;
         }
         // 📌 1️⃣ Carica il file su S3
         const imageUrl = yield (0, s3_1.uploadToS3)(req.file, userId);
         // 📌 2️⃣ Aggiorna il profilo dell'utente con il nuovo URL dell'immagine
         yield user_1.User.findByIdAndUpdate(userId, { profileImage: imageUrl });
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { imageUrl }, "Profile image uploaded successfully"));
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { imageUrl }, "Immagine profilo caricata con successo"));
     }
     catch (err) {
-        console.error("Error uploading profile image:", err);
-        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Error uploading profile image"));
+        console.error("Errore nel caricamento dell'immagin profilo: ", err);
+        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel caricamento dell'immagine profilo"));
     }
 });
 exports.uploadProfileImage = uploadProfileImage;

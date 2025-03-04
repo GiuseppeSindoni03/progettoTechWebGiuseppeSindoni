@@ -23,32 +23,32 @@ const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const ideaId = req.params.id;
         const vote = req.body.vote;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid UserId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId non valido"));
             return;
         }
         if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Invalid IdeaId format"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
             return;
         }
         if (!(0, validators_1.isVoteValid)(vote)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Vote must be 1 or -1"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Vote deve essere esclusivamente 1 (upvote) o -1 (downvote)"));
             return;
         }
         const foundIdea = yield idea_1.Idea.findById(ideaId);
         if (!foundIdea) {
-            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea not found"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
         }
         if ((0, validators_1.isUserAuthor)(foundIdea.author.toString(), userId)) {
-            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "You can't vote your own idea"));
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "L'autore dell'idea non puo' votarla"));
             return;
         }
         updateIdeaVotes(foundIdea, userId, vote);
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Vote updated successfully"));
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Vote aggiornato con successo"));
     }
     catch (err) {
         console.error("Error updating vote:", err);
-        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Error updating vote"));
+        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nell'aggiornamento del voto"));
     }
 });
 exports.setVote = setVote;
