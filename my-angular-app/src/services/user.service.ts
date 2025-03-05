@@ -34,7 +34,6 @@ export class UserService {
     getUserImage(): Observable<string> {
         return this.http.get<{ status: string, data: { profileImage: string }, message: string }>(`${this.apiUrl}/profile-image`).pipe(
           map(response => {
-            console.log("📌 Risposta ricevuta dal backend:", response);
             return response.data.profileImage; // ✅ Ora accede correttamente all'URL
           })
         );

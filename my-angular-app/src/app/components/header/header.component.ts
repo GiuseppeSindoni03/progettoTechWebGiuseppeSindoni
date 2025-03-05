@@ -7,12 +7,12 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, AsyncPipe],
+  imports: [CommonModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  userProfileImage$: Observable<string> = of('');
+  userProfileImage: string = "";
   selectedFilter: string = 'hot';
 
   @Output() filterChanged = new EventEmitter<string>();
@@ -23,11 +23,14 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
-    this.userProfileImage$ = this.userService.getUserImage();
-  
-    this.userProfileImage$.subscribe(url => {
-      console.log("📌 URL ricevuto dal backend:", url);
-    });
+    this.userService.getUserImage().subscribe(
+      (imageUrl) => {
+        this.userProfileImage = imageUrl; // ✅ Assegna direttamente la stringa
+      },
+      (error) => {
+        console.error("Errore nel recupero dell'immagine profilo:", error);
+      }
+    );
   }
   
 
