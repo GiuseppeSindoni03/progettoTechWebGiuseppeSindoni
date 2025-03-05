@@ -21,7 +21,7 @@ app.use("/ideas", idea_routes_1.default);
 app.use("/auth", auth_routes_1.default);
 app.use("/ideas", vote_routes_1.default);
 app.use("/ideas", comment_routes_1.default);
-app.use("/me", user_routes_1.default);
+app.use("/user", user_routes_1.default);
 app.get("/", (req, res) => {
     res.send("Hivemind API is running!");
 });

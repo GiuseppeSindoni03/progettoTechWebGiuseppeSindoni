@@ -13,4 +13,5 @@ const router = (0, express_1.Router)();
 router.post("/profile-image", auth_middleware_1.authenticateToken, multer_config_1.default.single("profileImage"), user_controller_2.uploadProfileImage);
 router.get("/", auth_middleware_1.authenticateToken, user_controller_1.getUserInfo);
 router.get("/profile-image", auth_middleware_1.authenticateToken, user_controller_3.getUserProfileImage);
+router.get("/:id/profile-image", auth_middleware_1.authenticateToken, user_controller_1.getUserProfileImageWithId);
 exports.default = router;

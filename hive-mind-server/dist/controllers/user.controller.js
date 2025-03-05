@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadProfileImage = exports.getUserProfileImage = exports.getUserInfo = void 0;
+exports.uploadProfileImage = exports.getUserProfileImageWithId = exports.getUserProfileImage = exports.getUserInfo = void 0;
 const structure_1 = require("../utils/structure");
 const user_1 = require("../models/user");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -45,24 +45,20 @@ const getUserProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, func
         // 📌 L'ID utente viene estratto dal token JWT
         const authReq = req;
         const userId = (_b = authReq.user) === null || _b === void 0 ? void 0 : _b.id;
-        if (!userId) {
+        if (!userId || !(0, mongoose_1.isValidObjectId)(userId)) {
             res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non autorizzato"));
             return;
         }
-        // 📌 Cerchiamo l'utente nel database
         const user = yield user_1.User.findById(userId).select("profileImage");
         if (!user) {
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Utente non trovato"));
             return;
         }
-        console.log("📌 Utente recuperato:", user);
         let fileKey = user.profileImage;
         if (!fileKey) {
             fileKey = "default/default_image.jpg";
         }
-        console.log("📌 Chiave immagine salvata nel DB:", fileKey);
         const signedUrl = yield (0, s3_2.getSignedUrl)(fileKey);
-        console.log("✅ Signed URL generato:", signedUrl);
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
     }
     catch (error) {
@@ -71,6 +67,32 @@ const getUserProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.getUserProfileImage = getUserProfileImage;
+const getUserProfileImageWithId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        // 📌 L'ID utente viene estratto dal token JWT
+        const userId = req.params.id;
+        if (!userId || !(0, mongoose_1.isValidObjectId)(userId)) {
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "ID utente non valido"));
+            return;
+        }
+        const user = yield user_1.User.findById(userId).select("profileImage");
+        if (!user) {
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Utente non trovato"));
+            return;
+        }
+        let fileKey = user.profileImage;
+        if (!fileKey) {
+            fileKey = "default/default_image.jpg";
+        }
+        const signedUrl = yield (0, s3_2.getSignedUrl)(fileKey);
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
+    }
+    catch (error) {
+        console.error("Errore nel recupero dell'immagine profilo:", error);
+        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero dell'immagine profilo"));
+    }
+});
+exports.getUserProfileImageWithId = getUserProfileImageWithId;
 const uploadProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _c;
     try {

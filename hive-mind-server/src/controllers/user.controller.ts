@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { uploadToS3 } from "../utils/s3";
 import { isValidObjectId } from "mongoose";
 import { getSignedUrl } from "../utils/s3";
+import { runInNewContext } from "vm";
 
 dotenv.config();
 
@@ -33,13 +34,49 @@ export const getUserInfo = async (req: Request, res: Response) => {
 }
 
 export const getUserProfileImage = async (req: Request, res: Response) => {
+  try {
+    // 📌 L'ID utente viene estratto dal token JWT
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.id;
+
+    if (!userId || !isValidObjectId(userId)) {
+      res.status(403).send(new APIResponse(Status.ERROR, [], "Non autorizzato"));
+      return
+    }
+
+   
+    const user = await User.findById(userId).select("profileImage");
+
+    if (!user) {
+       res.status(404).send(new APIResponse(Status.ERROR, [], "Utente non trovato"));
+       return
+    }
+    let fileKey = user.profileImage;
+
+    if (!fileKey) {
+      fileKey = "default/default_image.jpg";
+    }
+
+    
+    
+    const signedUrl = await getSignedUrl(fileKey);
+
+    res.status(200).send(new APIResponse(Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
+
+  } catch (error) {
+    console.error("Errore nel recupero dell'immagine profilo:", error);
+    res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel recupero dell'immagine profilo"));
+  }
+};
+
+
+  export const getUserProfileImageWithId = async (req: Request, res: Response) => {
     try {
       // 📌 L'ID utente viene estratto dal token JWT
-      const authReq = req as AuthRequest;
-      const userId = authReq.user?.id;
+      const userId = req.params.id;
   
-      if (!userId) {
-        res.status(403).send(new APIResponse(Status.ERROR, [], "Non autorizzato"));
+      if (!userId || !isValidObjectId(userId)) {
+        res.status(400).send(new APIResponse(Status.ERROR, [], "ID utente non valido"));
         return
       }
   
@@ -56,11 +93,8 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
         fileKey = "default/default_image.jpg";
       }
 
-      
-      
       const signedUrl = await getSignedUrl(fileKey);
 
-      console.log("✅ Signed URL generato:", signedUrl);
 
       res.status(200).send(new APIResponse(Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
   

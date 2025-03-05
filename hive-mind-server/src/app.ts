@@ -22,7 +22,7 @@ app.use("/ideas", ideaRoutes);
 app.use("/auth", authRoutes);
 app.use("/ideas", voteRoutes);
 app.use("/ideas", comment);
-app.use("/me", userRoutes);
+app.use("/user", userRoutes);
 app.get("/", (req, res) => {
   res.send("Hivemind API is running!");
 });
