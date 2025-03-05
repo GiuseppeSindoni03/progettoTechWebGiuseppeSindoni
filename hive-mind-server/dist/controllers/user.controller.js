@@ -18,6 +18,7 @@ const user_1 = require("../models/user");
 const dotenv_1 = __importDefault(require("dotenv"));
 const s3_1 = require("../utils/s3");
 const mongoose_1 = require("mongoose");
+const s3_2 = require("../utils/s3");
 dotenv_1.default.config();
 const getUserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -45,18 +46,24 @@ const getUserProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, func
         const authReq = req;
         const userId = (_b = authReq.user) === null || _b === void 0 ? void 0 : _b.id;
         if (!userId) {
-            return res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non autorizzato"));
+            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non autorizzato"));
+            return;
         }
         // 📌 Cerchiamo l'utente nel database
         const user = yield user_1.User.findById(userId).select("profileImage");
         if (!user) {
-            return res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Utente non trovato"));
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Utente non trovato"));
+            return;
         }
-        if (!user.profileImage) {
-            return res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "L'utente non ha un'immagine profilo"));
+        console.log("📌 Utente recuperato:", user);
+        let fileKey = user.profileImage;
+        if (!fileKey) {
+            fileKey = "default/default_image.jpg";
         }
-        // 📌 Restituiamo l'URL dell'immagine profilo
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { profileImage: user.profileImage }, "Immagine profilo recuperata con successo"));
+        console.log("📌 Chiave immagine salvata nel DB:", fileKey);
+        const signedUrl = yield (0, s3_2.getSignedUrl)(fileKey);
+        console.log("✅ Signed URL generato:", signedUrl);
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
     }
     catch (error) {
         console.error("Errore nel recupero dell'immagine profilo:", error);
@@ -77,11 +84,10 @@ const uploadProfileImage = (req, res) => __awaiter(void 0, void 0, void 0, funct
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessun file caricato"));
             return;
         }
-        // 📌 1️⃣ Carica il file su S3
-        const imageUrl = yield (0, s3_1.uploadToS3)(req.file, userId);
-        // 📌 2️⃣ Aggiorna il profilo dell'utente con il nuovo URL dell'immagine
-        yield user_1.User.findByIdAndUpdate(userId, { profileImage: imageUrl });
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { imageUrl }, "Immagine profilo caricata con successo"));
+        const fileKey = `images/${userId}/${userId}_${Date.now()}_${req.file.originalname}`;
+        yield (0, s3_1.uploadToS3)(req.file, fileKey);
+        yield user_1.User.findByIdAndUpdate(userId, { profileImage: fileKey });
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { fileKey }, "Immagine profilo caricata con successo"));
     }
     catch (err) {
         console.error("Errore nel caricamento dell'immagin profilo: ", err);

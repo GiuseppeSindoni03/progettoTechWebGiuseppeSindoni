@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadToS3 = void 0;
+exports.getSignedUrl = exports.uploadToS3 = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
+const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner"); // ✅ Modulo corretto per generare Signed URLs
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
@@ -33,19 +34,25 @@ const s3 = new client_s3_1.S3Client({
     }
 });
 // 📌 Funzione per caricare un file su S3
-const uploadToS3 = (file, userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const fileName = `images/${userId}/${userId}_${Date.now()}_${file.originalname}`;
+const uploadToS3 = (file, fileKey) => __awaiter(void 0, void 0, void 0, function* () {
     const params = {
         Bucket: BUCKET_NAME,
-        Key: fileName,
+        Key: fileKey,
         Body: file.buffer,
         ContentType: file.mimetype
     };
-    // 🔹 Usa AWS SDK v3 per caricare il file
     const command = new client_s3_1.PutObjectCommand(params);
     yield s3.send(command);
-    // 🔹 Restituisce l'URL del file su S3
-    console.log(`https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`);
-    return `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`;
 });
 exports.uploadToS3 = uploadToS3;
+const getSignedUrl = (fileKey) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!fileKey) {
+        throw new Error("File key non valida");
+    }
+    const command = new client_s3_1.GetObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey
+    });
+    return yield (0, s3_request_presigner_1.getSignedUrl)(s3, command, { expiresIn: 300 });
+});
+exports.getSignedUrl = getSignedUrl;

@@ -51,12 +51,20 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
          return
       }
       
-      if (!user.profileImage) {
-        res.status(404).send(new APIResponse(Status.ERROR, [], "L'utente non ha un'immagine profilo"));
-        return
+      console.log("📌 Utente recuperato:", user);
+
+      let fileKey = user.profileImage;
+
+      if (!fileKey) {
+        fileKey = "default/default_image.jpg";
       }
-      const signedUrl = await getSignedUrl(user.profileImage);
-      // 📌 Restituiamo l'URL dell'immagine profilo
+
+      console.log("📌 Chiave immagine salvata nel DB:", fileKey);
+      
+      const signedUrl = await getSignedUrl(fileKey);
+
+      console.log("✅ Signed URL generato:", signedUrl);
+
       res.status(200).send(new APIResponse(Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
   
     } catch (error) {
@@ -80,17 +88,21 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
         res.status(400).send(new APIResponse(Status.ERROR, [], "Nessun file caricato"));
         return
       }
+
+      const fileKey = `images/${userId}/${userId}_${Date.now()}_${req.file.originalname}`;
+
+      await uploadToS3(req.file, fileKey);
+
+      
+      await User.findByIdAndUpdate(userId, { profileImage: fileKey });
   
-      // 📌 1️⃣ Carica il file su S3
-      const imageUrl = await uploadToS3(req.file, userId as string);
-  
-      // 📌 2️⃣ Aggiorna il profilo dell'utente con il nuovo URL dell'immagine
-      await User.findByIdAndUpdate(userId, { profileImage: imageUrl });
-  
-      res.status(200).send(new APIResponse(Status.SUCCESS, { imageUrl }, "Immagine profilo caricata con successo"));
+      res.status(200).send(new APIResponse(Status.SUCCESS, { fileKey }, "Immagine profilo caricata con successo"));
     } catch (err) {
       console.error("Errore nel caricamento dell'immagin profilo: ", err);
       res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel caricamento dell'immagine profilo"));
     }
   };
+
+
+  
 

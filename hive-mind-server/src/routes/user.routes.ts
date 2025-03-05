@@ -10,4 +10,5 @@ const router = Router();
 router.post("/profile-image", authenticateToken, upload.single("profileImage"), uploadProfileImage);
 router.get("/", authenticateToken, getUserInfo);
 router.get("/profile-image", authenticateToken, getUserProfileImage);
+
 export default router;

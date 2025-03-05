@@ -29,33 +29,28 @@ const s3 = new S3Client({
 });
 
 // 📌 Funzione per caricare un file su S3
-export const uploadToS3 = async (file: Express.Multer.File, userId: string) => {
-  const fileName = `images/${userId}/${userId}_${Date.now()}_${file.originalname}`;
-
+export const uploadToS3 = async (file: Express.Multer.File, fileKey: string) => {
   const params = {
-    Bucket: BUCKET_NAME,
-    Key: fileName,
-    Body: file.buffer,
-    ContentType: file.mimetype
+      Bucket: BUCKET_NAME,
+      Key: fileKey,
+      Body: file.buffer,
+      ContentType: file.mimetype
   };
 
-  // 🔹 Usa AWS SDK v3 per caricare il file
   const command = new PutObjectCommand(params);
   await s3.send(command);
-
-  // 🔹 Restituisce l'URL del file su S3
-  console.log(`https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`)
-  return `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`;
 };
 
 
+export const getSignedUrl = async (fileKey: string): Promise<string> => {
+  if (!fileKey) {
+    throw new Error("File key non valida");
+  }
 
-export const getSignedUrl = async (filePath: string): Promise<string> => {
   const command = new GetObjectCommand({
     Bucket: BUCKET_NAME,
-    Key: filePath
+    Key: fileKey
   });
 
-  // ✅ Usa `awsGetSignedUrl` dal modulo `@aws-sdk/s3-request-presigner`
-  return await awsGetSignedUrl(s3, command, { expiresIn: 300 }); // Il link scade dopo 5 minuti
+  return await awsGetSignedUrl(s3, command, { expiresIn: 300 });
 };
