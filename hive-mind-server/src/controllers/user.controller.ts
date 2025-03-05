@@ -43,23 +43,20 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
         return
       }
   
-      // 📌 Cerchiamo l'utente nel database
+     
       const user = await User.findById(userId).select("profileImage");
   
       if (!user) {
          res.status(404).send(new APIResponse(Status.ERROR, [], "Utente non trovato"));
          return
       }
-      
-      console.log("📌 Utente recuperato:", user);
-
       let fileKey = user.profileImage;
 
       if (!fileKey) {
         fileKey = "default/default_image.jpg";
       }
 
-      console.log("📌 Chiave immagine salvata nel DB:", fileKey);
+      
       
       const signedUrl = await getSignedUrl(fileKey);
 
