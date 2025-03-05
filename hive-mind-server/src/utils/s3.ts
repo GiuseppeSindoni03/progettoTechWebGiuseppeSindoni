@@ -1,4 +1,6 @@
-import { S3Client, PutObjectCommand, ObjectCannedACL } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl as awsGetSignedUrl } from "@aws-sdk/s3-request-presigner"; // ✅ Modulo corretto per generare Signed URLs
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -44,4 +46,16 @@ export const uploadToS3 = async (file: Express.Multer.File, userId: string) => {
   // 🔹 Restituisce l'URL del file su S3
   console.log(`https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`)
   return `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/${fileName}`;
+};
+
+
+
+export const getSignedUrl = async (filePath: string): Promise<string> => {
+  const command = new GetObjectCommand({
+    Bucket: BUCKET_NAME,
+    Key: filePath
+  });
+
+  // ✅ Usa `awsGetSignedUrl` dal modulo `@aws-sdk/s3-request-presigner`
+  return await awsGetSignedUrl(s3, command, { expiresIn: 300 }); // Il link scade dopo 5 minuti
 };

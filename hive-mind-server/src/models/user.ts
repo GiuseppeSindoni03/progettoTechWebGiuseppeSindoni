@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     enum: ["uomo", "donna", "altro"] // ✅ Limita i valori accettati
   },
-  profileImage: { type: String, default: "images/deafult_image.png" }
+  profileImage: { type: String, default: "" }
 });
 
 export const User = mongoose.model("User", UserSchema);

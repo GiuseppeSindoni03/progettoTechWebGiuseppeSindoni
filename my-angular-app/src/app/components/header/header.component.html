@@ -1,0 +1,22 @@
+<nav class="navbar">
+    <div class="logo" (click)="goToHome()">
+        <img src="logo.png" alt="Hive Mind Logo" />
+         Hive Mind
+    </div>
+  
+    <select [value]="selectedFilter" (change)="onFilterChange($event)">
+      <option value="hot">🔥 Hot</option>
+      <option value="mainstream">🌎 Mainstream</option>
+      <option value="unpopular">📉 Unpopular</option>
+      <option value="newest">🆕 Newest</option>
+    </select>
+  
+    <button class="create-btn" (click)="onCreateIdea()">+ CREA</button>
+  
+    <img 
+      [src]="userProfileImage" 
+      class="profile-pic" 
+      (click)="goToProfile()"
+    />
+  </nav>
+  

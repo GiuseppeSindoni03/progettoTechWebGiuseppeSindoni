@@ -4,6 +4,7 @@ import { User } from "../models/user";
 import dotenv from "dotenv";
 import { uploadToS3 } from "../utils/s3";
 import { isValidObjectId } from "mongoose";
+import { getSignedUrl } from "../utils/s3";
 
 dotenv.config();
 
@@ -38,22 +39,25 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
       const userId = authReq.user?.id;
   
       if (!userId) {
-        return res.status(403).send(new APIResponse(Status.ERROR, [], "Non autorizzato"));
+        res.status(403).send(new APIResponse(Status.ERROR, [], "Non autorizzato"));
+        return
       }
   
       // 📌 Cerchiamo l'utente nel database
       const user = await User.findById(userId).select("profileImage");
   
       if (!user) {
-        return res.status(404).send(new APIResponse(Status.ERROR, [], "Utente non trovato"));
+         res.status(404).send(new APIResponse(Status.ERROR, [], "Utente non trovato"));
+         return
       }
-  
+      
       if (!user.profileImage) {
-        return res.status(404).send(new APIResponse(Status.ERROR, [], "L'utente non ha un'immagine profilo"));
+        res.status(404).send(new APIResponse(Status.ERROR, [], "L'utente non ha un'immagine profilo"));
+        return
       }
-  
+      const signedUrl = await getSignedUrl(user.profileImage);
       // 📌 Restituiamo l'URL dell'immagine profilo
-      res.status(200).send(new APIResponse(Status.SUCCESS, { profileImage: user.profileImage }, "Immagine profilo recuperata con successo"));
+      res.status(200).send(new APIResponse(Status.SUCCESS, { profileImage: signedUrl }, "Immagine profilo recuperata con successo"));
   
     } catch (error) {
       console.error("Errore nel recupero dell'immagine profilo:", error);
@@ -89,3 +93,4 @@ export const getUserProfileImage = async (req: Request, res: Response) => {
       res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel caricamento dell'immagine profilo"));
     }
   };
+
