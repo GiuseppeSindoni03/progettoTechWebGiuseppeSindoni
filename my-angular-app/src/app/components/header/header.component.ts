@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../../services/user.service';
-import { Observable, of } from 'rxjs';
+import { UserService } from '../../services/user.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 
 @Component({
@@ -14,6 +13,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 export class HeaderComponent {
   userProfileImage: string = "";
   selectedFilter: string = 'hot';
+  dropdownOpen: boolean = false;
 
   @Output() filterChanged = new EventEmitter<string>();
 
@@ -38,10 +38,14 @@ export class HeaderComponent {
     this.router.navigate(['/home']);
   }
 
-  onFilterChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    this.selectedFilter = target.value;
+  setFilter(filter: string) {
+    this.selectedFilter = filter;
     this.filterChanged.emit(this.selectedFilter);
+    this.dropdownOpen = false;
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 
   onCreateIdea() {

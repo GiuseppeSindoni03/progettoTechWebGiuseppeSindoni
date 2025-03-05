@@ -1,0 +1,20 @@
+.home-container {
+    max-width: 900px;
+    margin-top: 20px;
+    margin: 20px auto; // ✅ Centra la lista delle idee nella pagina
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+
+.footer-container {
+    position: relative;
+    bottom: 0;
+    
+}
+  
+  
+  

@@ -20,7 +20,7 @@ export interface User {
 })
 export class UserService {
 
-    private apiUrl: string= 'http://localhost:4000/me';
+    private apiUrl: string= 'http://localhost:4000/user';
 
     private constructor(
         private http: HttpClient
@@ -34,7 +34,15 @@ export class UserService {
     getUserImage(): Observable<string> {
         return this.http.get<{ status: string, data: { profileImage: string }, message: string }>(`${this.apiUrl}/profile-image`).pipe(
           map(response => {
-            return response.data.profileImage; // ✅ Ora accede correttamente all'URL
+            return response.data.profileImage; 
+          })
+        );
+      }
+
+      getUserImageWithId(userId: string): Observable<string> {
+        return this.http.get<{ status: string, data: { profileImage: string }, message: string }>(`${this.apiUrl}/${userId}/profile-image`).pipe(
+          map(response => {
+            return response.data.profileImage; 
           })
         );
       }

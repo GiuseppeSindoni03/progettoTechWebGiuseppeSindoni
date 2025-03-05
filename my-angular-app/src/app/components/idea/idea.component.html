@@ -1,0 +1,24 @@
+<div class="idea-card">
+    <div class="idea-header">
+      <img [src]="authorProfileImage" alt="Profile Image" class="profile-img" />
+      <div class="author-info">
+        <h3>{{ idea.author.username }}</h3>
+        <p>{{ idea.timestamp | date: 'short' }}</p>
+      </div>
+    </div>
+  
+    <div class="idea-content">
+      <h2>{{ idea.title }}</h2>
+      <div [innerHTML]="convertedContent"></div> 
+      
+      <button *ngIf="idea.content.length > maxContentLength" (click)="goToIdeaDetails()" class="read-more-btn">
+        Visualizza altro...
+      </button>
+    </div>
+  
+    <div class="idea-footer">
+      <button (click)="upvote()" class="vote-btn">👍 {{ idea.upvotes }}</button>
+      <button (click)="downvote()" class="vote-btn">👎 {{ idea.downvotes }}</button>
+      <button (click)="goToIdeaDetails()" class="comment-btn">💬 Commenti</button>
+    </div>
+</div>

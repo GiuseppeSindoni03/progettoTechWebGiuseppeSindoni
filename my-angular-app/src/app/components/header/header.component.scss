@@ -1,0 +1,138 @@
+:host {
+    display: block; // 🔹 Assicura che il componente occupi l'intera larghezza
+    width: 100%;
+    background-color: #0d0d52; // 🔹 Stesso colore dello sfondo della pagina
+    position: fixed; // 🔹 Fissa l'header in cima
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #020c55;
+    padding: 8px 20px;
+    color: #ffffff;
+    height: 60px;
+    position: relative; // Permette il posizionamento assoluto di elementi interni
+    font-family: "Inter", sans-serif;
+
+    // 🔹 Logo all'estrema sinistra
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: auto;
+
+  
+      img {
+        width: 60px;
+        height: 60px;
+        margin-right: 8px;
+        border-radius: 50%;
+      }
+    }
+  
+    // 🔹 Dropdown centrato
+    .dropdown {
+      position: absolute; // Rende il dropdown indipendente dagli altri elementi
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-block;
+  
+      .dropdown-btn {
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 5px 15px;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+  
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+  
+      .dropdown-menu {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        background: #ffffff;
+        color: #000000;
+        border-radius: 5px;
+        list-style: none;
+        padding: 5px 0;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        min-width: 150px;
+        z-index: 1000;
+  
+        li {
+          padding: 10px 15px;
+          cursor: pointer;
+          transition: background 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+  
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+    }
+  
+    // 🔹 Pulsante "Crea" sempre fisso sulla destra
+    .create-btn-container {
+        position: absolute;  // 🔹 Posizionamento assoluto rispetto alla navbar
+        right: 25%;          // 🔹 Sposta il container a destra del 25%
+        top: 50%;            // 🔹 Lo posiziona a metà altezza della navbar
+        transform: translateY(-50%); // 🔹 Corregge l'abbassamento
+        display: flex;
+        align-items: center;
+      }
+      
+      .create-btn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.183);
+        }
+      }
+      
+  
+    // 🔹 Immagine profilo sempre sulla destra
+    .profile-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      transition: transform 0.2s ease-in-out;
+      margin-left: auto;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+  
