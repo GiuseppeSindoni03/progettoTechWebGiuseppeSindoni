@@ -78,12 +78,9 @@ export class LoginComponent {
   private handleLoginError(error: any): void {
     console.error('Errore durante il login:', error);
 
-    let errorMessage = 'Errore imprevisto. Riprova più tardi.';
-    if (error.status === 400) {
-      errorMessage = 'Email o password errati. Riprova.';
-    } else if (error.status === 500) {
-      errorMessage = 'Errore del server. Contatta il supporto.';
-    }
+    let errorMessage = error.error?.message || 'Errore durante il login. Riprova più tardi.';
+    
+  
 
     this.toastr.error(errorMessage, 'Errore di login');
   }

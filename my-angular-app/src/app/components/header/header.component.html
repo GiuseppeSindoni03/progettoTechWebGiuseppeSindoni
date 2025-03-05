@@ -13,10 +13,8 @@
   
     <button class="create-btn" (click)="onCreateIdea()">+ CREA</button>
   
-    <img 
-      [src]="userProfileImage" 
-      class="profile-pic" 
-      (click)="goToProfile()"
-    />
+    <img *ngIf="userProfileImage$ | async as imageUrl" [src]="imageUrl" alt="Foto profilo" class="profile-img" />
+
+
   </nav>
   
