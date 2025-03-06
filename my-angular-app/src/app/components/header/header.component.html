@@ -1,33 +1,28 @@
 <nav class="navbar">
-    <div class="logo" (click)="goToHome()">
-        <img src="logo_no_write.png" alt="Hive Mind Logo" />
-         HIVE MIND
-    </div>
+  <div class="logo" (click)="goToHome()">
+      <img src="logo_no_write.png" alt="Hive Mind Logo" />
+      HIVE MIND
+  </div>
+
+  <!-- Menu a tendina visibile solo se showDropdown è true -->
+  <div class="dropdown" *ngIf="showDropdown">
+    <button class="dropdown-btn" (click)="toggleDropdown()">
+        {{ selectedFilter | uppercase }} ⌄
+    </button>
+    <ul *ngIf="dropdownOpen" class="dropdown-menu">
+        <li (click)="setFilter('hot')">🔥 Hot</li>
+        <li (click)="setFilter('mainstream')">🌎 Mainstream</li>
+        <li (click)="setFilter('unpopular')">📉 Unpopular</li>
+        <li (click)="setFilter('newest')">🆕 Newest</li>
+    </ul>
+  </div>
+
+  <!-- Bottone "Crea" visibile solo se showCreateButton è true -->
+  <div class="create-btn-container" *ngIf="showCreateButton">
+    <button class="create-btn" (click)="onCreateIdea()">+ CREA</button>
+  </div>
   
-    <div class="dropdown">
-      <button class="dropdown-btn" (click)="toggleDropdown()">
-          {{ selectedFilter | uppercase }} ⌄
-      </button>
-      <ul *ngIf="dropdownOpen" class="dropdown-menu">
-          <li (click)="setFilter('hot')">🔥 Hot</li>
-          <li (click)="setFilter('mainstream')">🌎 Mainstream</li>
-          <li (click)="setFilter('unpopular')">📉 Unpopular</li>
-          <li (click)="setFilter('newest')">🆕 Newest</li>
-      </ul>
-
-
-    </div>
-
-     
-    <div class = "create-btn-container">
-      <button class="create-btn" (click)="onCreateIdea()">+ CREA</button>
-    </div>
-    
-    <div>
-      <img [src]="userProfileImage" alt="Foto profilo" class="profile-img" />
-    </div>
-   
-
-
-  </nav>
-  
+  <div>
+    <img [src]="userProfileImage" alt="Foto profilo" class="profile-img" />
+  </div>
+</nav>

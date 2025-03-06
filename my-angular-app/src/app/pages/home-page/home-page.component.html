@@ -1,9 +1,10 @@
-<app-header></app-header>
+<app-header [showDropdown]="true" [showCreateButton]="true" (createIdea)="openCreatePostModal()"></app-header>
 
 
 <div class="home-container">
   <app-idea-list></app-idea-list> <!-- ✅ Mostriamo la lista delle idee -->
 </div>
+
 
 <div class ="footer-container">
     <app-footer></app-footer>

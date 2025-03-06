@@ -5,7 +5,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: LoginComponent },  // ✅ Deve essere la home page!
+    { path: '', component: LoginComponent },  
     { path: 'register', component: RegistrationComponent },
-    { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] } // ✅ Solo utenti autenticati
+    { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
 ];

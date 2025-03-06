@@ -17,14 +17,18 @@
     </div>
   
     <div class="idea-footer">
-      <button (click)="upvote()" class="vote-btn">
-        <img src="upvote.svg" alt="Upvote" class="icon-btn" /> {{ idea.upvotes }}
-      </button>
+      <!-- Contenitore per Upvote e Downvote -->
+      <div class="vote-container">
+        <button (click)="upvote()" class="vote-btn">
+          <img src="upvote.svg" alt="Upvote" class="icon-btn" /> {{ idea.upvotes }}
+        </button>
+      
+        <button (click)="downvote()" class="vote-btn">
+          <img src="downvote.svg" alt="Downvote" class="icon-btn" /> {{ idea.downvotes }}
+        </button>
+      </div>
     
-      <button (click)="downvote()" class="vote-btn">
-        <img src="downvote.svg" alt="Downvote" class="icon-btn" /> {{ idea.downvotes }}
-      </button>
-    
+      <!-- Pulsante Commenti resta a destra -->
       <button (click)="goToIdeaDetails()" class="comment-btn">
         <img src="comment.svg" alt="Commenti" class="icon-btn" /> Commenti
       </button>

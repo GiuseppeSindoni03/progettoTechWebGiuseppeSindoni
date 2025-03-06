@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { routes } from './app.routes';
@@ -21,7 +22,8 @@ export const appConfig: ApplicationConfig = {
     ReactiveFormsModule,
     importProvidersFrom(
       BrowserAnimationsModule, 
-      CommonModule
+      CommonModule,
+      MatDialogModule
     ),
     provideAnimations(),
     provideToastr(),

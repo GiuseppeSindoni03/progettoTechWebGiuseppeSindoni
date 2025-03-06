@@ -1,3 +1,8 @@
+*{
+  font-family: 'Inter', sans-serif;
+}
+
+
 footer {
     position: absolute;
     bottom: 10px;
@@ -15,7 +20,7 @@ footer {
     gap: 10px; /* Distanza tra i link */
     align-items: center;
     font-size: 1em;
-    font-weight: 500;
+    font-weight: bold;
     color: #0d0d52;
   }
   

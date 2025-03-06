@@ -5,14 +5,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FooterComponent } from "../../components/footer/footer.component";
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, FooterComponent, NgbDatepickerModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, NgbDatepickerModule],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })

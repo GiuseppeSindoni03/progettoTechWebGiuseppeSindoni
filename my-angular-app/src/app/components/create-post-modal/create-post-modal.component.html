@@ -1,0 +1,23 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+        <h2 class="modal-title">Crea un nuovo post</h2>
+
+        <form [formGroup]="createIdeaForm" (ngSubmit)="submitPost()" class="modal-form">
+            <!-- Titolo -->
+            <label for="title" class="input-label">Titolo</label>
+            <input type="text" id="title" placeholder="Inserisci un titolo..." formControlName="title" required />
+
+            <!-- Contenuto -->
+            <label for="content" class="input-label">Contenuto</label>
+            <textarea id="content" placeholder="Scrivi qualcosa..." formControlName="content" required></textarea>
+
+            <!-- Pulsanti -->
+            <div class="modal-buttons">
+                <button mat-button class="cancel-btn" (click)="closeDialog()">Annulla</button>
+                <button mat-raised-button class="submit-btn" color="primary" type="submit" [disabled]="createIdeaForm.invalid || isLoading">
+                    Crea
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-header',
@@ -15,8 +16,11 @@ export class HeaderComponent {
   selectedFilter: string = 'hot';
   dropdownOpen: boolean = false;
 
+  @Input() showDropdown: boolean = true; // Mostra/nasconde il menu a tendina
+  @Input() showCreateButton: boolean = true; // Mostra/nasconde il bottone "Crea"
+  @Output() createIdea = new EventEmitter<void>();
   @Output() filterChanged = new EventEmitter<string>();
-
+  
   constructor(
     private router: Router, 
     private userService: UserService
@@ -49,7 +53,7 @@ export class HeaderComponent {
   }
 
   onCreateIdea() {
-    //this.router.navigate(['/create']);
+    this.createIdea.emit(); // ✅ Invio l'evento alla Home Page
   }
 
   goToProfile() {

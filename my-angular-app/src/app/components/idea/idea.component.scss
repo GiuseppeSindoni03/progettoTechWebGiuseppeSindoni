@@ -1,18 +1,15 @@
 .idea-card {
   width: 100%;
   max-width: 600px;
-  background: white;
+  background: rgba(255, 255, 255, 0.983);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin: 20px auto;
   font-family: Arial, sans-serif;
-  transition: transform 0.2s ease-in-out;
+  //transition: transform 0.2s ease-in-out;
 }
 
-.idea-card:hover {
-  transform: translateY(-3px);
-}
 
 /* HEADER */
 .idea-header {
@@ -23,16 +20,17 @@
 }
 
 .profile-img {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ddd;
+  border: 2px solid #0d0d52;
 }
+
 
 .author-info h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -58,7 +56,7 @@
 .read-more-btn {
   background: none;
   border: none;
-  color: #007bff;
+  color: #0d0d52;
   cursor: pointer;
   font-size: 14px;
   margin-top: 5px;
@@ -76,6 +74,11 @@
   margin-top: 10px;
 }
 
+.vote-container {
+  display: flex;
+  gap: 4px; /* Diminuisce lo spazio tra i due pulsanti */
+}
+
 .vote-btn, .comment-btn {
   background: none;
   border: none;
@@ -90,7 +93,7 @@
 }
 
 .vote-btn:hover, .comment-btn:hover {
-  color: #007bff;
+  color: #0d0d52;
 }
 
 .icon-btn {
