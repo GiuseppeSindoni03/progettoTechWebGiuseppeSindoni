@@ -1,68 +1,100 @@
 .idea-card {
-    background: white;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    max-width: 600px;
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  .idea-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .profile-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-  
-  .idea-content {
-    margin-top: 10px;
-  
-    h2 {
-      margin-bottom: 5px;
-    }
-  
-    p {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-height: 60px;
-      line-height: 1.5;
-    }
-  }
-  
-  .read-more-btn {
-    background: none;
-    border: none;
-    color: blue;
-    cursor: pointer;
-    font-size: 0.9rem;
-  }
-  
-  .idea-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  
-    .vote-btn,
-    .comment-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 5px;
-      border-radius: 5px;
-      transition: 0.3s;
-  
-      &:hover {
-        background: rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-  
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  transition: transform 0.2s ease-in-out;
+}
+
+.idea-card:hover {
+  transform: translateY(-3px);
+}
+
+/* HEADER */
+.idea-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.author-info h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.author-info p {
+  margin: 2px 0;
+  font-size: 12px;
+  color: gray;
+}
+
+/* CONTENUTO */
+.idea-content h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.idea-content div {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.read-more-btn:hover {
+  text-decoration: underline;
+}
+
+.idea-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  margin-top: 10px;
+}
+
+.vote-btn, .comment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+  padding: 8px;
+}
+
+.vote-btn:hover, .comment-btn:hover {
+  color: #007bff;
+}
+
+.icon-btn {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}

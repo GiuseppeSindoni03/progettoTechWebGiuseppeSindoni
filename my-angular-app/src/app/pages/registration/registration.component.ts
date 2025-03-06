@@ -6,12 +6,13 @@ import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FooterComponent } from "../../components/footer/footer.component";
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule, FooterComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, FooterComponent, NgbDatepickerModule],
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
@@ -19,7 +20,6 @@ export class RegistrationComponent {
   registrationForm: FormGroup;
   passwordVisible: boolean = false;
   isLoading: boolean = false;
-
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +33,7 @@ export class RegistrationComponent {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(12)]],
-      birthdate: ['', [Validators.required]],
+      birthdate: [null, [Validators.required]],
       gender: ['', [Validators.required]]
     });
   }
@@ -60,6 +60,7 @@ export class RegistrationComponent {
       birthdate,
       gender
     } = this.registrationForm.value;
+
 
     console.log('Dati inviati:', this.registrationForm.value);
 
@@ -105,6 +106,13 @@ export class RegistrationComponent {
   }
 
   private showValidationErrors() {
+
+    //for (element of this.registrationForm.value) {
+    //  if(this.registrationForm.value[element].invalid) {
+    //    this.toastr.error('Inserisci un' + ${element.name} + valido, 'Errore di validazione');
+    //  }
+    //}
+
     if (this.name?.invalid) {
       this.toastr.error('Inserisci un nome valido.', 'Errore di validazione');
     }
@@ -147,6 +155,9 @@ export class RegistrationComponent {
     this.toastr.error(errorMessage, 'Errore di registrazione');
   }
 
+
+  
+
   get email() {
     return this.registrationForm.get('email');
   }
@@ -172,4 +183,7 @@ export class RegistrationComponent {
   get gender() {
     return this.registrationForm.get('gender');
   }
+
+  
 }
+

@@ -14,23 +14,28 @@
       <div class="login-form">
         <h2>Benvenuto!</h2>
         
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form class ="form2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <input type="email" placeholder="E-mail" formControlName="email" required />
+            <input type="email" id="email" placeholder=" " formControlName="email" required />
+            <label for="email">Email</label>
           </div>
   
           <div class="form-group password-group">
             <input 
               [type]="passwordVisible ? 'text' : 'password'"
-              placeholder="Password" 
+              id="password"
+              placeholder=" " 
               formControlName="password" 
               required 
             />
+            <label for="password">Password</label>
+            
             <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
               <img src="eye.svg" *ngIf="!passwordVisible" alt="Mostra password">
               <img src="eye-slash.svg" *ngIf="passwordVisible" alt="Nascondi password">
             </button>
           </div>
+          
           
   
           <button type="submit" class="login-btn" [disabled]="loginForm.invalid || isLoading">
@@ -49,4 +54,6 @@
 
 </div>
 
-<app-footer></app-footer>
+
+  <app-footer></app-footer>
+
