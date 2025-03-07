@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 export const validateFields = (res: Response, fields: Record<string, any>): boolean => {
     for (const [key, value] of Object.entries(fields)) {
         if (!value || (typeof value === "string" && value.trim() === "")) {
-            res.status(400).send(new APIResponse(Status.ERROR, [], `${key} cannot be empty`));
+            res.status(400).send(new APIResponse(Status.ERROR, [], `${key} non puo' esser vuoto`));
             return false;
         }
     }
@@ -40,17 +40,17 @@ export const validateUserInputRegister = (data: { email?: string, username?: str
     const { email, username, password } = data;
 
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid email format"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Formato non valido per l'email"));
         return false;
     }
 
     if (username && !/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Username must be 3-20 characters and can only contain letters, numbers, and underscores"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Username deve contenere solo lettere, numeri e underscore e deve essere lungo tra 3 e 20 caratteri"));
         return false;
     }
 
     if (password && password.length < 12) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Password must be at least 12 characters long"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Password deve essere almeno di 12 caratteri"));
         return false;
     }
 
@@ -61,12 +61,12 @@ export const validateUserInputLogin = (data: { email?: string, password?: string
     const { email, password } = data;
 
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid email format"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Formato non valido per l'email"));
         return false;
     }
 
     if (password && password.length < 12) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Password must be at least 8 characters long"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Password deve essere almeno di 12 caratteri"));
         return false;
     }
 
@@ -77,7 +77,7 @@ export const validateUserInputLogin = (data: { email?: string, password?: string
 export const isBirthdateValid = (birthdate: string | Date, res: Response): boolean => {
     const date = new Date(birthdate);
     if (isNaN(date.getTime())) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Invalid birthdate format"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Formato invalido per la data di nascita. "));
         return false;
     }
 
@@ -85,12 +85,12 @@ export const isBirthdateValid = (birthdate: string | Date, res: Response): boole
     minBirthdate.setFullYear(minBirthdate.getFullYear() - 13); // ✅ Età minima 13 anni
 
     if (date > new Date()) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "Birthdate cannot be in the future"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Inserisci una data di nascita valida"));
         return false;
     }
 
     if (date > minBirthdate) {
-        res.status(400).send(new APIResponse(Status.ERROR, [], "User must be at least 13 years old"));
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Devi avere almeno 13 anni per registrarti"));
         return false;
     }
 
@@ -103,7 +103,7 @@ export const isOnlyLetters = (value: string, fieldName: string, res: Response): 
     if (!regex.test(value)) {
         res.status(400).send({
             status: "error",
-            message: `${fieldName} can only contain letters, spaces, apostrophes, and hyphens`
+            message: `${fieldName} deve contenere solo lettere`
         });
         return false;
     }
