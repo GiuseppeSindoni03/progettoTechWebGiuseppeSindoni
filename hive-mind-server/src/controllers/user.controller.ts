@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import { uploadToS3 } from "../utils/s3";
 import { isValidObjectId } from "mongoose";
 import { getSignedUrl } from "../utils/s3";
-import { runInNewContext } from "vm";
 
 dotenv.config();
 
@@ -22,7 +21,7 @@ export const getUserInfo = async (req: Request, res: Response) => {
             return
         }
 
-        const userResponse = {  name: user.name, surname: user.surname, username: user.username, email: user.email, image : user.profileImage };
+        const userResponse = { _id: userId, name: user.name, surname: user.surname, username: user.username, email: user.email, image : user.profileImage };
 
         res.status(200).send(new APIResponse(Status.SUCCESS, userResponse, "Informazioni utente recuperate con successo"));
 

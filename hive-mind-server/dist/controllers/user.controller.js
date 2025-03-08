@@ -30,7 +30,7 @@ const getUserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Utente non trovato"));
             return;
         }
-        const userResponse = { name: user.name, surname: user.surname, username: user.username, email: user.email, image: user.profileImage };
+        const userResponse = { _id: userId, name: user.name, surname: user.surname, username: user.username, email: user.email, image: user.profileImage };
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, userResponse, "Informazioni utente recuperate con successo"));
     }
     catch (err) {

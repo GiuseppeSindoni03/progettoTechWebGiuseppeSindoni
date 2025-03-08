@@ -16,6 +16,7 @@ const vote_1 = require("../models/vote");
 const mongoose_1 = require("mongoose");
 const validators_1 = require("../utils/validators");
 const db_helpers_1 = require("../utils/db.helpers");
+const marked_1 = require("marked");
 const getIdeas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const ideas = yield idea_1.Idea.find()
@@ -43,23 +44,35 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const authReq = req;
         const userId = (_a = authReq.user) === null || _a === void 0 ? void 0 : _a.id;
+        console.log("📌 Recupero idee per utente:", userId);
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
+        // 🔹 Estrai paginazione dai query params
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        page < 1 ? 1 : page;
+        limit > 10 ? 10 : limit;
+        console.log(`📦 Recupero pagina ${page} con ${limit} idee per utente ${userId}`);
+        // 🔹 Query con paginazione
         const ideas = yield idea_1.Idea.find({ author: userId })
-            .populate("author", "username ")
+            .populate("author", "username")
             .populate("comments.author", "username")
-            .select("-__v");
+            .select("-__v")
+            .skip((page - 1) * limit)
+            .limit(limit);
+        console.log("📦 Idee recuperate:", ideas.length);
         if (ideas.length > 0) {
             res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
         else {
+            console.log("⚠️ Nessuna idea trovata");
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessuna idea trovata"));
         }
     }
     catch (err) {
-        console.error("Errore nel recupero delle idee:", err);
+        console.error("❌ Errore nel recupero delle idee:", err);
         res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero delle idee dell'utente"));
     }
 });
@@ -70,15 +83,17 @@ const postIdea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const authReq = req;
         const userId = (_b = authReq.user) === null || _b === void 0 ? void 0 : _b.id;
         const { title, content } = req.body;
-        if (!(0, validators_1.validateFields)(res, { title, content, userId }))
+        if (!(0, validators_1.validateFields)(res, { title, content }))
             return;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
+        const contentHtml = (0, marked_1.marked)(content);
         const newIdea = new idea_1.Idea({
             title,
             content,
+            contentHtml,
             author: userId
         });
         yield newIdea.save();
@@ -170,6 +185,7 @@ const getIdeasHome = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const limit = parseInt(req.query.limit) || 10;
         page < 1 ? 1 : page;
         limit > 10 ? 10 : limit;
+        console.log("Back end Recupero idee per tipo:", type);
         const pipeline = (0, db_helpers_1.getIdeasPipeline)(type, page, limit);
         const ideas = yield idea_1.Idea.aggregate(pipeline);
         if (!ideas.length) {

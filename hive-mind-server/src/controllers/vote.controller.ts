@@ -1,10 +1,34 @@
 import { APIResponse, Status, AuthRequest } from "../utils/structure";
 import { Request, Response } from "express";
-import mongoose, { isValidObjectId } from "mongoose";
+import  { isValidObjectId } from "mongoose";
 import { Idea } from "../models/idea";
 import { Vote } from "../models/vote";
 import { isVoteValid, isUserAuthor } from "../utils/validators";
 
+
+
+
+export const getUserVote = async (req: Request, res: Response) => {
+    try {
+        const authReq = req as AuthRequest;
+        const userId = authReq.user?.id;
+        const ideaId = req.params.id;
+
+        if (!isValidObjectId(ideaId)) {
+            res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido"));
+            return 
+        }
+
+        // Trova il voto dell'utente per questa idea
+        const userVote = await Vote.findOne({ user: userId, idea: ideaId }).lean();
+        const voteValue = userVote ? userVote.valore : 0;
+
+        res.status(200).send(new APIResponse(Status.SUCCESS, { vote: voteValue }, "Voto dell'utente ottenuto con successo"));
+    } catch (err) {
+        console.error("Errore nel recupero del voto dell'utente:", err);
+        res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel recupero del voto"));
+    }
+};
 
 
 
@@ -13,8 +37,8 @@ export const setVote = async (req: Request, res: Response) => {
         const authReq = req as AuthRequest; 
         const userId = authReq.user?.id; 
         const ideaId = req.params.id;
-        const vote: number = req.body.vote;
-        
+        const vote = req.body.vote; 
+ 
         if (!isValidObjectId(userId)) {
             res.status(400).send(new APIResponse(Status.ERROR, [], "Formato userId non valido")); return;
         }

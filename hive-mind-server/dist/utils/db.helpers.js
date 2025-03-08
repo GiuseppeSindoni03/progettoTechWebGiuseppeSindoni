@@ -43,7 +43,10 @@ function getIdeasPipeline(type, page = 1, limit = 10) {
     }
     return [
         // 🔹 Filtra idee dell'ultima settimana
-        { $match: { timestamp: { $gte: new Date(new Date().setDate(new Date().getDate() - 7)) } } },
+        { $match: {
+                timestamp: { $gte: new Date(new Date().setDate(new Date().getDate() - 7)) }
+            }
+        },
         // 🔹 Calcola il numero totale di voti e il bilancio dei voti
         {
             $addFields: {
@@ -66,14 +69,16 @@ function getIdeasPipeline(type, page = 1, limit = 10) {
             $project: {
                 _id: 1,
                 title: 1,
-                contentMarkdown: 1,
                 contentHtml: 1,
                 upvotes: 1,
                 downvotes: 1,
                 timestamp: 1,
                 comments: 1,
-                author: { username: "$authorInfo.username", id: "$authorInfo._id" },
-                profileImage: "$authorInfo.profileImage"
+                author: {
+                    _id: "$authorInfo._id",
+                    username: "$authorInfo.username",
+                    profileImage: "$authorInfo.profileImage"
+                }
             }
         },
         // 🔹 Applica il filtro dinamico in base alla categoria scelta

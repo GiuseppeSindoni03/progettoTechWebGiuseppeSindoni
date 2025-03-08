@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); // ✅ Carica le variabili d'ambiente
 
-const MONGO_URI = process.env.MONGO_URI as string; // Assicurati che sia definito nel tuo `.env`
+const MONGO_URI="mongodb+srv://giuseppenapolii55:YKHFGQQcYDfMJxe4@cluster0.wxhyr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 const resetDatabase = async () => {
   try {

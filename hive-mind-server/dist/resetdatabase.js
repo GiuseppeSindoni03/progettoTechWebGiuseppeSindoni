@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config(); // ✅ Carica le variabili d'ambiente
-const MONGO_URI = process.env.MONGO_URI; // Assicurati che sia definito nel tuo `.env`
+const MONGO_URI = "mongodb+srv://giuseppenapolii55:YKHFGQQcYDfMJxe4@cluster0.wxhyr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const resetDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // 🔹 1️⃣ Connetti al database

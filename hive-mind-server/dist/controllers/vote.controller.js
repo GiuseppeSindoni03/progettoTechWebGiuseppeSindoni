@@ -9,17 +9,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setVote = void 0;
+exports.setVote = exports.getUserVote = void 0;
 const structure_1 = require("../utils/structure");
 const mongoose_1 = require("mongoose");
 const idea_1 = require("../models/idea");
 const vote_1 = require("../models/vote");
 const validators_1 = require("../utils/validators");
-const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getUserVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
         const authReq = req;
         const userId = (_a = authReq.user) === null || _a === void 0 ? void 0 : _a.id;
+        const ideaId = req.params.id;
+        if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
+            return;
+        }
+        // Trova il voto dell'utente per questa idea
+        const userVote = yield vote_1.Vote.findOne({ user: userId, idea: ideaId }).lean();
+        const voteValue = userVote ? userVote.valore : 0;
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { vote: voteValue }, "Voto dell'utente ottenuto con successo"));
+    }
+    catch (err) {
+        console.error("Errore nel recupero del voto dell'utente:", err);
+        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero del voto"));
+    }
+});
+exports.getUserVote = getUserVote;
+const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    try {
+        const authReq = req;
+        const userId = (_b = authReq.user) === null || _b === void 0 ? void 0 : _b.id;
         const ideaId = req.params.id;
         const vote = req.body.vote;
         if (!(0, mongoose_1.isValidObjectId)(userId)) {

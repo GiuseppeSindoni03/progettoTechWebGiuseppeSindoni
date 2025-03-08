@@ -46,7 +46,9 @@ export function getIdeasPipeline(type: SearchType, page = 1, limit = 10): mongoo
 
   return [
     // 🔹 Filtra idee dell'ultima settimana
-    { $match: { timestamp: { $gte: new Date(new Date().setDate(new Date().getDate() - 7)) } } },
+    { $match: { 
+        timestamp: { $gte: new Date(new Date().setDate(new Date().getDate() - 7)) } } 
+    },
 
     // 🔹 Calcola il numero totale di voti e il bilancio dei voti
     { 
@@ -72,15 +74,16 @@ export function getIdeasPipeline(type: SearchType, page = 1, limit = 10): mongoo
         $project: { 
             _id: 1, 
             title: 1, 
-            contentMarkdown: 1, // ✅ Usa `contentMarkdown` per il testo originale
-            contentHtml: 1, // ✅ Usa `contentHtml` per la versione formattata
+            contentHtml: 1,
             upvotes: 1, 
             downvotes: 1,  
             timestamp: 1,
             comments: 1,
-            author: { username: "$authorInfo.username", id: "$authorInfo._id" }, 
-            profileImage: "$authorInfo.profileImage"
-
+            author: {
+                _id: "$authorInfo._id",
+                username: "$authorInfo.username",
+                profileImage: "$authorInfo.profileImage"
+            }
         } 
     },
 
