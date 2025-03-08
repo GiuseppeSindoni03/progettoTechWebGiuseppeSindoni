@@ -1,4 +1,41 @@
-<div class="idea-list">
-    <app-idea *ngFor="let idea of ideas$ | async" [idea]="idea"></app-idea>
+<div *ngIf="(ideas$ | async) as ideas; else loading">
+  <div *ngIf="ideas.length > 0">
+    <app-idea *ngFor="let idea of ideas" [idea]="idea"></app-idea>
+
+    <!-- 🔹 Sezione paginazione -->
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">
+        <img src="arrow-left.svg" alt="Pagina precedente" />
+        Precedente</button>
+      <span>Pagina {{ currentPage }}</span>
+      <button (click)="nextPage()" [disabled]="!hasMoreIdeas">Successivo 
+        <img src="arrow-right.svg" alt="Pagina successiva" />
+      </button>
+    </div>
+
+    <!-- 🔹 Messaggio se l'utente ha visto tutte le idee disponibili -->
+     <div *ngIf="!hasMoreIdeas && ideas.length > 0" class="end-message">
+      <p >
+        🎉 Hai visto tutte le idee disponibili!
+      </p>
+     </div>
+    
   </div>
-  
+
+  <!-- 🔹 Nessuna idea disponibile -->
+  <div *ngIf="ideas.length === 0" class="no-ideas">
+    <p *ngIf="currentPage === 1">🚀 Nessuna idea disponibile per questa categoria.</p>
+    
+    <div *ngIf="currentPage > 1" class="end-message">
+      <p >📭 Non ci sono altre idee disponibili!</p>
+      <button class= "back" (click)="resetPage()">Torna alla prima pagina</button>
+
+    </div>
+   
+  </div>
+</div>
+
+<!-- Messaggio di caricamento -->
+<ng-template #loading>
+  <p>⏳ Caricamento idee...</p>
+</ng-template>

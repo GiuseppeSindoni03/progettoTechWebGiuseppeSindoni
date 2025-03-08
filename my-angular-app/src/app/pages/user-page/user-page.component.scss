@@ -1,0 +1,65 @@
+/* Contenitore per immagine e bottone */
+* {
+    border: 1px solid red;
+}
+.user-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding-top: 50px;
+}
+
+.profile-img-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.profile-img-container h2 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+
+/* Stile per l'immagine del profilo */
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0d0d52;
+    cursor: pointer;
+}
+
+/* Bottone per cambiare immagine */
+.upload-btn {
+    display: block;
+    margin-top: 8px;
+    background: #0d0d52;
+    color: white;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.upload-btn:hover {
+    background: #1a1a88;
+}

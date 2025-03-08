@@ -9,26 +9,28 @@
   
     <div class="idea-content">
       <h2>{{ idea.title }}</h2>
-      <div [innerHTML]="convertedContent"></div> 
+      <div [innerHTML]="sanitizedContentHtml"></div> 
       
-      <button *ngIf="idea.content.length > maxContentLength" (click)="goToIdeaDetails()" class="read-more-btn">
-        Visualizza altro...
-      </button>
+    
     </div>
   
     <div class="idea-footer">
       <!-- Contenitore per Upvote e Downvote -->
       <div class="vote-container">
-        <button (click)="upvote()" class="vote-btn">
-          <img src="upvote.svg" alt="Upvote" class="icon-btn" /> {{ idea.upvotes }}
+        <button (click)="upvote()" class="vote-btn-upvote">
+          <img [src]="userVote === 1 ? 'arrow-up-circle-fill-blue.svg' : 'arrow-up-circle-blue.svg'" 
+               alt="Upvote" class="icon-btn" />
+          {{ idea.upvotes }}
         </button>
-      
-        <button (click)="downvote()" class="vote-btn">
-          <img src="downvote.svg" alt="Downvote" class="icon-btn" /> {{ idea.downvotes }}
+  
+        <button (click)="downvote()" class="vote-btn-downvote">
+          <img [src]="userVote === -1 ? 'arrow-down-circle-fill-blue.svg' : 'arrow-down-circle-blue.svg'" 
+               alt="Downvote" class="icon-btn" />
+          {{ idea.downvotes }}
         </button>
       </div>
-    
-      <!-- Pulsante Commenti resta a destra -->
+  
+      <!-- Pulsante Commenti -->
       <button (click)="goToIdeaDetails()" class="comment-btn">
         <img src="comment.svg" alt="Commenti" class="icon-btn" /> Commenti
       </button>

@@ -1,6 +1,6 @@
 <nav class="navbar">
-  <div class="logo" (click)="goToHome()">
-      <img src="logo_no_write.png" alt="Hive Mind Logo" />
+  <div class="logo" >
+      <img src="logo_no_write.png" alt="Hive Mind Logo" (click)="goToHome()"/>
       HIVE MIND
   </div>
 
@@ -10,7 +10,7 @@
         {{ selectedFilter | uppercase }} ⌄
     </button>
     <ul *ngIf="dropdownOpen" class="dropdown-menu">
-        <li (click)="setFilter('hot')">🔥 Hot</li>
+        <li (click)="setFilter('controverse')">🔥 Controverse</li>
         <li (click)="setFilter('mainstream')">🌎 Mainstream</li>
         <li (click)="setFilter('unpopular')">📉 Unpopular</li>
         <li (click)="setFilter('newest')">🆕 Newest</li>
@@ -23,6 +23,6 @@
   </div>
   
   <div>
-    <img [src]="userProfileImage" alt="Foto profilo" class="profile-img" />
+    <img [src]="userProfileImage" alt="Foto profilo" class="profile-img" (click)="goToProfile()" />
   </div>
 </nav>

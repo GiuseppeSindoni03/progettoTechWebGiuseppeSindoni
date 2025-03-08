@@ -49,8 +49,12 @@
 
 .idea-content div {
   font-size: 14px;
-  color: #333;
   line-height: 1.5;
+  line-height: 1.5;
+  word-wrap: break-word; /* 🔹 Spezza le parole lunghe */
+  overflow-wrap: break-word; /* 🔹 Alternativa per compatibilità */
+  white-space: normal;
+  
 }
 
 .read-more-btn {
@@ -76,28 +80,66 @@
 
 .vote-container {
   display: flex;
-  gap: 4px; /* Diminuisce lo spazio tra i due pulsanti */
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.vote-btn, .comment-btn {
+/* 🔹 Rimuove i bordi e lo sfondo dai pulsanti di voto */
+.vote-btn-upvote, 
+.vote-btn-downvote {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  color: #555;
+  gap : 6px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: color 0.2s;
-  padding: 8px;
+  transition: transform 0.2s ease-in-out;
 }
 
-.vote-btn:hover, .comment-btn:hover {
-  color: #0d0d52;
+/* 🔹 Effetto al passaggio del mouse */
+.vote-btn-upvote:hover, 
+.vote-btn-downvote:hover {
+  //transform: scale(1.1); /* Effetto di ingrandimento leggero */
+
+
 }
 
+.vote-btn-upvote img,
+.vote-btn-downvote img
+{
+  width: 25px;
+  height: 25px;
+}
+
+/* 🔹 Imposta la dimensione delle icone */
 .icon-btn {
   width: 20px;
   height: 20px;
   display: inline-block;
+}
+
+/* 🔹 Cambia il colore dell'icona quando selezionato */
+.selected-upvote .icon-btn {
+  filter: drop-shadow(0 0 4px #4caf50);
+}
+
+.selected-downvote .icon-btn {
+  filter: drop-shadow(0 0 4px #f44336);
+}
+
+
+.comment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0d0d52;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comment-btn:hover {
+  text-decoration: underline;
 }

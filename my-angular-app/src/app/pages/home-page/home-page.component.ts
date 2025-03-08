@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
-import { FooterComponent } from "../../components/footer/footer.component";
 import { IdeaListComponent } from '../../components/idea-list/idea-list.component';
 import { CreatePostModalComponent } from '../../components/create-post-modal/create-post-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home-page',
-  imports: [HeaderComponent, FooterComponent, IdeaListComponent],
+  imports: [HeaderComponent, IdeaListComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent {
-
+  selectedFilter: string = 'controverse';
   isCreatePostModalOpen: boolean = false;
+  
+
+  @Input() filterChanged: string = '';
 
   constructor(private dialog: MatDialog) {}
 
@@ -27,5 +29,10 @@ export class HomePageComponent {
         console.log('Post creato:', result);
       }
     });
+  }
+
+  onFilterChange(newFilter: string) {
+    console.log("Filtro cambiato:", newFilter);
+    this.selectedFilter = newFilter;
   }
 }

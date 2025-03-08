@@ -1,0 +1,18 @@
+<div class="user-page-container">
+    <app-header [showDropdown]="false" [showCreateButton]="false"></app-header>
+
+    <div class="user-page">
+        <div class="user-info">
+            <!-- ✅ Immagine profilo con possibilità di cambiarla -->
+            <label class="profile-img-container">
+                <img [src]="userProfileImage || 'default-profile.png'" alt="Foto profilo" class="profile-img" />
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden />
+
+            </label>
+
+            <h2>&#64;{{ userUsername || 'Caricamento...' }}</h2>
+        </div>
+    </div>
+
+    <app-idea-list [authorId]="userId"></app-idea-list>
+</div>

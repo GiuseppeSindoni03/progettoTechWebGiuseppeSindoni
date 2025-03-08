@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   userProfileImage: string = "";
-  selectedFilter: string = 'hot';
+  selectedFilter: string = 'controverse';
   dropdownOpen: boolean = false;
 
   @Input() showDropdown: boolean = true; // Mostra/nasconde il menu a tendina
@@ -27,14 +27,14 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
-    this.userService.getUserImage().subscribe(
-      (imageUrl) => {
+    this.userService.getUserImage().subscribe({
+      next: (imageUrl) => {
         this.userProfileImage = imageUrl; // ✅ Assegna direttamente la stringa
       },
-      (error) => {
+      error: (error) => {
         console.error("Errore nel recupero dell'immagine profilo:", error);
       }
-    );
+    });
   }
   
 
@@ -57,7 +57,8 @@ export class HeaderComponent {
   }
 
   goToProfile() {
-    //this.router.navigate(['/profile']);
+    console.log("👤 Naviga al profilo utente");
+    this.router.navigate(['/me']);
   }
 }
 

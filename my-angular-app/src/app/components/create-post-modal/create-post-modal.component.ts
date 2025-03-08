@@ -27,16 +27,23 @@ export class CreatePostModalComponent {
     this.createIdeaForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(400)]]
-    });
+    });  
+    
   }
 
 
   closeDialog(): void {
     this.dialogRef.close();
   }
+  
+  
 
   submitPost(): void {
-    if (this.createIdeaForm.invalid) return;
+    console.log('Creazione post:', this.createIdeaForm.value);
+    if (this.createIdeaForm.invalid) {
+      this.showValidationErrors();
+      return;
+    }
 
     this.isLoading = true; 
     const { title, content } = this.createIdeaForm.value;
@@ -54,5 +61,17 @@ export class CreatePostModalComponent {
         this.isLoading = false; 
       }
     });
+  }
+
+  showValidationErrors() {
+    if(this.createIdeaForm.get('title')?.invalid) {
+      this.toastr.error('Il titolo deve essere lungo tra 5 e 100 caratteri.', 'Errore');
+    }
+
+    if(this.createIdeaForm.get('content')?.invalid) {
+      this.toastr.error('Il contenuto deve essere lungo tra 10 e 400 caratteri.', 'Errore');
+    }
+      
+
   }
 }

@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 
 
 export interface User {
-    id: string;
+    data: any;
+    _id: string;
     email: string;
     username: string;
     name: string;
@@ -22,7 +23,7 @@ export class UserService {
 
     private apiUrl: string= 'http://localhost:4000/user';
 
-    private constructor(
+    constructor(
         private http: HttpClient
     ) {}
 
@@ -48,12 +49,11 @@ export class UserService {
       }
       
 
-    postUserImage(file: File): Observable<string> {
-        const formData = new FormData();
-        formData.append('file', file);
-
+    uploadUserImage(formData: FormData): Observable<string> {
         return this.http.post<{ imageUrl: string }>(`${this.apiUrl}/profile-image`, formData).pipe(
             map(response => response.imageUrl)
         );
     }
+
+    
 }

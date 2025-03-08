@@ -14,7 +14,7 @@
             <!-- Pulsanti -->
             <div class="modal-buttons">
                 <button mat-button class="cancel-btn" (click)="closeDialog()">Annulla</button>
-                <button mat-raised-button class="submit-btn" color="primary" type="submit" [disabled]="createIdeaForm.invalid || isLoading">
+                <button mat-raised-button class="submit-btn" color="primary" type="submit" [disabled]=" isLoading">
                     Crea
                 </button>
             </div>

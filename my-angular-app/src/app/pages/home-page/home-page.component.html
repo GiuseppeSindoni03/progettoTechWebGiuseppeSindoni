@@ -1,11 +1,17 @@
-<app-header [showDropdown]="true" [showCreateButton]="true" (createIdea)="openCreatePostModal()"></app-header>
+<app-header 
+  [showDropdown]="true" 
+  [showCreateButton]="true" 
+  (createIdea)="openCreatePostModal()"
+  (filterChanged)="onFilterChange($event)"
+  >
 
+</app-header>
+
+<div>
+  <p>a</p>
+</div>
 
 <div class="home-container">
-  <app-idea-list></app-idea-list> <!-- ✅ Mostriamo la lista delle idee -->
+  <app-idea-list [filter] = "selectedFilter"></app-idea-list> <!-- ✅ Mostriamo la lista delle idee -->
 </div>
 
-
-<div class ="footer-container">
-    <app-footer></app-footer>
-</div>
