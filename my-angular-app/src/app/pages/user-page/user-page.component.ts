@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { IdeaListComponent } from '../../components/idea-list/idea-list.component';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,8 +18,12 @@ export class UserPageComponent {
   userUsername: string = '';
   userProfileImage: string = '';
 
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent; 
+  @ViewChild(IdeaListComponent) ideaListComponent!: IdeaListComponent; 
+  
   constructor(
     private userService: UserService,
+    private router: Router
   ) { 
     console.log("DIO CANE")
   }
@@ -67,11 +72,17 @@ export class UserPageComponent {
         next: (response) => {
           console.log("✅ Immagine caricata con successo:", response);
           this.loadUserImage(); // Aggiorna immagine
+          this.headerComponent.loadUserImage(); // Aggiorna immagine nell'Header
+          this.ideaListComponent.loadIdeas(); // Aggiorna immagine negli Idea
         },
         error: (error) => {
           console.error("❌ Errore nel caricamento dell'immagine:", error);
         }
       });
     }
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
   }
 }

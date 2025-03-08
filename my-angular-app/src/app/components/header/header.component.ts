@@ -27,14 +27,7 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
-    this.userService.getUserImage().subscribe({
-      next: (imageUrl) => {
-        this.userProfileImage = imageUrl; // ✅ Assegna direttamente la stringa
-      },
-      error: (error) => {
-        console.error("Errore nel recupero dell'immagine profilo:", error);
-      }
-    });
+    this.loadUserImage();
   }
   
 
@@ -59,6 +52,17 @@ export class HeaderComponent {
   goToProfile() {
     console.log("👤 Naviga al profilo utente");
     this.router.navigate(['/me']);
+  }
+
+  loadUserImage() {
+    this.userService.getUserImage().subscribe({
+      next: (imageUrl) => {
+        this.userProfileImage = imageUrl;
+      },
+      error: (error) => {
+        console.error("Errore nel recupero dell'immagine profilo:", error);
+      }
+    });
   }
 }
 
