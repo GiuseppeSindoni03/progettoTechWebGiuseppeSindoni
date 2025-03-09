@@ -6,4 +6,5 @@ const auth_middleware_1 = require("../middleware/auth.middleware");
 const router = (0, express_1.Router)();
 router.post('/:ideaId/comments', auth_middleware_1.authenticateToken, comment_controller_1.postComment);
 router.delete('/:ideaId/comments/:commentId', auth_middleware_1.authenticateToken, comment_controller_1.deleteIdeaComment);
+router.get("/:id/comments", auth_middleware_1.authenticateToken, comment_controller_1.getCommentsByIdeaId);
 exports.default = router;

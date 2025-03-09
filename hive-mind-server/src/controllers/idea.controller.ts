@@ -41,9 +41,8 @@ export const getIdeasByUser = async (req: Request, res: Response) => {
     const authReq = req as AuthRequest; 
     const userId = authReq.user?.id; 
 
-    console.log("📌 Recupero idee per utente:", userId);
 
-    if (!isValidObjectId(userId)) {
+    if (!userId || !isValidObjectId(userId)) {
       res.status(400).send(new APIResponse(Status.ERROR, [], "Formato userId invalido"));
       return
     }
@@ -55,7 +54,6 @@ export const getIdeasByUser = async (req: Request, res: Response) => {
     page < 1 ? 1 : page;
     limit > 10 ? 10 : limit;
 
-    console.log(`📦 Recupero pagina ${page} con ${limit} idee per utente ${userId}`);
 
     // 🔹 Query con paginazione
     const ideas = await Idea.find({ author: userId })
@@ -65,7 +63,6 @@ export const getIdeasByUser = async (req: Request, res: Response) => {
       .skip((page - 1) * limit)
       .limit(limit);
 
-    console.log("📦 Idee recuperate:", ideas.length);
 
     if (ideas.length > 0) {
       res.status(200).send(new APIResponse(Status.SUCCESS, ideas, "Idee recuperate con successo"));
@@ -128,25 +125,35 @@ export const getIdeaById = async (req: Request, res: Response) => {
   try {
     const ideaId = req.params.id;
 
+
     if (!isValidObjectId(ideaId)) {
-       res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido")); return
+      res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido"));
+      return
     }
 
-    const idea = await Idea.findOne({ _id: ideaId })
-      .populate("author", "username")
-      .populate("comments.user", "username")
+   
+    const idea = await Idea.findById(ideaId)
+      .populate("author", "username") 
+      .populate({
+        path: "comments.author",
+        select: "username" 
+      })
+      .select("-__v"); 
+
+    
 
     if (!idea) {
-      res.status(404).send(new APIResponse(Status.ERROR, [], "Idea non trovata")); return
+      res.status(404).send(new APIResponse(Status.ERROR, [], "Idea non trovata"));
+      return
     }
 
     res.status(200).send(new APIResponse(Status.SUCCESS, idea, "Idea recuperata con successo"));
+  
   } catch (err) {
-    console.error("Errore nel recupero dell'idea:", err);
+    console.error("❌ Errore nel recupero dell'idea:", err);
     res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel recupero dell'idea"));
   }
 };
-
 export const deleteIdea = async (req: Request, res: Response) => {
   try {
     const authReq = req as AuthRequest;
@@ -203,6 +210,8 @@ export const getIdeasHome = async (req: Request, res: Response) => {
 
       page < 1 ? 1 : page;
       limit > 10 ? 10 : limit;
+
+
 
       console.log("Back end Recupero idee per tipo:", type);
       const pipeline = getIdeasPipeline(type, page, limit);

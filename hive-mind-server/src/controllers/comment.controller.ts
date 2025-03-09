@@ -9,6 +9,30 @@ import { Idea } from "../models/idea";
 dotenv.config();
 
 
+export const getCommentsByIdeaId = async (req: Request, res: Response) => {
+    try {
+      const ideaId = req.params.id;
+  
+      if (!isValidObjectId(ideaId)) {
+        res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido"));
+        return;
+      }
+  
+      const idea = await Idea.findById(ideaId).select("comments").populate("comments.author", "username profileImage");
+  
+      if (!idea) {
+        res.status(404).send(new APIResponse(Status.ERROR, [], "Idea non trovata"));
+        return;
+      }
+  
+      res.status(200).send(new APIResponse(Status.SUCCESS, idea.comments, "Commenti recuperati con successo"));
+    } catch (err) {
+      console.error("Errore nel recupero dei commenti:", err);
+      res.status(500).send(new APIResponse(Status.ERROR, [], "Errore nel recupero dei commenti"));
+    }
+  };
+  
+
 export const postComment = async (req: Request, res: Response) => {
     try {
         const authReq = req as AuthRequest; 
@@ -95,7 +119,7 @@ export const deleteIdeaComment = async (req: Request, res: Response) => {
       }
 
       if (!isUserAuthorizedToDeleteComment(comment.author.toString(), userId as string, idea.author.toString())) {
-        res.status(403).send(new APIResponse(Status.ERROR, [], "Non hai il permesso di cancellare questo commento"));
+        res.status(403).send(new APIResponse(Status.ERROR, [], "Solo l'autore del commento o dell'idea possono cancellare il commento"));
         return;
       }
 

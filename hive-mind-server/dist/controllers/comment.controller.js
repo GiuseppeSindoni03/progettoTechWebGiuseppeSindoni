@@ -12,12 +12,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteIdeaComment = exports.postComment = void 0;
+exports.deleteIdeaComment = exports.postComment = exports.getCommentsByIdeaId = void 0;
 const structure_1 = require("../utils/structure");
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = require("mongoose");
 const idea_1 = require("../models/idea");
 dotenv_1.default.config();
+const getCommentsByIdeaId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const ideaId = req.params.id;
+        if (!(0, mongoose_1.isValidObjectId)(ideaId)) {
+            res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
+            return;
+        }
+        const idea = yield idea_1.Idea.findById(ideaId).select("comments").populate("comments.author", "username profileImage");
+        if (!idea) {
+            res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
+            return;
+        }
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, idea.comments, "Commenti recuperati con successo"));
+    }
+    catch (err) {
+        console.error("Errore nel recupero dei commenti:", err);
+        res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero dei commenti"));
+    }
+});
+exports.getCommentsByIdeaId = getCommentsByIdeaId;
 const postComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -89,7 +109,7 @@ const deleteIdeaComment = (req, res) => __awaiter(void 0, void 0, void 0, functi
             return;
         }
         if (!isUserAuthorizedToDeleteComment(comment.author.toString(), userId, idea.author.toString())) {
-            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non hai il permesso di cancellare questo commento"));
+            res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Solo l'autore del commento o dell'idea possono cancellare il commento"));
             return;
         }
         idea.comments.pull({ _id: commentId });

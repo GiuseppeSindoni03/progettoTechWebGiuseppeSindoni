@@ -44,8 +44,7 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const authReq = req;
         const userId = (_a = authReq.user) === null || _a === void 0 ? void 0 : _a.id;
-        console.log("📌 Recupero idee per utente:", userId);
-        if (!(0, mongoose_1.isValidObjectId)(userId)) {
+        if (!userId || !(0, mongoose_1.isValidObjectId)(userId)) {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
@@ -54,7 +53,6 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const limit = parseInt(req.query.limit) || 10;
         page < 1 ? 1 : page;
         limit > 10 ? 10 : limit;
-        console.log(`📦 Recupero pagina ${page} con ${limit} idee per utente ${userId}`);
         // 🔹 Query con paginazione
         const ideas = yield idea_1.Idea.find({ author: userId })
             .populate("author", "username")
@@ -62,7 +60,6 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .select("-__v")
             .skip((page - 1) * limit)
             .limit(limit);
-        console.log("📦 Idee recuperate:", ideas.length);
         if (ideas.length > 0) {
             res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
@@ -121,9 +118,13 @@ const getIdeaById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
             return;
         }
-        const idea = yield idea_1.Idea.findOne({ _id: ideaId })
+        const idea = yield idea_1.Idea.findById(ideaId)
             .populate("author", "username")
-            .populate("comments.user", "username");
+            .populate({
+            path: "comments.author",
+            select: "username"
+        })
+            .select("-__v");
         if (!idea) {
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
@@ -131,7 +132,7 @@ const getIdeaById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, idea, "Idea recuperata con successo"));
     }
     catch (err) {
-        console.error("Errore nel recupero dell'idea:", err);
+        console.error("❌ Errore nel recupero dell'idea:", err);
         res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero dell'idea"));
     }
 });
