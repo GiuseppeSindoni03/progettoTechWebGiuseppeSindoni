@@ -3,6 +3,7 @@ import { IdeaService, Idea } from '../../services/idea.service';
 import { CommonModule } from '@angular/common';
 import { IdeaComponent } from '../idea/idea.component';
 import { Observable, of, tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-idea-list',
@@ -20,9 +21,17 @@ export class IdeaListComponent  {
 
   @Input() filter: string = ''; // 🔹 Input per filtrare le idee
   @Input() authorId: string | null = null; // 🔹 Per mostrare idee di un utente specifico
+  @Input() isExpanded: boolean = false;
+  @Input() showDeleteButton: boolean = false;
 
+  constructor(
+    private ideaService: IdeaService,
+    private toastr: ToastrService
+  ) {}
 
-  constructor(private ideaService: IdeaService) {}
+  ngOnInit() {
+    console.log("📌 showDeleteButton ricevuto:", this.showDeleteButton);
+  }
 
   ngOnChanges() {
     this.currentPage = 1;
@@ -86,6 +95,19 @@ export class IdeaListComponent  {
     window.scrollTo({
       top: 0,
       behavior: "smooth" // Effetto di scorrimento fluido
+    });
+  }
+
+  deleteIdea(ideaId: string) {
+    this.ideaService.deleteIdea(ideaId).subscribe({
+      next: () => {
+        confirm("Sei sicuro di voler cancellare questa idea?") ? this.loadIdeas() : null;
+        this.toastr.success("Idea cancellata con successo", "Successo");
+      },
+      error: (error) => {
+        console.error("Errore nella cancellazione dell'idea:", error);
+        this.toastr.error("Errore nella cancellazione dell'idea", "Errore");
+      }
     });
   }
 }

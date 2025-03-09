@@ -1,0 +1,94 @@
+//* {border : 1px solid red}
+
+/* Stile per il contenitore del commento */
+.comment-card {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 12px 16px;
+    margin: 12px auto;
+    font-family: Arial, sans-serif;
+    border-left: 4px solid #0d0d52; /* Bordo colorato per distinguere i commenti */
+}
+
+/* HEADER */
+.comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 10px;
+    
+}
+
+.comment-info {
+    display: flex;
+    flex-direction: row ;
+    gap: 4px;
+}
+
+.author-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0d0d52;
+}
+
+.author-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.author-info p {
+    margin: 2px 0;
+    font-size: 12px;
+    color: gray;
+}
+
+/* CONTENUTO */
+.comment-content {
+
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    color: #333;
+}
+
+/* Stile per il testo del commento */
+.comment-content p {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 5px 0;
+}
+
+
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+    transform: scale(1.1);
+}
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(0.5);
+}

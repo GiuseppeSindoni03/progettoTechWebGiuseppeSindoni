@@ -18,6 +18,7 @@ export class HeaderComponent {
 
   @Input() showDropdown: boolean = true; // Mostra/nasconde il menu a tendina
   @Input() showCreateButton: boolean = true; // Mostra/nasconde il bottone "Crea"
+
   @Output() createIdea = new EventEmitter<void>();
   @Output() filterChanged = new EventEmitter<string>();
   
@@ -46,7 +47,7 @@ export class HeaderComponent {
   }
 
   onCreateIdea() {
-    this.createIdea.emit(); // ✅ Invio l'evento alla Home Page
+    this.createIdea.emit(); 
   }
 
   goToProfile() {

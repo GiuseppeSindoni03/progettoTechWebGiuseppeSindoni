@@ -1,4 +1,5 @@
 /* Contenitore per immagine e bottone */
+//* {border: 1px solid red; }
 
 .user-page-container {
     display: flex;
@@ -79,5 +80,29 @@
 }
 
 .upload-btn:hover {
+    background: #1a1a88;
+}
+
+
+.user-ideas-container {
+    width: 100%;
+}
+
+.logout-btn {
+    background: #0d0d52;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px 18px;
+    width: 40%;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    width: 200px;
+  
+  }
+  
+.logout-btn:hover {
     background: #1a1a88;
 }

@@ -3,7 +3,8 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { IdeaListComponent } from '../../components/idea-list/idea-list.component';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-page',
@@ -23,7 +24,9 @@ export class UserPageComponent {
   
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService
   ) { 
     console.log("DIO CANE")
   }
@@ -84,5 +87,12 @@ export class UserPageComponent {
 
   goToHome() {
     this.router.navigate(['/home']);
+  }
+
+  logout() {
+    this.authService.logout();
+    console.log("✅ Logout effettuato");
+    this.toastr.success("Logout effettuato con successo", "Arrivederci!");
+    this.router.navigate(['/login']);
   }
 }

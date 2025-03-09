@@ -16,8 +16,21 @@ export interface Idea {
     username: string;
     profileImage: string;
   };
+  comments: Comment[];
   upvotes: number;
   downvotes: number;
+}
+
+export interface Comment {
+  ideaId: string;
+  _id: string;
+  author: {
+    _id: string;
+    username: string;
+    profileImage: string;
+  };
+  content: string;
+  timestamp: string;
 }
 
 @Injectable({
@@ -63,24 +76,22 @@ export class IdeaService {
 
   // 🔹 Cancella un'idea per ID
   deleteIdea(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(
+        error => {
+          console.error("Errore durante l'eliminazione dell'idea:", error);
+          return throwError(error);
+      }));
+    }
 
-  /*🔹 Recupera le idee per la homepage con paginazione e filtro
-  getIdeasHome(type: string): Observable<Idea[]> {
-    console.log(`Recupero idee per tipo: ${type}`);
-    return this.http.get<{ status: string; data: Idea[], message: string}>(
-      `${this.apiUrl}/${type}`
-    ).pipe(map(response => response.data));
-  }
-  */
+
  
   
   getIdeasHome(type: string, page: number = 1, limit: number = 10): Observable<Idea[]> {
     console.log(`📡 Recupero idee per tipo: ${type}, pagina: ${page}`);
 
     return this.http.get<{ status: string; data: Idea[], message: string }>(
-      `${this.apiUrl}/${type}?page=${page}&limit=${limit}`
+      `${this.apiUrl}/category/${type}?page=${page}&limit=${limit}`
     ).pipe(
       tap(response => console.log("📦 Risposta ricevuta:", response)),
       map(response => response.data || []),  // ✅ Ritorna un array vuoto se non ci sono idee
@@ -109,8 +120,31 @@ export class IdeaService {
       })
     );
   }
-  
 
+  postComment(ideaId: string, content: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${ideaId}/comments`, { content });
+  }
+  
+  getComments(ideaId: string): Observable<Comment[]> {
+    return this.http.get<{ status: string; data: Comment[] }>(
+      `${this.apiUrl}/${ideaId}/comments`).pipe(
+          map(response => response.data),
+          catchError(error => {
+            console.error("Errore nel recupero dei commenti:", error);
+            return of([]);
+          })
+        );
+  }
+  
+  deleteComment(ideaId: string, commentId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${ideaId}/comments/${commentId}`).pipe(
+      catchError(error => {
+        console.error("Errore durante l'eliminazione del commento:", error);
+        return throwError(error);
+      })
+    );
+  }
+  
 
   
 }

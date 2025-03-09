@@ -10,11 +10,24 @@
         {{ selectedFilter | uppercase }} ⌄
     </button>
     <ul *ngIf="dropdownOpen" class="dropdown-menu">
-        <li (click)="setFilter('controverse')">🔥 Controverse</li>
-        <li (click)="setFilter('mainstream')">🌎 Mainstream</li>
-        <li (click)="setFilter('unpopular')">📉 Unpopular</li>
-        <li (click)="setFilter('newest')">🆕 Newest</li>
-    </ul>
+      <li (click)="setFilter('controverse')">
+          
+          <p>🔥 Controverse</p>
+      </li>
+      <li (click)="setFilter('mainstream')">
+         
+          <p>🌎 Mainstream</p>
+      </li>
+      <li (click)="setFilter('unpopular')">
+         
+          <p>📉 Unpopular</p>
+      </li>
+      <li (click)="setFilter('newest')">
+         
+          <p>🆕 Newest</p>
+      </li>
+  </ul>
+  
   </div>
 
   <!-- Bottone "Crea" visibile solo se showCreateButton è true -->

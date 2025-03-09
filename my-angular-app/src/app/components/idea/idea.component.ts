@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Idea } from '../../services/idea.service';
 import { CommonModule } from '@angular/common';
@@ -8,19 +8,28 @@ import { IdeaService } from '../../services/idea.service';
 import { ToastrService } from 'ngx-toastr';
 
 
+
+
 @Component({
   selector: 'app-idea',
   templateUrl: './idea.component.html',
   styleUrls: ['./idea.component.scss'],
   standalone: true,
-  imports: [CommonModule] // ✅ Importiamo CommonModule per abilitare i pipe
+  imports: [CommonModule] 
 })
 export class IdeaComponent {
-  @Input() idea!: Idea;  // 🔹 Riceve un oggetto `Idea` come input
-  maxContentLength: number = 200; // 🔹 Limite di caratteri per il testo dell'idea
-  sanitizedContentHtml: SafeHtml = ''; // ✅ Dichiara la variabile
+  maxContentLength: number = 200;
+  sanitizedContentHtml: SafeHtml = ''; 
   authorProfileImage: string = '';
   userVote: number = 0;
+
+  @Input() idea!: Idea;
+  @Input() showComments: boolean = true;
+  @Input() isExpanded: boolean = false;
+  @Input() showDeleteButton: boolean = false;
+
+  @Output() ideaDeleted = new EventEmitter<string>();
+
 
   constructor(
     private router: Router, 
@@ -32,6 +41,9 @@ export class IdeaComponent {
   ) {}
 
   ngOnInit() {
+    //console.log("📌 showComments ricevuto:", this.showComments)
+    //console.log("📌 showDeleteButton ricevuto:", this.showDeleteButton);
+
     this.loadAuthorImage();
     this.sanitizeContent();
     this.getVote();
@@ -60,8 +72,8 @@ export class IdeaComponent {
   
 
   goToIdeaDetails() {
-    this.router.navigate(['/idea', this.idea._id]); // 🔹 Naviga alla pagina dei dettagli
-  }
+    this.router.navigate(['/idea', this.idea._id]); 
+   }
 
   upvote() {
     const newVote = 1
@@ -132,6 +144,11 @@ export class IdeaComponent {
       this.userVote = vote; // Aggiorniamo lo stato con il valore dal backend
     });
   }
+
+  deleteIdea() {
+   this.ideaDeleted.emit(this.idea._id);
+  }
+  
   
   
   

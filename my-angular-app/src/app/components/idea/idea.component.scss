@@ -1,3 +1,5 @@
+//*{ border: 1px solid red}
+
 .idea-card {
   width: 100%;
   max-width: 600px;
@@ -15,8 +17,17 @@
 .idea-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
   gap: 12px;
   margin-bottom: 10px;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 .profile-img {
@@ -97,13 +108,7 @@
   transition: transform 0.2s ease-in-out;
 }
 
-/* 🔹 Effetto al passaggio del mouse */
-.vote-btn-upvote:hover, 
-.vote-btn-downvote:hover {
-  //transform: scale(1.1); /* Effetto di ingrandimento leggero */
 
-
-}
 
 .vote-btn-upvote img,
 .vote-btn-downvote img
@@ -142,4 +147,51 @@
 
 .comment-btn:hover {
   text-decoration: underline;
+}
+
+.idea-card {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.983);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Stile per la versione ESPANSA */
+.idea-card.expanded {
+  max-width: 900px; /* Più grande rispetto alla home */
+  padding: 24px;
+  font-size: 18px;
+}
+
+.idea-card.expanded .idea-content h2 {
+  font-size: 26px; /* Titolo più grande */
+}
+
+.idea-card.expanded .idea-content div {
+  font-size: 20px; /* Testo più leggibile */
+}
+
+.idea-card.expanded h3 {
+  font-size: 30px; /* Titolo più grande */
+}
+
+.delete-btn {
+  background: none;
+  cursor: pointer;
+  border: none;
+}
+
+.delete-btn:hover {
+  transform: scale(1.1);
+}
+
+.delete-icon {
+  border: none;
+  width: 25px;
+  height: 25px;
+  filter: brightness(0) invert(0.5);
 }

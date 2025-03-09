@@ -1,10 +1,19 @@
-<div class="idea-card">
+<div class="idea-card" [ngClass]="{expanded: isExpanded}">
     <div class="idea-header">
-      <img [src]="authorProfileImage" alt="Profile Image" class="profile-img" />
-      <div class="author-info">
-        <h3>{{ idea.author.username }}</h3>
-        <p>{{ idea.timestamp | date: 'short' }}</p>
+      <div class="author-details">
+        <img [src]="authorProfileImage" alt="Profile Image" class="profile-img" />
+        <div class="author-info">
+          <h3>{{ idea.author.username }}</h3>
+          <p>{{ idea.timestamp | date: 'short' }}</p>
+        </div>
       </div>
+      
+      <div *ngIf="showDeleteButton">
+        <button  (click)="deleteIdea()" class="delete-btn">
+          <img src="trash3.svg" alt="Elimina idea" class="delete-icon" />
+        </button>
+      </div>
+      
     </div>
   
     <div class="idea-content">
@@ -31,7 +40,7 @@
       </div>
   
       <!-- Pulsante Commenti -->
-      <button (click)="goToIdeaDetails()" class="comment-btn">
+      <button (click)="goToIdeaDetails()" class="comment-btn" *ngIf="showComments">
         <img src="comment.svg" alt="Commenti" class="icon-btn" /> Commenti
       </button>
     </div>

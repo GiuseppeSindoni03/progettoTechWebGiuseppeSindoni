@@ -1,6 +1,14 @@
 <div *ngIf="(ideas$ | async) as ideas; else loading">
   <div *ngIf="ideas.length > 0">
-    <app-idea *ngFor="let idea of ideas" [idea]="idea"></app-idea>
+    <app-idea *ngFor="let idea of ideas" 
+      [idea]="idea" 
+      [showComments]="true" 
+      [isExpanded]="isExpanded"
+      [showDeleteButton]="showDeleteButton"
+        (ideaDeleted)="deleteIdea($event)"
+    ></app-idea>
+
+
 
     <!-- 🔹 Sezione paginazione -->
     <div class="pagination">
@@ -24,7 +32,7 @@
 
   <!-- 🔹 Nessuna idea disponibile -->
   <div *ngIf="ideas.length === 0" class="no-ideas">
-    <p *ngIf="currentPage === 1">🚀 Nessuna idea disponibile per questa categoria.</p>
+    <p *ngIf="currentPage === 1">Opss.. Nessuna idea disponibile </p>
     
     <div *ngIf="currentPage > 1" class="end-message">
       <p >📭 Non ci sono altre idee disponibili!</p>
@@ -39,3 +47,4 @@
 <ng-template #loading>
   <p>⏳ Caricamento idee...</p>
 </ng-template>
+

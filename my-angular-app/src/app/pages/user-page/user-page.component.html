@@ -16,11 +16,17 @@
             </label>
 
             <h2>&#64;{{ userUsername || 'Caricamento...' }}</h2>
+
+            <button class="logout-btn" (click)="logout()">Logout </button>
         </div>
     </div>
 
-    <app-idea-list 
+    <div class="user-ideas-container">
+        <app-idea-list 
         [authorId]="userId"
-        (profileImageUpdated)="loadUserImage()">
-    ></app-idea-list>
+        (profileImageUpdated)="loadUserImage()"
+        [showDeleteButton]="true">
+    </app-idea-list>
+    </div>
+    
 </div>
