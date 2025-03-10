@@ -152,3 +152,41 @@
   }
   
 
+  @media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column; /* Disposizione verticale */
+      height: auto; /* Altezza dinamica */
+      padding: 10px 15px;
+    }
+  
+    .logo {
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .dropdown {
+      position: relative; /* Non più assoluto */
+      left: 0;
+      transform: none;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+  
+    .create-btn-container {
+      position: relative;
+      right: 0;
+      top: 0;
+      transform: none;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+  
+    .profile-img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  

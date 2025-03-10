@@ -33,3 +33,17 @@ footer {
   nav a:hover {
     text-decoration: underline;
   }
+
+  @media screen and (max-width: 768px) {
+    .footer-nav {
+      font-size: 0.9em;
+    }
+
+  }
+
+  @media screen and (max-width: 450px) {
+    .footer-nav {
+      font-size: 0.8em;
+    }
+    
+  }

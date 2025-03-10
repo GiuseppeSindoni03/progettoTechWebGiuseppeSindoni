@@ -262,3 +262,130 @@ form {
 .login-link a:hover {
   text-decoration: underline;
 }
+@media  screen and  (max-width: 1024px){
+  
+  .registration-container h1 {
+    font-size: 2.5em;
+  }
+
+  .form-group input,
+  .password-group input {
+    height: 50px;
+    max-width: 500px;
+    font-size: 18px;
+  }
+
+  .register-btn {
+    width: 240px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+
+  .logo-container {
+    top: 10px;
+    left: 10px;
+  }
+  .logo-container img {
+    width: 90px;
+    height: auto;
+  }
+
+  .form-group input,
+  .password-group input {
+    height: 50px;
+    max-width: 500px;
+    font-size: 16px;
+  }
+
+  .registration-container h1{
+    font-size: 2em;
+  }
+  
+  .form-group label {
+    font-size: 18px;
+  }
+
+  .gender-options label {
+    font-size: 16px;
+  }
+
+  .login-link p {
+    font-size: 18px;
+  }
+
+  .register-btn {
+    width: 200px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: 5px;
+  font-size: 15px;
+  color: #0d0d52;
+  font-weight: bold;
+}
+
+.form-group button img {
+  width: 20px;
+  height: 20px;
+}
+
+  
+}
+
+@media screen and (max-width: 450px) {
+
+  
+  .logo-container img {
+    width: 75px;
+    height: auto;
+  }
+
+  .form-group input,
+  .password-group input {
+    height: 40px;
+    max-width: 400px;
+    font-size: 14px;
+  }
+
+  .register-btn {
+    width: 170px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .registration-container h1{
+    font-size: 1.8em;
+  }
+  
+  .form-group label {
+    font-size: 18px;
+  }
+
+  .gender-options label {
+    font-size: 14px;
+  }
+  .login-link p {
+    font-size: 16px;
+  }
+
+  .form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: 5px;
+  font-size: 14px;
+  color: #0d0d52;
+  font-weight: bold;
+}
+  
+
+.form-group button img {
+  width: 16px;
+  height: 16px;
+}
+}
