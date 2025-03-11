@@ -27,6 +27,8 @@
 
     // 🔹 Logo all'estrema sinistra
     .logo {
+      position: absolute;
+      left: 1%;
       display: flex;
       align-items: center;
       font-size: 2rem;
@@ -40,6 +42,7 @@
         height: 60px;
         margin-right: 8px;
         border-radius: 50%;
+        
       }
     }
   
@@ -54,13 +57,14 @@
         background: transparent;
         border: none;
         color: #ffffff;
-        font-size: 1.5rem;
+        font-size: 24px;
         font-weight: bold;
         cursor: pointer;
         padding: 5px 15px;
         border-radius: 5px;
         transition: background 0.3s ease;
-        min-width: 200px;
+        //min-width: 200px;
+        
   
         &:hover {
           background: rgba(255, 255, 255, 0.2);
@@ -76,7 +80,7 @@
         color: #000000;
         border-radius: 5px;
         list-style: none;
-        padding: 5px 0;
+        padding: 0;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         min-width: 150px;
         z-index: 1000;
@@ -121,21 +125,29 @@
         background: none;
         border: none;
         color: #ffffff;
-        font-size: 1.5rem;
+        font-size: 24px;
         font-weight: bold;
         cursor: pointer;
         padding: 5px 10px;
         border-radius: 5px;
         transition: background-color 0.3s ease;
+        
       
         &:hover {
           background-color: rgba(255, 255, 255, 0.183);
         }
       }
       
-  
+      
+    
+    .profile-img-container {
+      position: absolute ;
+      right: 1%;
+    }
+
     // 🔹 Immagine profilo sempre sulla destra
     .profile-img {
+      
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -152,41 +164,154 @@
   }
   
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
+
+    * {
+      border: 1px solid red;
+    }
     .navbar {
-      flex-direction: column; /* Disposizione verticale */
-      height: auto; /* Altezza dinamica */
-      padding: 10px 15px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
     }
   
-    .logo {
-      justify-content: center;
-      width: 100%;
-      text-align: center;
+    .logo p {
+      display: none;
     }
   
+    /* Spostiamo il dropdown a sinistra e ridimensioniamo il testo */
     .dropdown {
-      position: relative; /* Non più assoluto */
-      left: 0;
-      transform: none;
-      width: 100%;
-      text-align: center;
-      margin-top: 10px;
+      left: 33% !important;  
+      padding: 5px;
+      //transform: none !important;
     }
   
+    .dropdown-btn {
+      font-size: 20px !important; /* Riduci il testo ancora di più */
+      touch-action: manipulation;
+    }
+  
+    /* Assicuriamoci che il bottone "Crea" venga ridimensionato */
     .create-btn-container {
-      position: relative;
-      right: 0;
-      top: 0;
-      transform: none;
-      width: 100%;
-      text-align: center;
-      margin-top: 10px;
+      right: 25% !important;
+      padding: 5px;
+      width: 100px;
+      height: auto;
+      //transform: none !important;
     }
   
-    .profile-img {
-      width: 50px;
-      height: 50px;
+    .create-btn {
+      font-size: 20px !important;
+      height: auto  ;
+      width: 100px;
+      touch-action: manipulation;
     }
   }
+
   
+@media screen and (max-width: 768px) {
+
+  * {
+    border: 1px solid blueviolet;
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .logo p {
+    display: none;
+  }
+
+  /* Spostiamo il dropdown a sinistra e ridimensioniamo il testo */
+  .dropdown {
+    left: 33% !important;  
+    width: 180px;
+    padding: 0;
+    margin-left: 0;
+    //transform: none !important;
+  }
+
+  .dropdown-btn {
+    font-size: 16px !important; /* Riduci il testo ancora di più */
+    width: 180px !important;
+    touch-action: manipulation;
+  }
+
+  
+  /* Assicuriamoci che il bottone "Crea" venga ridimensionato */
+  .create-btn-container {
+    right: 25% !important;
+    padding: 5px;
+    width: 90px;
+    //height: 25px;
+    //transform: none !important;
+  }
+
+  .create-btn {
+    font-size: 16px !important;
+    width: 90px;
+    height: 20px;
+    touch-action: manipulation;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  * {
+    border: 1px solid green;
+  } 
+
+  .logo img {
+    //display: none;
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .profile-img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .dropdown {
+    
+    width: 170px;
+    padding: 0;
+    margin: 0;
+
+    //transform: none !important;
+  }
+  
+  .dropdown-btn {
+    font-size: 16px !important; 
+    width: 170px !important;
+    touch-action: manipulation;
+    }
+
+  
+
+  .dropdown-menu {
+    width: 160px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .dropdown-menu li p {
+    font-size: 16px !important;
+  }
+
+  .create-btn-container {
+    right: 25% !important;
+    padding: 5px;
+    width: 80px;
+    //transform: none !important;
+  }
+
+  .create-btn {
+    font-size: 16px !important;
+    width: 80px;
+    height: 18px;
+    touch-action: manipulation;
+  }
+}

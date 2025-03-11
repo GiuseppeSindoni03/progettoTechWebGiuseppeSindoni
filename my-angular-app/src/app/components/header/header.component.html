@@ -1,7 +1,7 @@
 <nav class="navbar">
   <div class="logo" >
       <img src="logo_no_write.png" alt="Hive Mind Logo" (click)="goToHome()"/>
-      HIVE MIND
+      <p>HIVE MIND</p>
   </div>
 
   <!-- Menu a tendina visibile solo se showDropdown è true -->
@@ -35,7 +35,7 @@
     <button class="create-btn" (click)="onCreateIdea()">+ CREA</button>
   </div>
   
-  <div>
+  <div class="profile-img-container">
     <img [src]="userProfileImage" alt="Foto profilo" class="profile-img" (click)="goToProfile()" />
   </div>
 </nav>
