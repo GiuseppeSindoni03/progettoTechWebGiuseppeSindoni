@@ -10,7 +10,7 @@
     "header"
     "main"
     "footer";
-  width: 100vh;
+  width: 100%;
   min-height: 100vh; /* Altezza minima della viewport */
   justify-items: center; /* Centra gli elementi orizzontalmente */
   justify-content: center;
@@ -36,8 +36,8 @@
   gap: 50px;
   width: 80%;
   max-width: 1000px;
-  height: 100%;
-  min-height: 70vh;
+  //height: 100%;
+  min-height: 85vh;
   margin: auto;
 }
 
@@ -237,7 +237,51 @@ h2 {
 }
 
 
+footer {
+  grid-area: footer;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  margin-top: auto;
+  background: #ffffff;
+}
 
+/* Contenitore del footer */
+.footer-nav {
+  display: flex;
+  gap: 10px; /* Distanza tra i link */
+  align-items: center;
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+nav a, nav span {
+  color: #0d0d52;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-nav {
+    font-size: 0.9em;
+  }
+
+}
+
+@media screen and (max-width: 450px) {
+  .footer-nav {
+    font-size: 0.8em;
+  }
+  
+}
 
 //MEDIA QUERY
 
@@ -286,7 +330,9 @@ h2 {
     font-size: 0.8em;
     padding: 8px 0;
     text-align: center;
+   
   }
+
   .login-component {
     display: flex;
     flex-direction: column;
@@ -556,4 +602,47 @@ h2 {
     width: 16px;
     height: 16px;
   }
+}
+
+@media screen and (max-width: 375px) {
+
+  //* {border: 1px solid red;}
+
+  .title {
+    font-size: 1.3em;
+    text-align: center;
+  }
+
+
+
+  .login-image img {
+    width: 150px; /* Riduce l'immagine per evitare sovrapposizioni */
+  }
+
+
+  .form-group input {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%; /* Assicura che gli input siano centrati */
+    max-width: 400px; /* Evita che diventino troppo larghi */
+    height: 40px;
+  }
+
+
+  
+  
+  .form-group input:focus + label,
+  .form-group input:not(:placeholder-shown) + label {
+    top: 5px;
+    font-size: 14px;
+    color: #0d0d52;
+    font-weight: bold;
+  }
+
+  .form-group button img {
+    width: 16px;
+    height: 16px;
+  }
+
+
 }

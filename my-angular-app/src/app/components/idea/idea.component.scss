@@ -1,8 +1,8 @@
-//*{ border: 1px solid red}
+//*{ border: 1px solid red} 
 
 .idea-card {
   width: 100%;
-  max-width: 600px;
+  //max-width: 600px;
   background: rgba(255, 255, 255, 0.983);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,6 +15,7 @@
 
 /* HEADER */
 .idea-header {
+  //display: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,10 +58,11 @@
   margin-bottom: 8px;
   font-weight: bold;
 }
-
+.idea-content {
+  //display: none;
+}
 .idea-content div {
   font-size: 14px;
-  line-height: 1.5;
   line-height: 1.5;
   word-wrap: break-word; /* 🔹 Spezza le parole lunghe */
   overflow-wrap: break-word; /* 🔹 Alternativa per compatibilità */
@@ -82,11 +84,13 @@
 }
 
 .idea-footer {
+  //border: 1px solid green;
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
-  border-top: 1px solid #eee;
+  //border-top: 1px solid #eee;
   margin-top: 10px;
+  height: 25px;
 }
 
 .vote-container {
@@ -194,4 +198,94 @@
   width: 25px;
   height: 25px;
   filter: brightness(0) invert(0.5);
+}
+
+@media screen and (max-width: 1024px) {
+  *{
+    border: 1px solid green;
+  }
+
+  .idea-card {
+    width: 600px;
+    height: fit-content;
+  }
+
+  .idea-content {
+    //height: 150px;
+  }
+
+  .profile-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .idea-content h2 {
+    font-size: 20px;
+  }
+
+  .idea-content div{
+    font-size: 14px;
+  }
+ 
+}
+
+
+
+@media screen and (max-width: 768px) {
+  *{
+    border: 1px solid blueviolet;
+  }
+
+  .idea-card {
+    width: 500px;
+    height: fit-content;
+  }
+
+  .idea-content {
+    //height: 150px;
+  }
+
+  .profile-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .idea-content h2 {
+    font-size: 18px;
+  }
+
+  .idea-content div{
+    font-size: 12px;
+  }
+ 
+}
+
+
+@media screen and (max-width: 600px) {
+  *{
+    border: 1px solid rgb(43, 226, 202);
+  }
+
+  .idea-card {
+    width: 400px;
+    height: fit-content;
+  }
+
+  .idea-content {
+    //height: 150px;
+  }
+
+  .profile-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .idea-content h2 {
+    font-size: 14px;
+  }
+
+  .idea-content div{
+    font-size: 12px;
+  }
+ 
 }

@@ -7,7 +7,7 @@
   <!-- Menu a tendina visibile solo se showDropdown è true -->
   <div class="dropdown" *ngIf="showDropdown">
     <button class="dropdown-btn" (click)="toggleDropdown()">
-        {{ selectedFilter | uppercase }} ⌄
+     {{ selectedFilter | uppercase }} <img src="drop.svg" alt="Freccia giù" class="drop-icon" />
     </button>
     <ul *ngIf="dropdownOpen" class="dropdown-menu">
       <li (click)="setFilter('controverse')">

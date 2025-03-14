@@ -103,4 +103,97 @@
   }
   
   
-  
+  @media screen and (max-width: 1024px) {
+
+    *{ border: 1px solid red; }
+    
+    .modal-container {
+      width: 450px;
+    }
+
+    .input-label {
+      font-size: 20px;
+    }
+
+    .modal-title{
+      font-size: 2rem;
+    }
+
+    input, text-area {
+      font-size: 18px;
+    }
+
+    .input-label {
+      font-size: 22px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 18px; 
+     
+    }
+
+    
+  }
+
+  @media screen and (max-width: 768px) {
+    *{ border: 1px solid blueviolet; }
+
+    .modal-container {
+      width: 400px;
+    }
+
+    .input-label {
+      font-size: 18px;
+    }
+
+    .modal-title{
+      font-size: 1.7rem;
+    }
+
+    input, text-area {
+      font-size: 16px;
+    }
+
+    .input-label {
+      font-size: 18px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 16px; 
+     
+    }
+    
+  }
+
+  @media screen and (max-width: 600px) {
+    *{ border: 1px solid white; }
+
+    
+    .modal-container {
+      width: 300px;
+    }
+
+    .input-label {
+      font-size: 16px;
+    }
+
+    .modal-title{
+      font-size: 1.5rem;
+    }
+
+    input, textarea.content  {
+      font-size: 14px;
+    }
+
+    .input-label {
+      font-size: 16px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 14px; 
+     
+    }
+  }

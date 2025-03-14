@@ -54,6 +54,8 @@
       display: inline-block;
   
       .dropdown-btn {
+        display: flex;
+        align-items: center;
         background: transparent;
         border: none;
         color: #ffffff;
@@ -215,6 +217,11 @@
     border: 1px solid blueviolet;
   }
 
+  .dropdown-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
   .navbar {
     display: flex;
     flex-direction: row;
@@ -228,15 +235,15 @@
   /* Spostiamo il dropdown a sinistra e ridimensioniamo il testo */
   .dropdown {
     left: 33% !important;  
-    width: 180px;
+    width: 140px !important;
     padding: 0;
     margin-left: 0;
     //transform: none !important;
   }
 
   .dropdown-btn {
-    font-size: 16px !important; /* Riduci il testo ancora di più */
-    width: 180px !important;
+    font-size: 14px !important; /* Riduci il testo ancora di più */
+    width: 140px !important;
     touch-action: manipulation;
   }
 
@@ -251,67 +258,67 @@
   }
 
   .create-btn {
-    font-size: 16px !important;
+    font-size: 14px !important;
     width: 90px;
-    height: 20px;
+    height: 16px;
     touch-action: manipulation;
   }
 }
 
 @media screen and (max-width: 450px) {
-  * {
-    border: 1px solid green;
-  } 
 
+  .navbar {
+    padding: 5px;
+  }
+
+  /* 🔹 Logo */
   .logo img {
-    //display: none;
-    width: 50px !important;
-    height: 50px !important;
+    width: 40px !important;
+    height: 40px !important;
   }
 
-  .profile-img {
-    width: 50px !important;
-    height: 50px !important;
-  }
-
+  /* 🔹 Dropdown Menu */
   .dropdown {
-    
-    width: 170px;
-    padding: 0;
-    margin: 0;
-
-    //transform: none !important;
+    left: 30% !important;  
+    width: 140px !important;
+    margin-left: 10px;
   }
-  
-  .dropdown-btn {
-    font-size: 16px !important; 
-    width: 170px !important;
-    touch-action: manipulation;
-    }
 
-  
+  .dropdown-btn {
+    font-size: 12px !important; 
+    width: 120px !important;
+    padding: 4px 10px;
+    touch-action: manipulation;
+  }
 
   .dropdown-menu {
-    width: 160px;
-    padding: 0;
-    margin: 0;
+    width: 120px;
+    min-width: 120px;
   }
 
-  .dropdown-menu li p {
-    font-size: 16px !important;
+  .dropdown-menu li {
+    font-size: 12px !important;
+    padding: 6px 8px;
   }
 
+  /* 🔹 Bottone "Crea" */
   .create-btn-container {
-    right: 25% !important;
-    padding: 5px;
-    width: 80px;
-    //transform: none !important;
+    right: 20% !important;
+    padding: 3px;
+    width: 75px;
   }
 
   .create-btn {
-    font-size: 16px !important;
-    width: 80px;
-    height: 18px;
+    font-size: 12px !important;
+    width: 75px;
+    height: 14px;
+    padding: 4px 8px;
     touch-action: manipulation;
+  }
+
+  /* 🔹 Profilo */
+  .profile-img {
+    width: 40px !important;
+    height: 40px !important;
   }
 }

@@ -3,6 +3,8 @@
 }
 
 
+//*{ border: 1px solid red}
+
 
 
 
@@ -11,7 +13,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh; /* Assicura che il contenuto si adatti alla viewport */
   width: 100%;
   padding-bottom: 20px;
   box-sizing: border-box;
@@ -19,18 +21,22 @@
 }
 
 /* Navbar */
-.navbar {
+.logo-container {
   position: absolute;
+  width: 100%;
   top: 20px;
   left: 20px;
   display: flex;
   align-items: center;
+  
 }
 
 /* Contenitore del logo */
 .logo-container img {
   width: 125px;
   height: auto;
+  margin-right: 8px;
+  cursor: pointer;
 }
 
 /* Titolo */
@@ -49,6 +55,7 @@
   align-items: center;
   width: 90%;
   max-width: 500px;
+  margin-top: 100px;
 
 }
 
@@ -285,9 +292,22 @@ form {
 
 @media screen and (max-width: 768px) {
 
+  .logo-container img {
+    //display: none;
+  }
+
+  .registration-container {
+    height: auto; /* Non forzare 100vh, lascia che cresca naturalmente */
+    padding: 20px; /* Aggiungi spazio invece di vincolare altezza */
+  }
+
+  .registration-form{
+    margin-top: 50px;
+  }
+
   .logo-container {
-    top: 10px;
-    left: 10px;
+    top: 0px;
+    left: 0px;
   }
   .logo-container img {
     width: 90px;
@@ -346,6 +366,54 @@ form {
     width: 75px;
     height: auto;
   }
+
+  .form-group input,
+  .password-group input {
+    height: 40px;
+    max-width: 400px;
+    font-size: 14px;
+  }
+
+  .register-btn {
+    width: 170px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .registration-container h1{
+    font-size: 1.8em;
+  }
+  
+  .form-group label {
+    font-size: 18px;
+  }
+
+  .gender-options label {
+    font-size: 14px;
+  }
+  .login-link p {
+    font-size: 16px;
+  }
+
+  .form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: 5px;
+  font-size: 14px;
+  color: #0d0d52;
+  font-weight: bold;
+}
+  
+
+.form-group button img {
+  width: 16px;
+  height: 16px;
+}
+}
+
+@media screen and (max-width: 375px) {
+
+  
+  
 
   .form-group input,
   .password-group input {
