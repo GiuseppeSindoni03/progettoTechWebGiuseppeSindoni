@@ -18,8 +18,9 @@
   
     <div class="idea-content">
       <h2>{{ idea.title }}</h2>
-      <div [innerHTML]="sanitizedContentHtml" class="idea-description"
-      ></div> 
+      <div class="idea-description">
+        <p [innerHTML]="sanitizedContentHtml"></p>
+      </div> 
       
     
     </div>

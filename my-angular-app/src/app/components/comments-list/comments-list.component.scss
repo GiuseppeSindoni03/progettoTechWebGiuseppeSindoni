@@ -1,6 +1,7 @@
+
 /* Contenitore principale della lista commenti */
 .comments-list-container {
-    border: 1px solid red;
+    //border: 1px solid red;
     width: 100%;
     max-width: 650px;
     background: rgba(255, 255, 255, 0.98);
@@ -14,7 +15,7 @@
 
 /* Titolo della sezione commenti */
 .comments-title {
-    border: 1px solid green;
+    //border: 1px solid green;
     font-size: 26px;
     font-weight: bold;
     color: #0d0d52;
@@ -24,12 +25,12 @@
 
 /* Contenitore di ogni commento */
 .comment-card-container {
-    border: 1px solid blue;
+   // border: 1px solid blue;
     margin-bottom: 12px;
 }
 
 .comment-form {
-    border: 1px solid magenta;
+    //border: 1px solid magenta;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -82,9 +83,11 @@
 /* Ottimizzazione per i dispositivi mobili */
 
 @media screen and (max-width: 1024px) {
+
+
     .comments-list-container {
-        max-width: 100%;
-        padding: 12px;
+        
+        width: 100%;
     }
 
     .comments-title {

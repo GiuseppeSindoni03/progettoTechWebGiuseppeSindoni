@@ -168,9 +168,9 @@
 
   @media screen and (max-width: 1024px) {
 
-    * {
-      border: 1px solid red;
-    }
+    // * {
+    //   border: 1px solid red;
+    // }
     .navbar {
       display: flex;
       flex-direction: row;
@@ -213,9 +213,9 @@
   
 @media screen and (max-width: 768px) {
 
-  * {
-    border: 1px solid blueviolet;
-  }
+  // * {
+  //   border: 1px solid blueviolet;
+  // }
 
   .dropdown-btn img {
     width: 16px;
@@ -268,13 +268,14 @@
 @media screen and (max-width: 450px) {
 
   .navbar {
-    padding: 5px;
+    //width: 30px;
   }
 
   /* 🔹 Logo */
   .logo img {
     width: 40px !important;
     height: 40px !important;
+    
   }
 
   /* 🔹 Dropdown Menu */
@@ -320,5 +321,8 @@
   .profile-img {
     width: 40px !important;
     height: 40px !important;
+    margin-right: auto;
   }
 }
+
+

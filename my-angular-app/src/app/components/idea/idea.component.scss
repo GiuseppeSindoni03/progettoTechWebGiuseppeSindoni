@@ -228,7 +228,7 @@
 
   .idea-card {
     width: 500px;
-    height: fit-content;
+   //height: fit-content;
   }
 
   // .idea-content {
@@ -246,25 +246,28 @@
 
   .idea-content div{
     
-    height: 100px;
+    //height: fit-content;
   }
 
-  .idea-description {
-    font-size: 14px;
-  }
 
   .idea-header .author-info h3 {
     font-size: 16px;
     
+  }
+
+  .delete-icon {
+    width: 20px;
+    height: 20px;
+
   }
  
 }
 
 
 @media screen and (max-width: 600px) {
-  *{
-    border: 1px solid rgb(43, 226, 202);
-  }
+  // *{
+  //   border: 1px solid rgb(43, 226, 202);
+  // }
 
   .idea-card {
     width: 400px;
@@ -291,8 +294,14 @@
 }
 
 @media screen and (max-width: 450px) {
-  *{
-    border: 1px solid rgb(43, 226, 202);
+  // *{
+  //   border: 1px solid rgb(43, 226, 202);
+  // }
+
+  .delete-icon {
+    width: 15px;
+    height: 15px;
+
   }
 
   .idea-card {
@@ -310,7 +319,12 @@
   }
 
   .idea-content h2 {
-    font-size: 12px;
+    font-size: 18px !important;
+    
+  }
+
+  .idea-description p {
+    font-size: 14px;
   }
 
   .idea-content div{

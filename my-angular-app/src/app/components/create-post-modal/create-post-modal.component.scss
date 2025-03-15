@@ -105,7 +105,7 @@ textarea {
 
 @media screen and (max-width: 1024px) {
 
-  *{ border: 1px solid red; }
+  //*{ border: 1px solid red; }
   
   .modal-container {
     width: 450px;
@@ -137,7 +137,7 @@ textarea {
 }
 
 @media screen and (max-width: 768px) {
-  *{ border: 1px solid blueviolet; }
+  //*{ border: 1px solid blueviolet; }
 
   .modal-container {
     width: 400px;
@@ -169,7 +169,7 @@ textarea {
 }
 
 @media screen and (max-width: 600px) {
-  *{ border: 1px solid white; }
+  //*{ border: 1px solid white; }
 
   
   .modal-container {
