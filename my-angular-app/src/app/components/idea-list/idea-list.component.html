@@ -1,4 +1,4 @@
-<div *ngIf="(ideas$ | async) as ideas; else loading">
+<div *ngIf="(ideas$ | async) as ideas; else loading" class="idea-list">
   <div *ngIf="ideas.length > 0">
     <app-idea *ngFor="let idea of ideas" 
       [idea]="idea" 

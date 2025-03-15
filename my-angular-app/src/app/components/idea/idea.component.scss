@@ -1,14 +1,17 @@
-//*{ border: 1px solid red} 
 
 .idea-card {
-  width: 100%;
-  //max-width: 600px;
+  width: 650px;
   background: rgba(255, 255, 255, 0.983);
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin: 20px auto;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
+  //overflow: hidden; 
+  //text-overflow: ellipsis; /* ✅ Mostra "..." se troppo lungo */
+  word-wrap: break-word; /* ✅ Spezza parole lunghe */
+  overflow-wrap: break-word; /* ✅ Alternativa per compatibilità */
+  white-space: normal; /* ✅ Permette di andare a capo */
   //transition: transform 0.2s ease-in-out;
 }
 
@@ -59,14 +62,25 @@
   font-weight: bold;
 }
 .idea-content {
-  //display: none;
+  width: 100%;
+  max-width: 100%;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+ 
 }
+
 .idea-content div {
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word; /* 🔹 Spezza le parole lunghe */
   overflow-wrap: break-word; /* 🔹 Alternativa per compatibilità */
   white-space: normal;
+  overflow-y: auto; /* ✅ Se necessario, abilita lo scrolling verticale */
+  max-height: 400px; /* ✅ Evita che il contenuto si espanda all'infinito */
+
   
 }
 
@@ -84,13 +98,12 @@
 }
 
 .idea-footer {
-  //border: 1px solid green;
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
-  //border-top: 1px solid #eee;
   margin-top: 10px;
   height: 25px;
+  flex-wrap: wrap; 
 }
 
 .vote-container {
@@ -100,7 +113,6 @@
   gap: 12px;
 }
 
-/* 🔹 Rimuove i bordi e lo sfondo dai pulsanti di voto */
 .vote-btn-upvote, 
 .vote-btn-downvote {
   background: none;
@@ -121,21 +133,13 @@
   height: 25px;
 }
 
-/* 🔹 Imposta la dimensione delle icone */
 .icon-btn {
   width: 20px;
   height: 20px;
   display: inline-block;
 }
 
-/* 🔹 Cambia il colore dell'icona quando selezionato */
-.selected-upvote .icon-btn {
-  filter: drop-shadow(0 0 4px #4caf50);
-}
 
-.selected-downvote .icon-btn {
-  filter: drop-shadow(0 0 4px #f44336);
-}
 
 
 .comment-btn {
@@ -153,16 +157,6 @@
   text-decoration: underline;
 }
 
-.idea-card {
-  width: 100%;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.983);
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  margin: 20px auto;
-  font-family: Arial, sans-serif;
-}
 
 /* Stile per la versione ESPANSA */
 .idea-card.expanded {
@@ -201,9 +195,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  *{
-    border: 1px solid green;
-  }
+  
 
   .idea-card {
     width: 600px;
@@ -232,18 +224,16 @@
 
 
 @media screen and (max-width: 768px) {
-  *{
-    border: 1px solid blueviolet;
-  }
+  
 
   .idea-card {
     width: 500px;
     height: fit-content;
   }
 
-  .idea-content {
-    //height: 150px;
-  }
+  // .idea-content {
+  //   height: 150px;
+  // }
 
   .profile-img {
     width: 60px;
@@ -255,7 +245,17 @@
   }
 
   .idea-content div{
-    font-size: 12px;
+    
+    height: 100px;
+  }
+
+  .idea-description {
+    font-size: 14px;
+  }
+
+  .idea-header .author-info h3 {
+    font-size: 16px;
+    
   }
  
 }
@@ -286,6 +286,35 @@
 
   .idea-content div{
     font-size: 12px;
+  }
+ 
+}
+
+@media screen and (max-width: 450px) {
+  *{
+    border: 1px solid rgb(43, 226, 202);
+  }
+
+  .idea-card {
+    width: 300px;
+    height: fit-content;
+  }
+
+  .idea-content {
+    //height: 150px;
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .idea-content h2 {
+    font-size: 12px;
+  }
+
+  .idea-content div{
+    font-size: 10px;
   }
  
 }

@@ -1,13 +1,17 @@
 *{
   font-style: 'Inter', sans-serif;
+
 }
 
 .idea-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
-    max-width: 800px;
+    width: 650px;
+    min-width: 300px;
+    height: fit-content;
     margin: 0 auto;
   }
   
@@ -24,8 +28,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 400px;
     gap: 15px;
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
   
   .pagination button, .back {
@@ -42,7 +51,6 @@
   }
   
 
-
   
   .pagination button:disabled {
     background-color: #ccc;
@@ -57,4 +65,31 @@
     min-height: 200px; // ✅ Evita che il footer salga troppo in alto
   }
 
-  
+  @media screen and (max-width: 768px) {
+    .idea-list {
+      
+      width: 90%;
+      min-width: auto;
+     
+    }
+    
+    
+
+    .pagination img {
+      width: 12px;
+      height: 12px;
+    }
+
+    .pagination button, .back {
+    
+      height: 25px;
+      font-size: 12px;
+      min-width: 80px;
+      
+
+    }
+
+    .end-message{
+      font-size: 14px;
+    }
+  }

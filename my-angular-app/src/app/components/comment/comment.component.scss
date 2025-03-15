@@ -92,3 +92,42 @@
     height: 20px;
     filter: brightness(0) invert(0.5);
 }
+
+@media screen and (max-width: 1024px) {
+    .comment-card-container {
+        width: 90%;
+        border: 1px salmon solid;
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    .comment-card-container {
+        width: 90%;
+        border: 1px salmon solid;
+    }
+    
+    .comment-header .profile-img{
+        width: 40px;
+        height: 40px;
+        
+    }
+
+    .delete-icon {
+        width: 15px;
+        height: 15px;
+    }
+    .author-info h3 {
+        font-size: 14px;
+    }
+
+    .author-info p {
+        font-size: 10px;
+    }
+
+
+    .comment-content p {
+        font-size: 14px;
+    }
+    
+}
