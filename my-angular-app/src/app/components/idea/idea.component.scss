@@ -7,18 +7,14 @@
   padding: 16px;
   margin: 20px auto;
   font-family: 'Inter', sans-serif;
-  //overflow: hidden; 
-  //text-overflow: ellipsis; /* ✅ Mostra "..." se troppo lungo */
-  word-wrap: break-word; /* ✅ Spezza parole lunghe */
-  overflow-wrap: break-word; /* ✅ Alternativa per compatibilità */
-  white-space: normal; /* ✅ Permette di andare a capo */
-  //transition: transform 0.2s ease-in-out;
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  white-space: normal; 
 }
 
 
-/* HEADER */
+
 .idea-header {
-  //display: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +51,6 @@
   color: gray;
 }
 
-/* CONTENUTO */
 .idea-content h2 {
   font-size: 20px;
   margin-bottom: 8px;
@@ -75,11 +70,11 @@
 .idea-content div {
   font-size: 14px;
   line-height: 1.5;
-  word-wrap: break-word; /* 🔹 Spezza le parole lunghe */
-  overflow-wrap: break-word; /* 🔹 Alternativa per compatibilità */
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
   white-space: normal;
-  overflow-y: auto; /* ✅ Se necessario, abilita lo scrolling verticale */
-  max-height: 400px; /* ✅ Evita che il contenuto si espanda all'infinito */
+  overflow-y: auto; 
+  max-height: 400px; 
 
   
 }
@@ -158,23 +153,22 @@
 }
 
 
-/* Stile per la versione ESPANSA */
 .idea-card.expanded {
-  max-width: 900px; /* Più grande rispetto alla home */
+  max-width: 900px; 
   padding: 24px;
   font-size: 18px;
 }
 
 .idea-card.expanded .idea-content h2 {
-  font-size: 26px; /* Titolo più grande */
+  font-size: 26px; 
 }
 
 .idea-card.expanded .idea-content div {
-  font-size: 20px; /* Testo più leggibile */
+  font-size: 20px;
 }
 
 .idea-card.expanded h3 {
-  font-size: 30px; /* Titolo più grande */
+  font-size: 30px; 
 }
 
 .delete-btn {
@@ -202,10 +196,6 @@
     height: fit-content;
   }
 
-  .idea-content {
-    //height: 150px;
-  }
-
   .profile-img {
     width: 70px;
     height: 70px;
@@ -228,12 +218,9 @@
 
   .idea-card {
     width: 500px;
-   //height: fit-content;
+
   }
 
-  // .idea-content {
-  //   height: 150px;
-  // }
 
   .profile-img {
     width: 60px;
@@ -242,11 +229,6 @@
 
   .idea-content h2 {
     font-size: 18px;
-  }
-
-  .idea-content div{
-    
-    //height: fit-content;
   }
 
 
@@ -265,18 +247,13 @@
 
 
 @media screen and (max-width: 600px) {
-  // *{
-  //   border: 1px solid rgb(43, 226, 202);
-  // }
+
 
   .idea-card {
     width: 400px;
     height: fit-content;
   }
 
-  .idea-content {
-    //height: 150px;
-  }
 
   .profile-img {
     width: 50px;
@@ -294,10 +271,6 @@
 }
 
 @media screen and (max-width: 450px) {
-  // *{
-  //   border: 1px solid rgb(43, 226, 202);
-  // }
-
   .delete-icon {
     width: 15px;
     height: 15px;
@@ -307,10 +280,6 @@
   .idea-card {
     width: 300px;
     height: fit-content;
-  }
-
-  .idea-content {
-    //height: 150px;
   }
 
   .profile-img {

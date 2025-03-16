@@ -4,7 +4,7 @@
       <p>HIVE MIND</p>
   </div>
 
-  <!-- Menu a tendina visibile solo se showDropdown è true -->
+  
   <div class="dropdown" *ngIf="showDropdown">
     <button class="dropdown-btn" (click)="toggleDropdown()">
      {{ selectedFilter | uppercase }} <img src="drop.svg" alt="Freccia giù" class="drop-icon" />
@@ -30,7 +30,7 @@
   
   </div>
 
-  <!-- Bottone "Crea" visibile solo se showCreateButton è true -->
+  
   <div class="create-btn-container" *ngIf="showCreateButton">
     <button class="create-btn" (click)="onCreateIdea()">+ CREA</button>
   </div>

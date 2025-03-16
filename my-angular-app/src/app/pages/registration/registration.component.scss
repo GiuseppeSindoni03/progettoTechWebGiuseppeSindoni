@@ -3,7 +3,7 @@
 }
 
 
-//*{ border: 1px solid red}
+
 
 
 
@@ -13,14 +13,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Assicura che il contenuto si adatti alla viewport */
-  width: 100%;
+  min-height: 100vh;   width: 100%;
   padding-bottom: 20px;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-/* Navbar */
 .logo-container {
   position: absolute;
   width: 100%;
@@ -31,7 +29,6 @@
   
 }
 
-/* Contenitore del logo */
 .logo-container img {
   width: 125px;
   height: auto;
@@ -39,7 +36,6 @@
   cursor: pointer;
 }
 
-/* Titolo */
 .title {
   font-size: 3em;
   font-weight: bold;
@@ -48,7 +44,6 @@
   margin-top: 5px 0;
 }
 
-/* Form */
 .registration-form {
   display: flex;
   flex-direction: column;
@@ -126,8 +121,7 @@ form {
 
 .form-group input:not(:placeholder-shown),
 .password-group input:not(:placeholder-shown) {
-  border-color: #0d0d52; /* Colore blu */
-}
+  border-color: #0d0d52; }
 
 
 .form-group button {
@@ -212,7 +206,6 @@ form {
   opacity: 1;
 }
 
-/* Pulsante di registrazione */
 .register-btn {
   margin-top: 20px;
   background-color: #0d0d52;
@@ -253,7 +246,6 @@ form {
 
 
 
-/* Link di accesso */
 .login-link {
   display: flex;
   justify-content: center;
@@ -293,13 +285,11 @@ form {
 @media screen and (max-width: 768px) {
 
   .logo-container img {
-    //display: none;
+    
   }
 
   .registration-container {
-    height: auto; /* Non forzare 100vh, lascia che cresca naturalmente */
-    padding: 20px; /* Aggiungi spazio invece di vincolare altezza */
-  }
+    height: auto;     padding: 20px;   }
 
   .registration-form{
     margin-top: 50px;

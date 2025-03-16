@@ -16,8 +16,8 @@ export class HeaderComponent {
   selectedFilter: string = 'controverse';
   dropdownOpen: boolean = false;
 
-  @Input() showDropdown: boolean = true; // Mostra/nasconde il menu a tendina
-  @Input() showCreateButton: boolean = true; // Mostra/nasconde il bottone "Crea"
+  @Input() showDropdown: boolean = true; 
+  @Input() showCreateButton: boolean = true; 
 
   @Output() createIdea = new EventEmitter<void>();
   @Output() filterChanged = new EventEmitter<string>();
@@ -51,7 +51,6 @@ export class HeaderComponent {
   }
 
   goToProfile() {
-    console.log("👤 Naviga al profilo utente");
     this.router.navigate(['/me']);
   }
 

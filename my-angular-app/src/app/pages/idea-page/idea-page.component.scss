@@ -1,7 +1,6 @@
-//* {    border: 1px solid red; }
+
 
 .idea-page-container {
-    //border: 2px solid #0d0d52;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +11,6 @@
 
 
 .idea-card {
-    //border: 2px solid green;
     display: flex;
     flex-direction: column;
     margin-top: 80px;
@@ -26,7 +24,6 @@
 
 
 .comments-container {
-    //border: 2px solid blueviolet;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,7 +40,6 @@
 }
 
 .loading-message {
-    //border: 2px solid red;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +47,7 @@
     font-weight: bold;
     color: #0d0d52;
     text-align: center;
-    height: 100vh; /* 🔹 Occupa l'intera altezza della viewport */
+    height: 100vh; 
 }
 
 @media screen and (max-width: 1024px) {
@@ -62,8 +58,6 @@
      }
 
      .comments-container {
-        //align-self: center;
-         //width: 90%;
          margin-right: 20px;
      }
 

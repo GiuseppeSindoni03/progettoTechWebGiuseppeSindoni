@@ -49,11 +49,11 @@ export class CommentComponent {
   deleteComment() {
     this.ideaService.deleteComment(this.ideaId, this.comment._id).subscribe({
       next: () => {
-        console.log("✅ Commento eliminato con successo");
+        console.log("Commento eliminato con successo");
         this.commentDeleted.emit(this.comment._id);
       },
       error: (error) => {
-        console.error("❌ Errore nell'eliminazione del commento:", error);
+        console.error("Errore nell'eliminazione del commento:", error);
         this.toastr.warning( error.error.message, "Errore");
       }
     });

@@ -74,7 +74,7 @@ export class LoginComponent {
     });
   }
 
-  /** ✅ Gestisce gli errori di login */
+ 
   private handleLoginError(error: any): void {
     console.error('Errore durante il login:', error);
 

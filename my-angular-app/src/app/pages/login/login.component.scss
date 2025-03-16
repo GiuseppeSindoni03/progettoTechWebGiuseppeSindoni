@@ -5,19 +5,19 @@
 
 .login-component {
   display: grid;
-  grid-template-rows: auto 1fr auto; /* Righe per il titolo, contenuto e footer */
+  grid-template-rows: auto 1fr auto;
   grid-template-areas: 
     "header"
     "main"
     "footer";
   width: 100%;
-  min-height: 100vh; /* Altezza minima della viewport */
-  justify-items: center; /* Centra gli elementi orizzontalmente */
+  min-height: 100vh; 
+  justify-items: center; 
   justify-content: center;
   overflow-x: hidden;
 }
 
-/* Titolo */
+
 .title {
   grid-area: header;
   font-size: 2.5em;
@@ -27,7 +27,7 @@
 }
 
 
-/* Contenitore principale */
+
 .login-page {
   grid-area: main;
   display: flex;
@@ -36,7 +36,6 @@
   gap: 50px;
   width: 80%;
   max-width: 1000px;
-  //height: 100%;
   min-height: 85vh;
   margin: auto;
 }
@@ -50,7 +49,7 @@
 
 
 .login-form {
-  flex: 1; /* Occupa l'altra metà dello spazio */
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +68,7 @@ h2 {
   color: #0d0d52;
   text-align: center;
   margin-bottom: 20px;
-  width: 100%; /* Assicura che sia centrato rispetto agli input */
+  width: 100%; 
 }
 
 .form2 {
@@ -80,7 +79,6 @@ h2 {
   justify-content: center;
 }
 
-/* Input */
 .form-group, .password-group{
   position: relative;
   width: 100%;
@@ -119,7 +117,7 @@ h2 {
   background: white;
   padding: 0 5px;
   transition: all 0.3s ease-in-out;
-  pointer-events: none; /* Evita che il click vada sulla label */
+  pointer-events: none;
 }
 
 .form-group input:focus + label,
@@ -128,18 +126,15 @@ h2 {
   font-size: 18px;
   color: #0d0d52;
   font-weight:bold ;
-  //box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 .form-group input:not(:placeholder-shown),
 .password-group input:not(:placeholder-shown) {
-  border-color: #0d0d52; /* Colore blu */
+  border-color: #0d0d52; 
  
 }
 
 
-
-/* Bottone per mostrare/nascondere la password */
 .toggle-password {
   position: absolute;
   right: 10px;
@@ -162,8 +157,7 @@ h2 {
   opacity: 1;
 }
 
-/* Pulsanti */
-/* Pulsante Accedi */
+
 .login-btn {
   width: 280px; 
   padding: 12px;
@@ -184,12 +178,7 @@ h2 {
 }
 
 .login-btn:disabled {
-  background-color: #cccccc; /* Grigio per indicare disabilitato */
-  color: #666666; /* Testo più chiaro */
-  border: 1px solid #999999; /* Bordo più tenue */
-  cursor: not-allowed; /* Cambia il cursore per indicare che è disabilitato */
-  opacity: 0.6; /* Riduce la visibilità per dare un effetto di disattivazione */
-}
+  background-color: #cccccc;   color: #666666;   border: 1px solid #999999;   cursor: not-allowed;   opacity: 0.6; }
 
 
 .login-btn:hover {
@@ -197,7 +186,6 @@ h2 {
   color: white;
 }
 
-/* Divider */
 .divider {
   content: "o";
   display: flex;
@@ -213,7 +201,6 @@ h2 {
 
 
 
-/* Bottone Crea Account */
 .signup-btn {
   width: 280px;
   padding: 12px;
@@ -249,11 +236,9 @@ footer {
   background: #ffffff;
 }
 
-/* Contenitore del footer */
 .footer-nav {
   display: flex;
-  gap: 10px; /* Distanza tra i link */
-  align-items: center;
+  gap: 10px;   align-items: center;
   font-size: 1em;
   font-weight: bold;
   color: #ffffff;
@@ -283,20 +268,16 @@ nav a:hover {
   
 }
 
-//MEDIA QUERY
 
-/* ✅ Tablet e schermi medi (max 1024px) */
+
 @media screen and (max-width: 1024px) {
   .login-page {
-    flex-direction: column; /* Imposta il layout a colonna */
-    gap: 30px;
-    width: 90%; /* Maggiore adattabilità */
-    min-height: auto;
+    flex-direction: column;     gap: 30px;
+    width: 90%;     min-height: auto;
   }
 
   .login-image img {
-    width: 250px; /* Riduce la grandezza dell'immagine */
-  }
+    width: 250px;   }
 
   .login-form {
     min-width: auto;
@@ -309,21 +290,18 @@ nav a:hover {
   }
 
   .login-btn, .signup-btn {
-    width: 100%; /* Adatta i pulsanti alla larghezza */
-    max-width: 280px;
+    width: 100%;     max-width: 280px;
     font-size: 16px;
   }
 
   .title {
-    font-size: 2em; /* Riduce il titolo per una migliore leggibilità */
-  }
+    font-size: 2em;   }
 
   .login-form h2 {
     display: none;
   }
 }
 
-/* ✅ Mobile (max 768px) */
 @media screen and (max-width: 768px) {
 
   footer {
@@ -341,8 +319,7 @@ nav a:hover {
   }
 
   h2 {
-    display: none; /* Nasconde il titolo per risparmiare spazio */
-  }
+    display: none;   }
 
   .title {
     font-size: 1.8em;
@@ -376,25 +353,19 @@ nav a:hover {
   .form-group input {
     font-size: 16px;
     padding: 10px;
-    width: 100%; /* Assicura che gli input siano centrati */
-    max-width: 500px; /* Evita che diventino troppo larghi */
-    
+    width: 100%;     max-width: 500px;     
   }
 
   .login-btn {
     width: 80%;
-    max-width: 280px; /* Stessa larghezza degli input */
-    margin: 10px auto; /* Centra il pulsante */
-    display: flex;
+    max-width: 280px;     margin: 10px auto;     display: flex;
     justify-content: center;
     font-size: 14px;
   }
 
   .signup-btn {
     width: 70%;
-    max-width: 280px; /* Stessa larghezza di login-btn */
-    margin: 10px auto; /* Centra il pulsante */
-    display: flex;
+    max-width: 280px;     margin: 10px auto;     display: flex;
     justify-content: center;
     font-size: 14px;
   }
@@ -402,9 +373,8 @@ nav a:hover {
   
 }
 
-//modifiche password
 
-/* Contenitore della password con pulsante */
+
 .password-group {
   position: relative;
   width: 100%;
@@ -412,13 +382,10 @@ nav a:hover {
   align-items: center;
 }
 
-/* Input della password */
 .password-group input {
   width: 100%;
-  padding-right: 40px; /* Spazio per l'icona */
-}
+  padding-right: 40px; }
 
-/* Bottone per mostrare/nascondere la password */
 .toggle-password {
   position: absolute;
   right: 10px;
@@ -435,15 +402,12 @@ nav a:hover {
 
 @media screen and (max-width: 1024px) {
   .login-page {
-    flex-direction: column; /* Imposta il layout a colonna */
-    gap: 30px;
-    width: 90%; /* Maggiore adattabilità */
-    min-height: auto;
+    flex-direction: column;     gap: 30px;
+    width: 90%;     min-height: auto;
   }
 
   .login-image img {
-    width: 250px; /* Riduce la grandezza dell'immagine */
-  }
+    width: 250px;   }
 
   .login-form {
     min-width: auto;
@@ -456,20 +420,17 @@ nav a:hover {
   }
 
   .login-btn, .signup-btn {
-    width: 100%; /* Adatta i pulsanti alla larghezza */
-    max-width: 280px;
+    width: 100%;     max-width: 280px;
   }
 
   .title {
-    font-size: 2em; /* Riduce il titolo per una migliore leggibilità */
-  }
+    font-size: 2em;   }
 
   .login-form h2 {
     display: none;
   }
 }
 
-/* ✅ Mobile (max 768px) */
 @media screen and (max-width: 768px) {
 
   footer {
@@ -485,8 +446,7 @@ nav a:hover {
   }
 
   h2 {
-    display: none; /* Nasconde il titolo per risparmiare spazio */
-  }
+    display: none;   }
 
   .title {
     font-size: 1.8em;
@@ -501,8 +461,7 @@ nav a:hover {
   }
 
   .login-image img {
-    width: 200px; /* Riduce l'immagine per evitare sovrapposizioni */
-  }
+    width: 200px;   }
 
   .login-form {
     width: 90%;
@@ -523,25 +482,19 @@ nav a:hover {
   .form-group input {
     font-size: 16px;
     padding: 10px;
-    width: 100%; /* Assicura che gli input siano centrati */
-    max-width: 500px; /* Evita che diventino troppo larghi */
-    height: 50px;
+    width: 100%;     max-width: 500px;     height: 50px;
   }
 
   .login-btn {
     width: 80%;
-    max-width: 200px; /* Stessa larghezza degli input */
-    margin: 10px auto; /* Centra il pulsante */
-    display: flex;
+    max-width: 200px;     margin: 10px auto;     display: flex;
     justify-content: center;
     
   }
 
   .signup-btn {
     width: 70%;
-    max-width: 200px; /* Stessa larghezza di login-btn */
-    margin: 10px auto; /* Centra il pulsante */
-    display: flex;
+    max-width: 200px;     margin: 10px auto;     display: flex;
     justify-content: center;
     
   }
@@ -562,7 +515,6 @@ nav a:hover {
 }
 
 
-/* ✅ Mobile (max 768px) */
 @media screen and (max-width: 450px) {
 
  
@@ -575,16 +527,13 @@ nav a:hover {
 
 
   .login-image img {
-    width: 200px; /* Riduce l'immagine per evitare sovrapposizioni */
-  }
+    width: 200px;   }
 
 
   .form-group input {
     font-size: 14px;
     padding: 10px;
-    width: 100%; /* Assicura che gli input siano centrati */
-    max-width: 500px; /* Evita che diventino troppo larghi */
-    height: 50px;
+    width: 100%;     max-width: 500px;     height: 50px;
   }
 
 
@@ -606,7 +555,7 @@ nav a:hover {
 
 @media screen and (max-width: 375px) {
 
-  //* {border: 1px solid red;}
+  
 
   .title {
     font-size: 1.3em;
@@ -616,16 +565,13 @@ nav a:hover {
 
 
   .login-image img {
-    width: 150px; /* Riduce l'immagine per evitare sovrapposizioni */
-  }
+    width: 150px;   }
 
 
   .form-group input {
     font-size: 14px;
     padding: 10px;
-    width: 100%; /* Assicura che gli input siano centrati */
-    max-width: 400px; /* Evita che diventino troppo larghi */
-    height: 40px;
+    width: 100%;     max-width: 400px;     height: 40px;
   }
 
 

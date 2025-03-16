@@ -4,13 +4,13 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 
-// 📌 Modello per un'idea
+
 export interface Idea {
   _id: string;
   title: string;
   content: string;
   contentHtml: string
-  timestamp: string; // 🔹 Formattata come stringa ISO (può essere una Date se necessario)
+  timestamp: string; 
   author: {
     _id: string;
     username: string;
@@ -41,21 +41,21 @@ export class IdeaService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Recupera tutte le idee
+
   getIdeas(): Observable<Idea[]> {
     return this.http.get<{ status: string; data: Idea[] }>(`${this.apiUrl}`).pipe(
       map(response => response.data)
     );
   }
 
-  // 🔹 Recupera un'idea specifica per ID
+
   getIdeaById(id: string): Observable<Idea> {
     return this.http.get<{ status: string; data: Idea }>(`${this.apiUrl}/${id}`).pipe(
       map(response => response.data)
     );
   }
 
-  // 🔹 Recupera le idee dell'utente autenticato
+
   getUserIdeas(page: number = 1, limit: number = 10): Observable<Idea[]> {
     return this.http.get<{ status: string; data: Idea[] }>(
       `${this.apiUrl}/my-ideas?page=${page}&limit=${limit}`).pipe(
@@ -67,14 +67,14 @@ export class IdeaService {
     );
   }
 
-  // 🔹 Crea una nuova idea
+
   postIdea(title: string, content: string): Observable<Idea> {
     return this.http.post<{ status: string; data: Idea }>(this.apiUrl, { title, content }).pipe(
       map(response => response.data)
     );
   }
 
-  // 🔹 Cancella un'idea per ID
+
   deleteIdea(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       catchError(
@@ -94,10 +94,10 @@ export class IdeaService {
       `${this.apiUrl}/category/${type}?page=${page}&limit=${limit}`
     ).pipe(
       tap(response => console.log("📦 Risposta ricevuta:", response)),
-      map(response => response.data || []),  // ✅ Ritorna un array vuoto se non ci sono idee
+      map(response => response.data || []), 
       catchError(error => {
-        console.error("❌ Errore API:", error);
-        return of([]); // ✅ Ritorna un Observable vuoto per prevenire il blocco della UI
+        console.error("Errore API:", error);
+        return of([]);
       })
     );
 }

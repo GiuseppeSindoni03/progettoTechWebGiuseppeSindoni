@@ -58,8 +58,8 @@ export class AuthService {
 
   authState: WritableSignal<AuthState> = signal<AuthState>({
     user: this.getUser(),
-    token: this.getToken(), // get token from localStorage, if there
-    isAuthenticated: this.verifyToken(this.getToken()) // verify it's not expired
+    token: this.getToken(), 
+    isAuthenticated: this.verifyToken(this.getToken())
   });
 
   user = computed(() => this.authState().user);
@@ -123,7 +123,7 @@ export class AuthService {
     const user = {
       id: decodedToken.id,
       email: decodedToken.email,
-      username: decodedToken.username // ✅ Aggiunto username
+      username: decodedToken.username 
     };
     this.authState.set({
       user: user,
@@ -134,7 +134,7 @@ export class AuthService {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
 
-    console.log("🔄 Utente aggiornato in authState:", this.authState());
+    console.log("Utente aggiornato in authState:", this.authState());
   }
 
   getToken(): string | null {
@@ -165,24 +165,22 @@ export class AuthService {
 
   logout(): void {
     try {
-      // ✅ Rimuoviamo i dati da localStorage (solo se disponibile)
       if (typeof localStorage !== 'undefined') {
         localStorage.removeItem("user");
         localStorage.removeItem("token");
       }
   
-      // ✅ Aggiorniamo lo stato dell'autenticazione
       this.authState.set({
         user: null,
         token: null,
         isAuthenticated: false
       });
   
-      console.log("✅ Logout effettuato con successo!");
+      console.log("Logout effettuato con successo!");
 
   
     } catch (error) {
-      console.error("❌ Errore durante il logout:", error);
+      console.error("Errore durante il logout:", error);
     }
   }
 

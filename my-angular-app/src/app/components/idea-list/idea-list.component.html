@@ -9,8 +9,6 @@
     ></app-idea>
 
 
-
-    <!-- 🔹 Sezione paginazione -->
     <div class="pagination">
       <button (click)="prevPage()" [disabled]="currentPage === 1">
         <img src="arrow-left.svg" alt="Pagina precedente" />
@@ -21,7 +19,6 @@
       </button>
     </div>
 
-    <!-- 🔹 Messaggio se l'utente ha visto tutte le idee disponibili -->
      <div *ngIf="!hasMoreIdeas && ideas.length > 0" class="end-message">
       <p >
         🎉 Hai visto tutte le idee disponibili!
@@ -30,7 +27,7 @@
     
   </div>
 
-  <!-- 🔹 Nessuna idea disponibile -->
+
   <div *ngIf="ideas.length === 0" class="no-ideas">
     <p *ngIf="currentPage === 1">Opss.. Nessuna idea disponibile </p>
     
@@ -43,7 +40,6 @@
   </div>
 </div>
 
-<!-- Messaggio di caricamento -->
 <ng-template #loading>
   <p>⏳ Caricamento idee...</p>
 </ng-template>

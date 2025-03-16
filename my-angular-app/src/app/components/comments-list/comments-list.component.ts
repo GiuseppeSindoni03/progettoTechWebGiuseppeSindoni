@@ -24,19 +24,18 @@ export class CommentsListComponent {
       Validators.maxLength(300)
     ])
   });
+  
   constructor(
     private ideaService: IdeaService
   ) {}
 
   ngOnInit() {
-    
     this.loadComments();
-    console.log("📌 Commenti ricevuti:", this.comments)
   }
 
   addComment() {
     if (this.commentForm.invalid) {
-      console.warn("⚠️ Il commento non è valido:", this.commentForm.errors);
+      console.warn("Il commento non è valido:", this.commentForm.errors);
       return;
     }
 
@@ -44,14 +43,14 @@ export class CommentsListComponent {
 
     this.ideaService.postComment(this.ideaId, newComment).subscribe({
       next: (response) => {
-        console.log("✅ Commento aggiunto:", response);
+        console.log("Commento aggiunto:", response);
         
-        // 🔹 Ricarica i commenti dopo l'inserimento di uno nuovo
+        
         this.loadComments();
-        this.commentForm.reset(); // ✅ Pulisce il campo dopo l'invio
+        this.commentForm.reset();
       },
       error: (error) => {
-        console.error("❌ Errore nell'aggiunta del commento:", error);
+        console.error("Errore nell'aggiunta del commento:", error);
       }
     });
   }
@@ -68,7 +67,7 @@ export class CommentsListComponent {
   }
 
   onCommentDeleted(commentId: string) {
-    console.log(`🗑️ Commento eliminato: ${commentId}`);
-    this.loadComments(); // Aggiorna i commenti dopo la cancellazione
+    console.log(`Commento eliminato: ${commentId}`);
+    this.loadComments(); 
   }
 }

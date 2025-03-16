@@ -22,14 +22,12 @@ export class IdeaPageComponent {
   ) {}
 
   ngOnInit() {
-    console.log("🔍 Recupero idea...");
-    const ideaId = this.route.snapshot.paramMap.get('id'); // ✅ Prende l'ID dalla URL
+    const ideaId = this.route.snapshot.paramMap.get('id');
 
 
     if (ideaId) {
       this.ideaService.getIdeaById(ideaId).subscribe({
         next: (idea) => {
-          console.log("✅ Idea recuperata:", idea);
           this.idea = idea;
         },
         error: (error) => {

@@ -26,7 +26,6 @@
     </div>
   
     <div class="idea-footer">
-      <!-- Contenitore per Upvote e Downvote -->
       <div class="vote-container">
         <button (click)="upvote()" class="vote-btn-upvote">
           <img [src]="userVote === 1 ? 'arrow-up-circle-fill-blue.svg' : 'arrow-up-circle-blue.svg'" 
@@ -41,7 +40,6 @@
         </button>
       </div>
   
-      <!-- Pulsante Commenti -->
       <button (click)="goToIdeaDetails()" class="comment-btn" *ngIf="showComments">
         <img src="comment.svg" alt="Commenti" class="icon-btn" /> Commenti
       </button>

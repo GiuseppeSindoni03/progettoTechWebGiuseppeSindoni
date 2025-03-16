@@ -33,11 +33,8 @@ export class UserPageComponent {
 
 
   ngOnInit() {
-
-    console.log("🔍 Recupero utente...");
     this.userService.getUser().subscribe({
       next: (response) => {
-        console.log("✅ Utente recuperato:", response);
         const user = response.data;
 
         this.userUsername = user.username;
@@ -55,7 +52,6 @@ export class UserPageComponent {
   loadUserImage() {
     this.userService.getUserImage().subscribe({
       next: (imageUrl) => {
-        console.log("✅ Immagine utente recuperata:", imageUrl);
         this.userProfileImage = imageUrl;
       },
       error: (error) => {
@@ -73,13 +69,12 @@ export class UserPageComponent {
 
       this.userService.uploadUserImage(formData).subscribe({
         next: (response) => {
-          console.log("✅ Immagine caricata con successo:", response);
-          this.loadUserImage(); // Aggiorna immagine
-          this.headerComponent.loadUserImage(); // Aggiorna immagine nell'Header
-          this.ideaListComponent.loadIdeas(); // Aggiorna immagine negli Idea
+          this.loadUserImage(); 
+          this.headerComponent.loadUserImage(); 
+          this.ideaListComponent.loadIdeas(); 
         },
         error: (error) => {
-          console.error("❌ Errore nel caricamento dell'immagine:", error);
+          console.error("Errore nel caricamento dell'immagine:", error);
         }
       });
     }
@@ -91,7 +86,6 @@ export class UserPageComponent {
 
   logout() {
     this.authService.logout();
-    console.log("✅ Logout effettuato");
     this.toastr.success("Logout effettuato con successo", "Arrivederci!");
     this.router.navigate(['/login']);
   }

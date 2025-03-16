@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Idea } from '../../services/idea.service';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // ✅ Importa SafeHtml
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; 
 import { UserService } from '../../services/user.service';
 import { IdeaService } from '../../services/idea.service';
 import { ToastrService } from 'ngx-toastr';
@@ -59,11 +59,11 @@ export class IdeaComponent {
   }
 
   sanitizeContent() {
-    if (this.idea?.contentHtml) { // ✅ Verifica se `contentHtml` è definito prima di usarlo
+    if (this.idea?.contentHtml) { 
       this.sanitizedContentHtml = this.sanitizer.bypassSecurityTrustHtml(this.idea.contentHtml);
     } else {
-      console.warn("⚠️ Warning: contentHtml non è definito per l'idea", this.idea);
-      this.sanitizedContentHtml = ''; // ✅ Evita errori impostando una stringa vuota
+      console.warn("Warning: contentHtml non è definito per l'idea", this.idea);
+      this.sanitizedContentHtml = ''; 
     }
   }
 
@@ -78,7 +78,6 @@ export class IdeaComponent {
 
     this.ideaService.voteIdea(this.idea._id, newVote).subscribe({
       next: () => {
-
         if ( this.userVote === 0) {
           this.idea.upvotes++;
           this.userVote = 1;
@@ -139,7 +138,7 @@ export class IdeaComponent {
 
   getVote() {
     this.ideaService.getUserVote(this.idea._id).subscribe(vote => {
-      this.userVote = vote; // Aggiorniamo lo stato con il valore dal backend
+      this.userVote = vote; 
     });
   }
 

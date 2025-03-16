@@ -1,7 +1,4 @@
-/* Sfondo scuro trasparente */
-*{
-  font-family: 'Inter', sans-serif;
-}
+
 
 .modal-overlay {
   position: fixed;
@@ -16,7 +13,7 @@
   z-index: 1000;
 }
 
-/* Contenitore della modale */
+
 .modal-container {
   background: white;
   width: 500px;
@@ -31,7 +28,7 @@
 
 }
 
-/* Titolo della modale */
+
 .modal-title {
   font-size: 2.5rem;
   font-weight: bold;
@@ -41,7 +38,7 @@
 
 }
 
-/* Stile del form */
+
 .modal-form {
   width: 100%;
   display: flex;
@@ -49,14 +46,12 @@
   gap: 15px
 }
 
-/* Label degli input */
 .input-label {
   font-size: 24px;
   font-weight: bold;
   color: #0d0d52;
 }
 
-/* Stile per input e textarea */
 input,
 textarea {
   width: 95%;
@@ -74,7 +69,6 @@ textarea:focus {
   outline: none;
 }
 
-/* Textarea più grande */
 textarea {
   height: 120px;
   resize: none;
@@ -87,7 +81,6 @@ textarea {
   margin-top: 20px;
 }
 
-/* Pulsante Posta */
 .submit-btn , .cancel-btn {
   background: #0d0d52;
   color: white;
@@ -105,7 +98,6 @@ textarea {
 
 @media screen and (max-width: 1024px) {
 
-  //*{ border: 1px solid red; }
   
   .modal-container {
     width: 450px;
@@ -137,11 +129,9 @@ textarea {
 }
 
 @media screen and (max-width: 768px) {
-  //*{ border: 1px solid blueviolet; }
 
   .modal-container {
     width: 400px;
-    //height: 400px;
   }
 
   .input-label {
@@ -169,8 +159,6 @@ textarea {
 }
 
 @media screen and (max-width: 600px) {
-  //*{ border: 1px solid white; }
-
   
   .modal-container {
     width: 300px;

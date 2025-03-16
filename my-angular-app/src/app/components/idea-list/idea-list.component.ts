@@ -19,8 +19,8 @@ export class IdeaListComponent  {
   hasMoreIdeas: boolean = true;
 
 
-  @Input() filter: string = ''; // 🔹 Input per filtrare le idee
-  @Input() authorId: string | null = null; // 🔹 Per mostrare idee di un utente specifico
+  @Input() filter: string = ''; 
+  @Input() authorId: string | null = null;
   @Input() isExpanded: boolean = false;
   @Input() showDeleteButton: boolean = false;
 
@@ -29,9 +29,6 @@ export class IdeaListComponent  {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit() {
-    console.log("📌 showDeleteButton ricevuto:", this.showDeleteButton);
-  }
 
   ngOnChanges() {
     this.currentPage = 1;
@@ -41,13 +38,10 @@ export class IdeaListComponent  {
   }
 
   loadIdeas() {
-    console.log(`📡 Caricamento idee. Filtro: ${this.filter}, Autore: ${this.authorId}, Pagina: ${this.currentPage}`);
 
     if (this.authorId) {
-      // Se c'è `authorId`, carica solo le idee di quell'utente
       this.ideas$ = this.ideaService.getUserIdeas(this.currentPage, this.pageSize).pipe(
         tap(ideas => {
-          console.log("📦 Idee ricevute:", ideas.length);
           this.hasMoreIdeas = ideas.length === this.pageSize;
           if (ideas.length === 0 && this.currentPage > 1) {
             this.currentPage--;
@@ -55,10 +49,8 @@ export class IdeaListComponent  {
         })
       );
     } else {
-      // Altrimenti carica le idee globali con il filtro
       this.ideas$ = this.ideaService.getIdeasHome(this.filter, this.currentPage, this.pageSize).pipe(
         tap(ideas => {
-          console.log("📦 Idee ricevute:", ideas.length);
           this.hasMoreIdeas = ideas.length === this.pageSize;
           if (ideas.length === 0 && this.currentPage > 1) {
             this.currentPage--;
@@ -94,7 +86,7 @@ export class IdeaListComponent  {
   scrollToTop() {
     window.scrollTo({
       top: 0,
-      behavior: "smooth" // Effetto di scorrimento fluido
+      behavior: "smooth" 
     });
   }
 
