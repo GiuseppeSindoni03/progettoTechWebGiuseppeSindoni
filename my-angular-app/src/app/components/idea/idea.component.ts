@@ -41,8 +41,6 @@ export class IdeaComponent {
   ) {}
 
   ngOnInit() {
-    //console.log("📌 showComments ricevuto:", this.showComments)
-    //console.log("📌 showDeleteButton ricevuto:", this.showDeleteButton);
 
     this.loadAuthorImage();
     this.sanitizeContent();

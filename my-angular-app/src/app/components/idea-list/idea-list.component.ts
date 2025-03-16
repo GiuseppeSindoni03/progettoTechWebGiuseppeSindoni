@@ -99,15 +99,21 @@ export class IdeaListComponent  {
   }
 
   deleteIdea(ideaId: string) {
-    this.ideaService.deleteIdea(ideaId).subscribe({
-      next: () => {
-        confirm("Sei sicuro di voler cancellare questa idea?") ? this.loadIdeas() : null;
-        this.toastr.success("Idea cancellata con successo", "Successo");
-      },
-      error: (error) => {
-        console.error("Errore nella cancellazione dell'idea:", error);
-        this.toastr.error("Errore nella cancellazione dell'idea", "Errore");
-      }
-    });
+
+    if(confirm("Sei sicuro di voler cancellare questa idea?")) {
+
+      this.ideaService.deleteIdea(ideaId).subscribe({
+        next:() => {
+          this.loadIdeas();
+          this.toastr.success("Idea cancellata con successo", "Successo");
+        },
+        error: (error) => {
+          console.error("Errore nella cancellazione dell'idea:", error);
+          this.toastr.error("Errore nella cancellazione dell'idea", "Errore");
+        }
+      });
+    }
+
   }
+
 }
