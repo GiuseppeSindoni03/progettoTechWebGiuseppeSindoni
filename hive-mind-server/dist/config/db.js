@@ -14,14 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://giuseppenapolii55:YKHFGQQcYDfMJxe4@cluster0.wxhyr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const MONGO_URI = process.env.MONGO_URI;
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield mongoose_1.default.connect(MONGO_URI);
-        console.log("✅ MongoDB Connected!");
+        console.log("Database connesso");
     }
     catch (error) {
-        console.error("❌ MongoDB Connection Error:", error);
+        console.error("Errore nella connessione al Database:", error);
         process.exit(1);
     }
 });

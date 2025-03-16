@@ -14,8 +14,8 @@ const SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY as string;
 
 console.log("AWS_BUCKET_NAME:", BUCKET_NAME);
 console.log("AWS_REGION:", REGION);
-console.log("AWS_ACCESS_KEY_ID:", ACCESS_KEY_ID ? "✅ Key Loaded" : "❌ Key MISSING");
-console.log("AWS_SECRET_ACCESS_KEY:", SECRET_ACCESS_KEY ? "✅ Key Loaded" : "❌ Key MISSING");
+console.log("AWS_ACCESS_KEY_ID:", ACCESS_KEY_ID ? " Key Loaded" : " Key MISSING");
+console.log("AWS_SECRET_ACCESS_KEY:", SECRET_ACCESS_KEY ? " Key Loaded" : "❌Key MISSING");
 
 
 

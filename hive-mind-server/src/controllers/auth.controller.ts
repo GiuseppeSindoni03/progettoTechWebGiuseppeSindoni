@@ -4,29 +4,18 @@ import { User } from "../models/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { isBirthdateValid, isGenderValid, isOnlyLetters, validateFields, validateUserInputRegister } from "../utils/validators";
-
-
+import {registerSchema, validateInput, loginSchema} from "../utils/validators";
 
 dotenv.config();
 
 export const register = async (req: Request, res: Response) => {
     try {
-      const { name, surname, username, password, email, birthdate, gender }: { name: string; surname: string; username: string; password: string; email: string; birthdate: Date; gender: string; } = req.body;
     
-      if (!validateFields(res, { name, surname, username, password, email, birthdate })) return;
+      if (!validateInput(registerSchema, req.body, res)) return;
+
+      const { name, surname, username, password, email, birthdate, gender }: { name: string; surname: string; username: string; password: string; email: string; birthdate: Date; gender: string; } = req.body;
 
 
-      if (
-        !isOnlyLetters(name, "name", res) || 
-        !isOnlyLetters(surname, "surname", res) ||
-        !isGenderValid(gender, res) ||
-        !validateUserInputRegister({ email, username, password }, res) ||
-        !isBirthdateValid(birthdate, res)
-      ) return;
-      
-      
-      
       const userExists = await User.findOne({ $or: [{ email }, { username }] });
   
       if (userExists) {
@@ -58,24 +47,16 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const email: string = req.body.email?.trim();
-    const password: string = req.body.password?.trim();
 
+    if (!validateInput(loginSchema, req.body, res)) return;
 
-    if (!validateFields(res, { email, password })) return;
-
+    const {email, password} = req.body;
 
     const user = await User.findOne({ email });
 
-    if (!user) {
+    if (!user || await bcrypt.compare(password, user.password)) {
         res.status(404).send(new APIResponse(Status.ERROR, [], "Email o password errati"));
         return
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-       res.status(400).send(new APIResponse(Status.ERROR, [], "Email o password errati"));
-       return
     }
 
     

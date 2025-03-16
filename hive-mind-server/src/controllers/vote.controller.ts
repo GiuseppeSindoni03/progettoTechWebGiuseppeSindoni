@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import  { isValidObjectId } from "mongoose";
 import { Idea } from "../models/idea";
 import { Vote } from "../models/vote";
-import { isVoteValid, isUserAuthor } from "../utils/validators";
+import { voteSchema, validateInput, isUserAuthor } from "../utils/validators";
 
 
 
@@ -47,7 +47,7 @@ export const setVote = async (req: Request, res: Response) => {
             res.status(400).send(new APIResponse(Status.ERROR, [], "Formato ideaId non valido")); return;
         }
 
-        if (!isVoteValid(vote)) {
+        if (!validateInput( voteSchema, req.body, res)) {
             res.status(400).send(new APIResponse(Status.ERROR, [], "Vote deve essere esclusivamente 1 (upvote) o -1 (downvote)")); return;
         }
 
@@ -61,7 +61,7 @@ export const setVote = async (req: Request, res: Response) => {
             res.status(400).send(new APIResponse(Status.ERROR, [], "L'autore dell'idea non puo' votarla")); return;
         }
 
-        updateIdeaVotes(foundIdea, userId as string, vote);
+        await updateIdeaVotes(foundIdea, userId as string, vote);
 
 
         res.status(200).send(new APIResponse(Status.SUCCESS, [], "Vote aggiornato con successo"));

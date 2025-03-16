@@ -51,7 +51,7 @@ const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
             return;
         }
-        if (!(0, validators_1.isVoteValid)(vote)) {
+        if (!(0, validators_1.validateInput)(validators_1.voteSchema, req.body, res)) {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Vote deve essere esclusivamente 1 (upvote) o -1 (downvote)"));
             return;
         }
@@ -64,7 +64,7 @@ const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "L'autore dell'idea non puo' votarla"));
             return;
         }
-        updateIdeaVotes(foundIdea, userId, vote);
+        yield updateIdeaVotes(foundIdea, userId, vote);
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Vote aggiornato con successo"));
     }
     catch (err) {
