@@ -54,7 +54,7 @@ export const login = async (req: Request, res: Response) => {
 
     const user = await User.findOne({ email });
 
-    if (!user || await bcrypt.compare(password, user.password)) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
         res.status(404).send(new APIResponse(Status.ERROR, [], "Email o password errati"));
         return
     }

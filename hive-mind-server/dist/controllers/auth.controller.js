@@ -50,7 +50,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         const { email, password } = req.body;
         const user = yield user_1.User.findOne({ email });
-        if (!user || (yield bcryptjs_1.default.compare(password, user.password))) {
+        if (!user || !(yield bcryptjs_1.default.compare(password, user.password))) {
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Email o password errati"));
             return;
         }
