@@ -37,13 +37,11 @@ export class RegistrationComponent {
     });
   }
 
-  /** ✅ Toggle per mostrare/nascondere la password */
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  /** ✅ Gestione della registrazione */
-  onSubmit() {
+    onSubmit() {
     if (this.registrationForm.invalid) {
       this.showValidationErrors();
       return;
@@ -106,12 +104,6 @@ export class RegistrationComponent {
 
   private showValidationErrors() {
 
-    //for (element of this.registrationForm.value) {
-    //  if(this.registrationForm.value[element].invalid) {
-    //    this.toastr.error('Inserisci un' + ${element.name} + valido, 'Errore di validazione');
-    //  }
-    //}
-
     if (this.name?.invalid) {
       this.toastr.error('Inserisci un nome valido.', 'Errore di validazione');
     }
@@ -137,8 +129,7 @@ export class RegistrationComponent {
   }
   
 
-  /** ✅ Gestisce gli errori di login */
-  private handleLoginError(error: any): void {
+    private handleLoginError(error: any): void {
     console.error('Errore durante la registrazione:', error);
 
     let errorMessage = 'Errore imprevisto. Riprova più tardi.';

@@ -17,12 +17,6 @@ interface LoginResponse {
   message: string;
 }
 
-interface DecodedToken {
-  id: string;
-  email: string;
-  username: string;
-  exp: number;
-}
 
 interface AuthState {
   user: {
@@ -32,12 +26,6 @@ interface AuthState {
   } | null;
   token: string | null;
   isAuthenticated: boolean;
-}
-
-interface User {
-  id: string;
-  email: string;
-  username: string;
 }
 
 interface RegisterRequest  {

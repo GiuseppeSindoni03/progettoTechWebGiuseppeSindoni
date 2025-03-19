@@ -1,5 +1,3 @@
-/* Contenitore per immagine e bottone */
-//* {border: 1px solid red; }
 
 .user-page-container {
     display: flex;
@@ -55,7 +53,6 @@
 
 }
 
-/* Stile per l'immagine del profilo */
 .profile-img {
     width: 200px;
     height: 200px;
@@ -65,7 +62,6 @@
     cursor: pointer;
 }
 
-/* Bottone per cambiare immagine */
 .upload-btn {
     display: block;
     margin-top: 8px;

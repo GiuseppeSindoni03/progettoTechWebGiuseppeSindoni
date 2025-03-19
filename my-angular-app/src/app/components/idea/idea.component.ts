@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Idea } from '../../services/idea.service';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; 
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // ✅ Importa SafeHtml
 import { UserService } from '../../services/user.service';
 import { IdeaService } from '../../services/idea.service';
 import { ToastrService } from 'ngx-toastr';
@@ -62,7 +62,7 @@ export class IdeaComponent {
     if (this.idea?.contentHtml) { 
       this.sanitizedContentHtml = this.sanitizer.bypassSecurityTrustHtml(this.idea.contentHtml);
     } else {
-      console.warn("Warning: contentHtml non è definito per l'idea", this.idea);
+      console.warn(" Warning: contentHtml non è definito per l'idea", this.idea);
       this.sanitizedContentHtml = ''; 
     }
   }
@@ -76,8 +76,11 @@ export class IdeaComponent {
   upvote() {
     const newVote = 1
 
+    
+
     this.ideaService.voteIdea(this.idea._id, newVote).subscribe({
       next: () => {
+
         if ( this.userVote === 0) {
           this.idea.upvotes++;
           this.userVote = 1;
@@ -93,6 +96,8 @@ export class IdeaComponent {
           this.userVote = 1;
         }
         this.idea = { ...this.idea }; 
+
+        
 
       },
       error: (error) => this.handleVoteError(error)

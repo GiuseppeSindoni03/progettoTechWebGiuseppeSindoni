@@ -41,20 +41,17 @@ export class IdeaService {
 
   constructor(private http: HttpClient) {}
 
-
   getIdeas(): Observable<Idea[]> {
     return this.http.get<{ status: string; data: Idea[] }>(`${this.apiUrl}`).pipe(
       map(response => response.data)
     );
   }
 
-
   getIdeaById(id: string): Observable<Idea> {
     return this.http.get<{ status: string; data: Idea }>(`${this.apiUrl}/${id}`).pipe(
       map(response => response.data)
     );
   }
-
 
   getUserIdeas(page: number = 1, limit: number = 10): Observable<Idea[]> {
     return this.http.get<{ status: string; data: Idea[] }>(
@@ -67,13 +64,11 @@ export class IdeaService {
     );
   }
 
-
   postIdea(title: string, content: string): Observable<Idea> {
     return this.http.post<{ status: string; data: Idea }>(this.apiUrl, { title, content }).pipe(
       map(response => response.data)
     );
   }
-
 
   deleteIdea(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
@@ -96,8 +91,8 @@ export class IdeaService {
       tap(response => console.log("📦 Risposta ricevuta:", response)),
       map(response => response.data || []), 
       catchError(error => {
-        console.error("Errore API:", error);
-        return of([]);
+        console.error(" Errore API:", error);
+        return of([]); 
       })
     );
 }
