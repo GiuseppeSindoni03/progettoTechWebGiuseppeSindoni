@@ -65,7 +65,14 @@ const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         yield updateIdeaVotes(foundIdea, userId, vote);
-        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, [], "Vote aggiornato con successo"));
+        console.log("Voto aggiornato con successo:", {
+            userVote: vote,
+            upvotes: foundIdea.upvotes,
+            downvotes: foundIdea.downvotes
+        });
+        console.log("Response Headers Sent:", res.headersSent);
+        res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { userVote: vote, upvotes: foundIdea.upvotes, downvotes: foundIdea.downvotes }, "Vote aggiornato con successo"));
+        return;
     }
     catch (err) {
         console.error("Error updating vote:", err);
@@ -74,9 +81,9 @@ const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.setVote = setVote;
 const updateIdeaVotes = (foundIdea, userId, vote) => __awaiter(void 0, void 0, void 0, function* () {
-    // 🔹 4️⃣ Trova il voto dell'utente
+    //  Trova il voto dell'utente
     const existingVote = yield vote_1.Vote.findOne({ user: userId, idea: foundIdea._id });
-    // 🔹 5️⃣ Se l'utente non ha mai votato, crea un nuovo voto
+    // Se l'utente non ha mai votato, crea un nuovo voto
     if (!existingVote) {
         const newVote = new vote_1.Vote({ user: userId, idea: foundIdea._id, valore: vote });
         yield newVote.save();
@@ -88,7 +95,7 @@ const updateIdeaVotes = (foundIdea, userId, vote) => __awaiter(void 0, void 0, v
             foundIdea.downvotes++;
         }
     }
-    // 🔹 6️⃣ Se l'utente ha già votato
+    //  Se l'utente ha già votato
     else {
         if (existingVote.valore === vote) {
             // Se l'utente clicca di nuovo sullo stesso voto, rimuoviamo il voto
@@ -116,6 +123,6 @@ const updateIdeaVotes = (foundIdea, userId, vote) => __awaiter(void 0, void 0, v
             }
         }
     }
-    // 🔹 7️⃣ Salva i cambiamenti all'idea
+    // Salva i cambiamenti all'idea
     yield foundIdea.save();
 });

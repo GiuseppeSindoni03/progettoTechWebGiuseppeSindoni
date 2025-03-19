@@ -6,13 +6,13 @@ import authRoutes from "./routes/auth.routes";
 import voteRoutes from "./routes/vote.routes";
 import comment from "./routes/comment.routes";
 import userRoutes from "./routes/user.routes";
-import path from "path";
+
 
 dotenv.config();
 
 const app: Application = express();
 
-// ✅ Middleware
+
 app.use(cors());
 app.use(express.json());
 

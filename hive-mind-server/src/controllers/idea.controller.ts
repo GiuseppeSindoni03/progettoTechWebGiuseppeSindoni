@@ -15,6 +15,8 @@ interface AuthRequest extends Request {
   };
 }
 
+
+
 export const getIdeas = async (req: Request, res: Response) => {
   try {
     const ideas = await Idea.find()

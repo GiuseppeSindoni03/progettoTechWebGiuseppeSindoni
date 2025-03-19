@@ -63,8 +63,16 @@ export const setVote = async (req: Request, res: Response) => {
 
         await updateIdeaVotes(foundIdea, userId as string, vote);
 
+        console.log("Voto aggiornato con successo:", {
+            userVote: vote,
+            upvotes: foundIdea.upvotes,
+            downvotes: foundIdea.downvotes
+        });
 
-        res.status(200).send(new APIResponse(Status.SUCCESS, [], "Vote aggiornato con successo"));
+        console.log("Response Headers Sent:", res.headersSent);
+
+        res.status(200).send(new APIResponse(Status.SUCCESS, {userVote: vote, upvotes: foundIdea.upvotes, downvotes: foundIdea.downvotes}, "Vote aggiornato con successo"));
+        return
 
     } catch (err) {
         console.error("Error updating vote:", err);
@@ -74,10 +82,10 @@ export const setVote = async (req: Request, res: Response) => {
 
 const updateIdeaVotes = async (foundIdea: any, userId: string ,vote: number) => {
 
-        // 🔹 4️⃣ Trova il voto dell'utente
+        //  Trova il voto dell'utente
         const existingVote = await Vote.findOne({ user: userId, idea: foundIdea._id });
 
-        // 🔹 5️⃣ Se l'utente non ha mai votato, crea un nuovo voto
+        // Se l'utente non ha mai votato, crea un nuovo voto
         if (!existingVote) {
             const newVote = new Vote({ user: userId, idea: foundIdea._id, valore: vote });
             await newVote.save();
@@ -89,7 +97,7 @@ const updateIdeaVotes = async (foundIdea: any, userId: string ,vote: number) => 
                 foundIdea.downvotes++;
             }
         }
-        // 🔹 6️⃣ Se l'utente ha già votato
+        //  Se l'utente ha già votato
         else {
             if (existingVote.valore === vote) {
                 // Se l'utente clicca di nuovo sullo stesso voto, rimuoviamo il voto
@@ -117,6 +125,6 @@ const updateIdeaVotes = async (foundIdea: any, userId: string ,vote: number) => 
             }
         }
 
-        // 🔹 7️⃣ Salva i cambiamenti all'idea
+        // Salva i cambiamenti all'idea
         await foundIdea.save();
 }

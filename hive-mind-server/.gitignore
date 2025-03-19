@@ -1,0 +1,29 @@
+# Ignora le dipendenze
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignora i file di ambiente
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Ignora build e output
+dist/
+out/
+coverage/
+.tmp/
+
+# Ignora i log e i file temporanei
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Ignora cartelle dell'IDE e di sistema
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

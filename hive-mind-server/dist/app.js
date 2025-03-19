@@ -13,7 +13,6 @@ const comment_routes_1 = __importDefault(require("./routes/comment.routes"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-// ✅ Middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 // ✅ Definizione delle rotte

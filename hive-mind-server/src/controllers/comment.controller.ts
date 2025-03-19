@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { APIResponse, Status } from "../utils/structure";
 import { AuthRequest } from "../utils/structure";
 import dotenv from "dotenv";
-import mongoose, { isValidObjectId } from "mongoose";
+import { isValidObjectId } from "mongoose";
 import { Idea } from "../models/idea";
 
 
