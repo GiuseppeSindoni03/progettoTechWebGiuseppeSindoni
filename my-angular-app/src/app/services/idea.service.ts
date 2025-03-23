@@ -3,58 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-
-
-export interface Idea {
-  _id: string;
-  title: string;
-  content: string;
-  contentHtml: string
-  timestamp: string; 
-  author: {
-    _id: string;
-    username: string;
-    profileImage: string;
-  };
-  comments: Comment[];
-  upvotes: number;
-  downvotes: number;
-}
-
-export interface Comment {
-  ideaId: string;
-  _id: string;
-  author: {
-    _id: string;
-    username: string;
-    profileImage: string;
-  };
-  content: string;
-  timestamp: string;
-}
+import { environment } from '../environments/environments';
+import { IdeaDTO } from '../models/dto/idea.dto';
+import { APIResponse } from '../interceptors/api-response.dto';
+import { VoteDTO } from '../models/dto/vote.dto';
+import { CommentDTO } from '../models/dto/comment.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IdeaService {
-  private apiUrl = 'http://localhost:4000/ideas';
+  private apiUrl = `${environment.serverUrl}/ideas`;
 
   constructor(private http: HttpClient) {}
 
-  getIdeas(): Observable<Idea[]> {
-    return this.http.get<{ status: string; data: Idea[] }>(`${this.apiUrl}`).pipe(
+  getIdeas(): Observable<IdeaDTO[]> {
+    return this.http.get<APIResponse<IdeaDTO[]>>(`${this.apiUrl}`).pipe(
       map(response => response.data)
     );
   }
 
-  getIdeaById(id: string): Observable<Idea> {
-    return this.http.get<{ status: string; data: Idea }>(`${this.apiUrl}/${id}`).pipe(
+  getIdeaById(id: string): Observable<IdeaDTO> {
+    return this.http.get<APIResponse<IdeaDTO>>(`${this.apiUrl}/${id}`).pipe(
       map(response => response.data)
     );
   }
 
-  getUserIdeas(page: number = 1, limit: number = 10): Observable<Idea[]> {
-    return this.http.get<{ status: string; data: Idea[] }>(
+  getUserIdeas(page: number = 1, limit: number = 10): Observable<IdeaDTO[]> {
+    return this.http.get<APIResponse<IdeaDTO[]>>(
       `${this.apiUrl}/my-ideas?page=${page}&limit=${limit}`).pipe(
       map(response => response.data),
       catchError(error => {
@@ -64,8 +40,8 @@ export class IdeaService {
     );
   }
 
-  postIdea(title: string, content: string): Observable<Idea> {
-    return this.http.post<{ status: string; data: Idea }>(this.apiUrl, { title, content }).pipe(
+  postIdea(title: string, content: string): Observable<IdeaDTO> {
+    return this.http.post<APIResponse<IdeaDTO>>(this.apiUrl, { title, content }).pipe(
       map(response => response.data)
     );
   }
@@ -82,10 +58,10 @@ export class IdeaService {
 
  
   
-  getIdeasHome(type: string, page: number = 1, limit: number = 10): Observable<Idea[]> {
+  getIdeasHome(type: string, page: number = 1, limit: number = 10): Observable<IdeaDTO[]> {
     console.log(`📡 Recupero idee per tipo: ${type}, pagina: ${page}`);
 
-    return this.http.get<{ status: string; data: Idea[], message: string }>(
+    return this.http.get<APIResponse<IdeaDTO[]>>(
       `${this.apiUrl}/category/${type}?page=${page}&limit=${limit}`
     ).pipe(
       tap(response => console.log("📦 Risposta ricevuta:", response)),
@@ -107,7 +83,7 @@ export class IdeaService {
   }
 
   getUserVote(ideaId: string): Observable<number> {
-    return this.http.get<{ status: string; data: { vote: number } }>(`${this.apiUrl}/${ideaId}/vote`).pipe(
+    return this.http.get<APIResponse<VoteDTO>>(`${this.apiUrl}/${ideaId}/vote`).pipe(
       map(response => response.data.vote),
       catchError(error => {
         console.error("Errore nel recupero del voto:", error);
@@ -120,8 +96,8 @@ export class IdeaService {
     return this.http.post<void>(`${this.apiUrl}/${ideaId}/comments`, { content });
   }
   
-  getComments(ideaId: string): Observable<Comment[]> {
-    return this.http.get<{ status: string; data: Comment[] }>(
+  getComments(ideaId: string): Observable<CommentDTO[]> {
+    return this.http.get<APIResponse<CommentDTO[]>>(
       `${this.apiUrl}/${ideaId}/comments`).pipe(
           map(response => response.data),
           catchError(error => {

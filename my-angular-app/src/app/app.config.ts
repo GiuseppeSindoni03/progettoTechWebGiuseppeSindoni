@@ -2,8 +2,10 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { routes } from './app.routes';
@@ -18,9 +20,12 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor])
     ),
     ReactiveFormsModule,
-    importProvidersFrom( 
-      CommonModule
+    importProvidersFrom(
+      BrowserAnimationsModule, 
+      CommonModule,
+      MatDialogModule
     ),
+    provideAnimations(),
     provideToastr(),
 
   

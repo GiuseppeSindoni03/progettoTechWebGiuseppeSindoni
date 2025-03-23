@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule, DatePipe} from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { IdeaService } from '../../services/idea.service';
-import { Comment } from '../../services/idea.service';
+import { CommentDTO } from '../../models/dto/comment.dto';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -18,7 +18,7 @@ export class CommentComponent {
   canDelete: boolean = false;
   
 
-  @Input() comment!: Comment ;
+  @Input() comment!: CommentDTO ;
   @Input() ideaId!: string;
   @Output() commentDeleted = new EventEmitter<string>();
 

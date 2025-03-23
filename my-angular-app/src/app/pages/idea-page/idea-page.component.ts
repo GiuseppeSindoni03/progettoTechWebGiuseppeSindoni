@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header.component";
 import { IdeaComponent } from "../../components/idea/idea.component";
-import { IdeaService, Idea } from '../../services/idea.service';
+import { IdeaService } from '../../services/idea.service';
+import { IdeaDTO } from '../../models/dto/idea.dto';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CommentsListComponent } from '../../components/comments-list/comments-list.component';
@@ -14,7 +15,7 @@ import { CommentsListComponent } from '../../components/comments-list/comments-l
 })
 export class IdeaPageComponent {
 
-  idea!: Idea;
+  idea!: IdeaDTO;
 
   constructor(
     private route: ActivatedRoute,

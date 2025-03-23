@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommentComponent } from '../comment/comment.component';
 import { IdeaService} from '../../services/idea.service';
-import { Comment } from '../../services/idea.service';
+import { CommentDTO } from '../../models/dto/comment.dto';
 import { ReactiveFormsModule, FormControl, Validators, FormGroup } from '@angular/forms';
 
 
@@ -13,7 +13,7 @@ import { ReactiveFormsModule, FormControl, Validators, FormGroup } from '@angula
   styleUrl: './comments-list.component.scss'
 })
 export class CommentsListComponent {
-  comments: Comment[] = [];
+  comments: CommentDTO[] = [];
   
   @Input() ideaId: string = '';
   

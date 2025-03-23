@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IdeaService, Idea } from '../../services/idea.service';
+import { IdeaService } from '../../services/idea.service';
+import { IdeaDTO } from '../../models/dto/idea.dto';
 import { CommonModule } from '@angular/common';
 import { IdeaComponent } from '../idea/idea.component';
 import { Observable, of, tap } from 'rxjs';
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   imports: [CommonModule, IdeaComponent] 
 })
 export class IdeaListComponent  {
-  ideas$: Observable<Idea[]> = of(); 
+  ideas$: Observable<IdeaDTO[]> = of(); 
   currentPage: number = 1; 
   pageSize: number = 10;
   hasMoreIdeas: boolean = true;

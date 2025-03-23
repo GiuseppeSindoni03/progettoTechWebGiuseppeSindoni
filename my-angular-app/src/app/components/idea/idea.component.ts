@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Idea } from '../../services/idea.service';
+import { IdeaDTO } from '../../models/dto/idea.dto';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // ✅ Importa SafeHtml
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; 
 import { UserService } from '../../services/user.service';
 import { IdeaService } from '../../services/idea.service';
 import { ToastrService } from 'ngx-toastr';
@@ -23,7 +23,7 @@ export class IdeaComponent {
   authorProfileImage: string = '';
   userVote: number = 0;
 
-  @Input() idea!: Idea;
+  @Input() idea!: IdeaDTO;
   @Input() showComments: boolean = true;
   @Input() isExpanded: boolean = false;
   @Input() showDeleteButton: boolean = false;

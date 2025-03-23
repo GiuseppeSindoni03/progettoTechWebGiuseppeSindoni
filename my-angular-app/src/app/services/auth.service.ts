@@ -3,46 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
-
-interface LoginResponse {
-  status: string;
-  data: {
-    token: string;
-    userResponse: {
-      id: string;
-      email: string;
-      username:string;
-    };
-  };
-  message: string;
-}
-
+import { environment } from '../environments/environments';
+import { UserDTO } from '../models/dto/user.dto';
+import { APIResponse } from '../interceptors/api-response.dto';
+import { AuthResponse } from '../models/dto/auth.dto';
+import { RegisterDTO } from '../models/dto/register.dto';
 
 interface AuthState {
-  user: {
-    id: string;
-    email: string;
-    username: string;
-  } | null;
+  user: UserDTO | null;
   token: string | null;
   isAuthenticated: boolean;
-}
-
-interface RegisterRequest  {
-  name: string, 
-  surname: string, 
-  username: string, 
-  email: string, 
-  password: string, 
-  birthdate: string, 
-  gender: string
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:4000/auth'; 
+  private apiUrl = `${environment.serverUrl}/auth`;
 
   authState: WritableSignal<AuthState> = signal<AuthState>({
     user: this.getUser(),
@@ -74,14 +51,11 @@ export class AuthService {
     });
   }
 
-  login(email: string, password: string): Observable<{ token: string; user: { id: string; email: string } }> {
-    return this.http.post<LoginResponse>(this.apiUrl + '/login', { email, password }).pipe(
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<APIResponse<AuthResponse>>(this.apiUrl + '/login', { email, password }).pipe(
       map(response => {
         if (response.status === 'success' && response.data?.token) {
-          return {
-            token: response.data.token,
-            user: response.data.userResponse
-          };
+          return response.data;
         } else {
           throw new Error('Errore nella risposta del server');
         }
@@ -89,14 +63,12 @@ export class AuthService {
     );
   }
 
-  register (regRequest : RegisterRequest ): Observable<{ token: string; user: { id: string; email: string, username: string} }> {
-    return this.http.post<LoginResponse>(this.apiUrl + '/register', regRequest).pipe(
+  register (regRequest : RegisterDTO ): Observable<AuthResponse> {
+    return this.http.post<APIResponse<AuthResponse>>(this.apiUrl + '/register', regRequest).pipe(
       map(response => {
         if (response.status === 'success' && response.data?.token) {
-          return {
-            token: response.data.token,
-            user: response.data.userResponse
-          };
+          return response.data;
+
         } else {
           throw new Error('Errore nella risposta del server');
         }
