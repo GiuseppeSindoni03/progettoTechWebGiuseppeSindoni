@@ -4,7 +4,6 @@ const express_1 = require("express");
 const idea_controller_1 = require("../controllers/idea.controller");
 const auth_middleware_1 = require("../middleware/auth.middleware");
 const router = (0, express_1.Router)();
-//router.get("/", authenticateToken, getIdeas);
 router.post("/", auth_middleware_1.authenticateToken, idea_controller_1.postIdea);
 router.get("/my-ideas", auth_middleware_1.authenticateToken, idea_controller_1.getIdeasByUser);
 router.delete("/:id", auth_middleware_1.authenticateToken, idea_controller_1.deleteIdea);

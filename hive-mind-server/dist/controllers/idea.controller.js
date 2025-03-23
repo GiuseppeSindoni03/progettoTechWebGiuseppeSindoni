@@ -20,12 +20,12 @@ const marked_1 = require("marked");
 const getIdeas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const ideas = yield idea_1.Idea.find()
-            .populate("author", "username profileImage") // 🔹 Popola autore con username e immagine profilo
+            .populate("author", "username profileImage")
             .populate({
             path: "comments.author",
             select: "username profileImage"
         })
-            .select("-__v"); // 🔹 Escludi __v (versione di Mongoose)
+            .select("-__v");
         if (ideas.length > 0) {
             res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
@@ -48,12 +48,10 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
         }
-        // 🔹 Estrai paginazione dai query params
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         page < 1 ? 1 : page;
         limit > 10 ? 10 : limit;
-        // 🔹 Query con paginazione
         const ideas = yield idea_1.Idea.find({ author: userId })
             .populate("author", "username")
             .populate("comments.author", "username")
@@ -64,12 +62,12 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
             res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
         else {
-            console.log("⚠️ Nessuna idea trovata");
+            console.log(" Nessuna idea trovata");
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessuna idea trovata"));
         }
     }
     catch (err) {
-        console.error("❌ Errore nel recupero delle idee:", err);
+        console.error("Errore nel recupero delle idee:", err);
         res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero delle idee dell'utente"));
     }
 });
@@ -132,7 +130,7 @@ const getIdeaById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, idea, "Idea recuperata con successo"));
     }
     catch (err) {
-        console.error("❌ Errore nel recupero dell'idea:", err);
+        console.error(" Errore nel recupero dell'idea:", err);
         res.status(500).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Errore nel recupero dell'idea"));
     }
 });
@@ -184,10 +182,9 @@ const getIdeasHome = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const { type } = req.params;
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
-        page < 1 ? 1 : page;
-        limit > 10 ? 10 : limit;
-        console.log("Back end Recupero idee per tipo:", type);
-        const pipeline = (0, db_helpers_1.getIdeasPipeline)(type, page, limit);
+        const safePage = page < 1 ? 1 : page;
+        const safeLimit = limit > 10 ? 10 : limit;
+        const pipeline = (0, db_helpers_1.getIdeasPipeline)(type, safePage, safeLimit);
         const ideas = yield idea_1.Idea.aggregate(pipeline);
         if (!ideas.length) {
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], `Nessun idea ${type} trovata`));

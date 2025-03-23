@@ -5,19 +5,18 @@ import { APIResponse, Status } from "../utils/structure";
 
 dotenv.config();
 
-// ✅ Correggi `JwtPayload` per avere `id` come `string`
+
 interface JwtPayload {
-  id: string; // 🔹 Ora è una stringa compatibile con MongoDB
+  id: string; 
   email: string;
   username: string;
 }
 
-// ✅ Estendiamo `Request` per aggiungere `user`
 interface AuthRequest extends Request {
   user?: JwtPayload;
 }
 
-export const authenticateToken = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
@@ -27,11 +26,10 @@ export const authenticateToken = async (req: AuthRequest, res: Response, next: N
       return;
     }
 
-    // ✅ Verifica il JWT
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
 
-    // ✅ Salva l'utente nella request
-    (req as AuthRequest).user = decoded as { id: string; username: string; email: string };
+    (req as AuthRequest).user = decoded as JwtPayload;
 
     next();
   } catch (err) {

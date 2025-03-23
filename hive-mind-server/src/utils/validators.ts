@@ -30,18 +30,18 @@ export const registerSchema = Joi.object({
     })
   });
   
-  // 📌 Schema per il login
+
   export const loginSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(12).required()
   });
   
-  // 📌 Schema per il voto
+
   export const voteSchema = Joi.object({
     vote: Joi.number().valid(1, -1).required()
   });
   
-  // 📌 Funzione generica per validare qualsiasi input con Joi
+
   export const validateInput = (schema: Joi.ObjectSchema, data: any, res: Response): boolean => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {

@@ -25,9 +25,7 @@ const authenticateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             res.status(401).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Token non fornito"));
             return;
         }
-        // ✅ Verifica il JWT
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
-        // ✅ Salva l'utente nella request
         req.user = decoded;
         next();
     }

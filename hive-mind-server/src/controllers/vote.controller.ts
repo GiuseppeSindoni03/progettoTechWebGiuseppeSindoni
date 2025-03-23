@@ -63,13 +63,7 @@ export const setVote = async (req: Request, res: Response) => {
 
         await updateIdeaVotes(foundIdea, userId as string, vote);
 
-        console.log("Voto aggiornato con successo:", {
-            userVote: vote,
-            upvotes: foundIdea.upvotes,
-            downvotes: foundIdea.downvotes
-        });
-
-        console.log("Response Headers Sent:", res.headersSent);
+    
 
         res.status(200).send(new APIResponse(Status.SUCCESS, {userVote: vote, upvotes: foundIdea.upvotes, downvotes: foundIdea.downvotes}, "Vote aggiornato con successo"));
         return
