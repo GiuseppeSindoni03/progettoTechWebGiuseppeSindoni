@@ -60,6 +60,7 @@ All'interno del backend avrai un file .env con la seguente struttura:
 ### 6. Avviare il progetto
 - **Backend** (il server sara' disponibile sulla porta 3000)
     - `cd backend`
+    - `tsc`
     - `npm start`
 - **Frontend** (l'app sara' disponibile sulla porta 4200)
     - `cd frontend`
