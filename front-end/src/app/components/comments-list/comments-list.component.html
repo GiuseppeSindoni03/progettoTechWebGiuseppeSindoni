@@ -1,0 +1,20 @@
+<div  class="comments-list-container">
+    <h2 class="comments-title">Commenti</h2>
+    <form class="comment-form"(ngSubmit)="addComment()" [formGroup]="commentForm">
+        <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Inserisci un commento"
+            formControlName="commentContent"
+        />
+        <button type="submit" class="search-btn" [disabled]="commentForm.invalid">Invia</button>
+    </form>
+   
+    <div *ngFor="let comment of comments" class="comment-card-container">
+        <app-comment 
+        [comment]="comment" 
+        [ideaId]="this.ideaId"
+        (commentDeleted)="onCommentDeleted($event)"></app-comment>
+    </div>
+</div>
+

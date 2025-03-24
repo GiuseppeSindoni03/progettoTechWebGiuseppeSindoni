@@ -1,0 +1,100 @@
+<div class="registration-container">
+
+
+  <div class="logo-container">
+    <img src="logo.png" alt="Hive Mind Logo" />
+  </div>
+
+
+  <div class="registration-form">
+    <h1 class="title" >CREA IL TUO ACCOUNT</h1>
+    
+    
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <input type="text" id="name" placeholder=" " formControlName="name" required />
+        <label for="name">Nome</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="surname" placeholder=" " formControlName="surname" required />
+        <label for="surname">Cognome</label>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="username" placeholder=" " formControlName="username" required />
+        <label for="username">Username</label>
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" placeholder=" " formControlName="email" required />
+        <label for="email">Email</label>
+      </div>
+
+      
+  
+      <div class="form-group password-group">
+        <input 
+          [type]="passwordVisible ? 'text' : 'password'"
+          id="password"
+          placeholder=" " 
+          formControlName="password" 
+          required 
+        />
+        <label for="password">Password</label>
+        
+        <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+          <img src="eye.svg" *ngIf="!passwordVisible" alt="Mostra password">
+          <img src="eye-slash.svg" *ngIf="passwordVisible" alt="Nascondi password">
+        </button>
+      </div>
+      
+      <div class="form-group">
+        <input 
+          type="text" 
+          id="birthdate" 
+          formControlName="birthdate" 
+          required 
+          placeholder="mm-gg-aaaa"
+        />
+        <label for="birthdate">Data di nascita</label>
+      </div>
+      
+
+      <div class="gender-group">
+        <div class="gender-options">
+          <label>
+            <input type="radio" formControlName="gender" value="uomo" /> Uomo
+          </label>
+          <label>
+            <input type="radio" formControlName="gender" value="donna" /> Donna
+          </label>
+          <label>
+            <input type="radio" formControlName="gender" value="altro" /> Altro
+          </label>
+          
+        </div>
+      </div>
+      
+      <button type="submit" class="register-btn" >
+        CREA
+      </button>
+  
+    </form>
+
+    <hr class="divider" />
+    
+    <div class="login-link">
+      <p >
+        Hai già un account? <a routerLink="/">Accedi</a>
+      </p>
+    </div>
+    
+  </div>
+
+
+  
+</div>
+

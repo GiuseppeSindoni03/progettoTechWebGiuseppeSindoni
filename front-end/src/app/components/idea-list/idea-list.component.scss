@@ -1,0 +1,87 @@
+
+.idea-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 650px;
+    min-width: 300px;
+    height: fit-content;
+    margin: 0 auto;
+  }
+  
+
+  .no-ideas {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    padding: 50px 0;
+    min-height: 200px; 
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap: 15px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .pagination button, .back {
+    height: 30px;
+    background-color: transparent;
+    color: #0d0d52;
+    border: 2px solid #0d0d52;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .end-message {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    padding: 50px 0;
+    min-height: 200px; 
+  }
+
+  @media screen and (max-width: 768px) {
+    .idea-list {
+      width: 90%;
+      min-width: auto;
+    }
+
+    .pagination img {
+      width: 12px;
+      height: 12px;
+    }
+
+    .pagination button, .back {
+    
+      height: 25px;
+      font-size: 12px;
+      min-width: 80px;
+      
+
+    }
+
+    .end-message{
+      font-size: 14px;
+    }
+  }

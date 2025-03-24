@@ -1,0 +1,304 @@
+
+.idea-card {
+  width: 650px;
+  background: rgba(255, 255, 255, 0.983);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 20px auto;
+  font-family: 'Inter', sans-serif;
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  white-space: normal; 
+}
+
+
+
+.idea-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0d0d52;
+}
+
+
+.author-info h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.author-info p {
+  margin: 2px 0;
+  font-size: 12px;
+  color: gray;
+}
+
+.idea-content h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.idea-content {
+  width: 100%;
+  max-width: 100%;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+ 
+}
+
+.idea-content div {
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  white-space: normal;
+  overflow-y: auto; 
+  max-height: 400px; 
+
+  
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #0d0d52;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.read-more-btn:hover {
+  text-decoration: underline;
+}
+
+.idea-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  margin-top: 10px;
+  height: 25px;
+  flex-wrap: wrap; 
+}
+
+.vote-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vote-btn-upvote, 
+.vote-btn-downvote {
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap : 6px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+
+
+.vote-btn-upvote img,
+.vote-btn-downvote img
+{
+  width: 25px;
+  height: 25px;
+}
+
+.icon-btn {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+
+
+
+.comment-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0d0d52;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comment-btn:hover {
+  text-decoration: underline;
+}
+
+
+.idea-card.expanded {
+  max-width: 900px; 
+  padding: 24px;
+  font-size: 18px;
+}
+
+.idea-card.expanded .idea-content h2 {
+  font-size: 26px; 
+}
+
+.idea-card.expanded .idea-content div {
+  font-size: 20px;
+}
+
+.idea-card.expanded h3 {
+  font-size: 30px; 
+}
+
+.delete-btn {
+  background: none;
+  cursor: pointer;
+  border: none;
+}
+
+.delete-btn:hover {
+  transform: scale(1.1);
+}
+
+.delete-icon {
+  border: none;
+  width: 25px;
+  height: 25px;
+  filter: brightness(0) invert(0.5);
+}
+
+
+@media screen and (max-width: 1024px) {
+  
+
+  .idea-card {
+    width: 600px;
+    height: fit-content;
+  }
+
+  .profile-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .idea-content h2 {
+    font-size: 20px;
+  }
+
+  .idea-content div{
+    font-size: 14px;
+  }
+ 
+}
+
+
+
+@media screen and (max-width: 768px) {
+  
+
+  .idea-card {
+    width: 500px;
+
+  }
+
+
+  .profile-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .idea-content h2 {
+    font-size: 18px;
+  }
+
+
+  .idea-header .author-info h3 {
+    font-size: 16px;
+    
+  }
+
+  .delete-icon {
+    width: 20px;
+    height: 20px;
+
+  }
+ 
+}
+
+
+@media screen and (max-width: 600px) {
+
+
+  .idea-card {
+    width: 400px;
+    height: fit-content;
+  }
+
+
+  .profile-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .idea-content h2 {
+    font-size: 14px;
+  }
+
+  .idea-content div{
+    font-size: 12px;
+  }
+ 
+}
+
+@media screen and (max-width: 450px) {
+  .delete-icon {
+    width: 15px;
+    height: 15px;
+
+  }
+
+  .idea-card {
+    width: 300px;
+    height: fit-content;
+  }
+
+  .profile-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .idea-content h2 {
+    font-size: 18px !important;
+    
+  }
+
+  .idea-description p {
+    font-size: 14px;
+  }
+
+  .idea-content div{
+    font-size: 10px;
+  }
+ 
+}
