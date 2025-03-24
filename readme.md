@@ -24,16 +24,16 @@ Assicurati di avere installato:
 
 ## Setup
 ### 1. Clona il progetto
-git clone <repo-url>
-cd <repo-folder>
+- `git clone <repo-url>`
+- `cd <repo-folder>`
 
 ### 2. Installa le dipendenze
 - **Backend**
-    cd backend
-    npm install
+    - `cd backend`
+    - `npm install`
 - **Frontend**
-    cd ../frontend
-    npm install
+    - `cd ../frontend`
+    - `npm install`
 
 ### 3. Crea un Cluster MongoDB
 Puoi utilizzare *MongoDB Atlas* per creare gratuitamente un cluster MongoDB. 
@@ -47,21 +47,21 @@ Assicurati di:
 
 ### 5. Configura le variabili d'ambiente
 All'interno del backend avrai un file .env con la seguente struttura:
-MONGO_URI="mongodb+srv://<user>:<password>@<cluster>.mongodb.net/<dbname>?retryWrites=true&w=majority"
-PORT=3000
-JWT_SECRET="una-stringa-segreta"
-AWS_ACCESS_KEY_ID="la-tua-access-key"
-AWS_SECRET_ACCESS_KEY="la-tua-secret-key"
-AWS_BUCKET_NAME="nome-del-bucket"
-AWS_REGION="regione"
+- `MONGO_URI="url_del_db"`
+- `PORT=3000`
+- `JWT_SECRET="una-stringa-segreta"`
+- `AWS_ACCESS_KEY_ID="la-tua-access-key"`
+- `AWS_SECRET_ACCESS_KEY="la-tua-secret-key"`
+- `AWS_BUCKET_NAME="nome-del-bucket"`
+- `AWS_REGION="regione"`
 
 **Mi raccomando non condividere queste informazioni con nessuno**
 
 ### 6. Avviare il progetto
 - **Backend** (il server sara' disponibile sulla porta 3000)
-    cd backend
-    npm start
+    - `cd backend`
+    - `npm start`
 - **Frontend** (l'app sara' disponibile sulla porta 4200)
-    cd frontend
-    ng serve
+    - `cd frontend`
+    - `ng serve`
 
