@@ -15,7 +15,7 @@ export function getIdeasPipeline(type: SearchType, page = 1, limit = 10): mongoo
               $lte: [
                   { $abs: "$voteDifference" }, 
                   { $multiply: [
-                    { $max: ["$upvotes", "$downvotes"] }, 0.1
+                    { $max: ["$upvotes", "$downvotes"] }, 0.2
                 ] } 
               ]
           }
@@ -29,7 +29,7 @@ export function getIdeasPipeline(type: SearchType, page = 1, limit = 10): mongoo
                   { $lt: ["$voteDifference", 0] },
                   { $gt: [
                         { $abs: "$voteDifference" },
-                        { $multiply: ["$totalDownvotes", 0.2] }
+                        { $multiply: ["$downvotes", 0.2] }
                     ] }
               ]
           }
@@ -62,7 +62,6 @@ export function getIdeasPipeline(type: SearchType, page = 1, limit = 10): mongoo
         $addFields: {
             upvotes: { $ifNull: ["$upvotes", 0] },
             downvotes: { $ifNull: ["$downvotes", 0] },
-            totalVotes: { $add: [ { $ifNull: ["$upvotes", 0] }, { $ifNull: ["$downvotes", 0] } ] },
             voteDifference: { $subtract: [ { $ifNull: ["$upvotes", 0] }, { $ifNull: ["$downvotes", 0] } ] }
           }
           

@@ -10,7 +10,7 @@ function getIdeasPipeline(type, page = 1, limit = 10) {
                 $lte: [
                     { $abs: "$voteDifference" },
                     { $multiply: [
-                            { $max: ["$upvotes", "$downvotes"] }, 0.1
+                            { $max: ["$upvotes", "$downvotes"] }, 0.2
                         ] }
                 ]
             }
@@ -25,7 +25,7 @@ function getIdeasPipeline(type, page = 1, limit = 10) {
                     { $lt: ["$voteDifference", 0] },
                     { $gt: [
                             { $abs: "$voteDifference" },
-                            { $multiply: ["$totalDownvotes", 0.2] }
+                            { $multiply: ["$downvotes", 0.2] }
                         ] }
                 ]
             }
@@ -59,7 +59,6 @@ function getIdeasPipeline(type, page = 1, limit = 10) {
             $addFields: {
                 upvotes: { $ifNull: ["$upvotes", 0] },
                 downvotes: { $ifNull: ["$downvotes", 0] },
-                totalVotes: { $add: [{ $ifNull: ["$upvotes", 0] }, { $ifNull: ["$downvotes", 0] }] },
                 voteDifference: { $subtract: [{ $ifNull: ["$upvotes", 0] }, { $ifNull: ["$downvotes", 0] }] }
             }
         },

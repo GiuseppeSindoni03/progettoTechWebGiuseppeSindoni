@@ -32,16 +32,13 @@ exports.registerSchema = joi_1.default.object({
         "any.only": "Genere deve essere uomo, donna o altro"
     })
 });
-// 📌 Schema per il login
 exports.loginSchema = joi_1.default.object({
     email: joi_1.default.string().email().required(),
     password: joi_1.default.string().min(12).required()
 });
-// 📌 Schema per il voto
 exports.voteSchema = joi_1.default.object({
     vote: joi_1.default.number().valid(1, -1).required()
 });
-// 📌 Funzione generica per validare qualsiasi input con Joi
 const validateInput = (schema, data, res) => {
     const { error } = schema.validate(data, { abortEarly: false });
     if (error) {

@@ -25,7 +25,6 @@ const getUserVote = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId non valido"));
             return;
         }
-        // Trova il voto dell'utente per questa idea
         const userVote = yield vote_1.Vote.findOne({ user: userId, idea: ideaId }).lean();
         const voteValue = userVote ? userVote.valore : 0;
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { vote: voteValue }, "Voto dell'utente ottenuto con successo"));
@@ -65,12 +64,6 @@ const setVote = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         yield updateIdeaVotes(foundIdea, userId, vote);
-        console.log("Voto aggiornato con successo:", {
-            userVote: vote,
-            upvotes: foundIdea.upvotes,
-            downvotes: foundIdea.downvotes
-        });
-        console.log("Response Headers Sent:", res.headersSent);
         res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, { userVote: vote, upvotes: foundIdea.upvotes, downvotes: foundIdea.downvotes }, "Vote aggiornato con successo"));
         return;
     }

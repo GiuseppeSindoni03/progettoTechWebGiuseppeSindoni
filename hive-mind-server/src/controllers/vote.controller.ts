@@ -19,7 +19,7 @@ export const getUserVote = async (req: Request, res: Response) => {
             return 
         }
 
-        // Trova il voto dell'utente per questa idea
+       
         const userVote = await Vote.findOne({ user: userId, idea: ideaId }).lean();
         const voteValue = userVote ? userVote.valore : 0;
 

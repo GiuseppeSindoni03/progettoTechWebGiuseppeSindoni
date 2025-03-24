@@ -50,19 +50,18 @@ const getIdeasByUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
-        page < 1 ? 1 : page;
-        limit > 10 ? 10 : limit;
+        const safePage = page < 1 ? 1 : page;
+        const safeLimit = limit > 10 ? 10 : limit;
         const ideas = yield idea_1.Idea.find({ author: userId })
             .populate("author", "username")
             .populate("comments.author", "username")
             .select("-__v")
-            .skip((page - 1) * limit)
+            .skip((safePage - 1) * safeLimit)
             .limit(limit);
         if (ideas.length > 0) {
             res.status(200).send(new structure_1.APIResponse(structure_1.Status.SUCCESS, ideas, "Idee recuperate con successo"));
         }
         else {
-            console.log(" Nessuna idea trovata");
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Nessuna idea trovata"));
         }
     }
@@ -141,7 +140,6 @@ const deleteIdea = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const authReq = req;
         const userId = (_d = authReq.user) === null || _d === void 0 ? void 0 : _d.id;
         const ideaId = req.params.id;
-        //  Verifica validità degli ID
         if (!(0, mongoose_1.isValidObjectId)(userId)) {
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato userId invalido"));
             return;
@@ -150,13 +148,11 @@ const deleteIdea = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(400).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Formato ideaId invalido"));
             return;
         }
-        //  Trova l'idea
         const ideaFound = yield idea_1.Idea.findById({ _id: ideaId });
         if (!ideaFound) {
             res.status(404).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Idea non trovata"));
             return;
         }
-        //  Controlla che l'utente sia l'autore dell'idea
         const author = ideaFound.author.toString();
         if (!checkUserIsAuthor(author, userId)) {
             res.status(403).send(new structure_1.APIResponse(structure_1.Status.ERROR, [], "Non hai il permesso di cancellare questa idea."));
